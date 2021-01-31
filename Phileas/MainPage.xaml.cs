@@ -57,5 +57,10 @@ namespace Phileas
                 contentFrame.Navigate(pageType, null, navTransitionInfo);
             }
         }
+
+        private void NavigationView_Loaded(object sender, RoutedEventArgs e)
+        {
+            Navigate("home", new Windows.UI.Xaml.Media.Animation.EntranceNavigationTransitionInfo());
+        }
     }
 }

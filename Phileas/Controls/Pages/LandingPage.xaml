@@ -8,16 +8,86 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="Transparent">
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
         <!--users simulations-->
-        
-        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+
+            <TextBlock Text="Letzte Simulationen" 
+                       FontSize="24"
+                       Grid.Column="0"
+                       Grid.Row="0"/>
+            <CommandBar Grid.Column="1"
+                        Grid.Row="0"
+                        Background="Transparent"
+                        DefaultLabelPosition="Right">
+                <AppBarButton x:Name="AppBarButton_OpenSelected" Icon="NewWindow" Label="Auswahl öffnen" IsEnabled="False"/>
+                <AppBarButton Icon="Add" Label="Neue Simulation"/>
+                <AppBarButton Icon="OpenFile" Label="Datei öffnen"/>
+            </CommandBar>
+
+            <ListView Grid.Row="1" Grid.ColumnSpan="2">
+                <x:String>Simulation 1</x:String>
+                <x:String>Simulation 2</x:String>
+                <x:String>Simulation 3</x:String>
+                <x:String>Simulation 4</x:String>
+                <x:String>Simulation 5</x:String>
+            </ListView>
+        </Grid>
+
         <!--recommondations-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <TextBlock Text="Empfohlen" 
+                       FontSize="24"
+                       Grid.Column="0"
+                       Grid.Row="0"/>
+            <CommandBar Grid.Column="1"
+                        Grid.Row="0"
+                        Background="Transparent"
+                        DefaultLabelPosition="Collapsed">
+                <AppBarButton Label="Auswahl öffnen">
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA80;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar>
+            
+            <ListView Grid.Row="1" Grid.ColumnSpan="2">
+                <x:String>Vorschlag 1</x:String>
+                <x:String>Vorschlag 2</x:String>
+                <x:String>Vorschlag 3</x:String>
+                <x:String>Vorschlag 4</x:String>
+                <x:String>Vorschlag 5</x:String>
+            </ListView>
+        </Grid>
+
+        <!--Actions-->
 
     </Grid>
 </Page>

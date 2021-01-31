@@ -12,16 +12,17 @@
         <NavigationView x:Name="NavigationView"
                         IsSettingsVisible="True" 
                         IsPaneOpen="False"
-                        PaneDisplayMode="LeftMinimal" 
+                        PaneDisplayMode="Left"
                         IsBackButtonVisible="Collapsed"
-                        ItemInvoked="NavigationView_ItemInvoked">
+                        ItemInvoked="NavigationView_ItemInvoked"
+                        Loaded="NavigationView_Loaded">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Startseite" Tag="home"/>
                 <NavigationViewItem Icon="Calculator" Content="Simulation" Tag="simulation"/>
             </NavigationView.MenuItems>
 
             <NavigationView.Content>
-                <Frame x:Name="contentFrame" Margin="12,40,12,12"/>
+                <Frame x:Name="contentFrame" Margin="40"/>
             </NavigationView.Content>
         </NavigationView>
 
