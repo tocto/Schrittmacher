@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Phileas.Model.MathModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,9 +24,23 @@ namespace Phileas.Controls.Pages
     /// </summary>
     public sealed partial class SimulationPage : Page
     {
+        ObservableCollection<Expression> expressionList = new ObservableCollection<Expression>() { new Expression() };
+
+        ObservableCollection<string> plots = new ObservableCollection<string>();
+
         public SimulationPage()
         {
             this.InitializeComponent();
+        }
+
+        private void AppBarButton_AddExpression_Click(object sender, RoutedEventArgs e)
+        {
+            expressionList.Add(new Expression());
+        }
+
+        private void AppBarButton_AddPlot_Click(object sender, RoutedEventArgs e)
+        {
+            plots.Add("neu");
         }
     }
 }

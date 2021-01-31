@@ -11,12 +11,22 @@
     <Grid Background="Transparent">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
+        <CommandBar Grid.Column="1"
+                        Grid.Row="0"
+                        DefaultLabelPosition="Right"
+                        Margin="0,0,0,40">
+            <AppBarButton x:Name="AppBarButton_OpenSelected" Icon="NewWindow" Label="Auswahl öffnen" IsEnabled="False"/>
+            <AppBarButton Icon="Add" Label="Neue Simulation"/>
+            <AppBarButton Icon="OpenFile" Label="Datei öffnen"/>
+        </CommandBar>
+
         <!--users simulations-->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -28,18 +38,11 @@
             </Grid.RowDefinitions>
             
 
-            <TextBlock Text="Letzte Simulationen" 
+            <TextBlock Text="Zuletzt verwendet" 
                        FontSize="24"
                        Grid.Column="0"
                        Grid.Row="0"/>
-            <CommandBar Grid.Column="1"
-                        Grid.Row="0"
-                        Background="Transparent"
-                        DefaultLabelPosition="Right">
-                <AppBarButton x:Name="AppBarButton_OpenSelected" Icon="NewWindow" Label="Auswahl öffnen" IsEnabled="False"/>
-                <AppBarButton Icon="Add" Label="Neue Simulation"/>
-                <AppBarButton Icon="OpenFile" Label="Datei öffnen"/>
-            </CommandBar>
+
 
             <ListView Grid.Row="1" Grid.ColumnSpan="2">
                 <x:String>Simulation 1</x:String>
@@ -51,7 +54,7 @@
         </Grid>
 
         <!--recommondations-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>

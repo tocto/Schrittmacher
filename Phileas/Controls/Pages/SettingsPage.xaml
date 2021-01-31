@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock Text="Einstellungen"/>
+        <TextBlock Text="There are no settings yet." HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
     </Grid>
 </Page>
