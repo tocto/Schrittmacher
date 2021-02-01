@@ -20,7 +20,7 @@
                         DefaultLabelPosition="Right"
                         Margin="0,0,0,8">
             <AppBarButton x:Name="AppBarButton_OpenSelected" Icon="NewWindow" Label="Auswahl öffnen" IsEnabled="False" Visibility="Collapsed"/>
-            <AppBarButton Icon="Add" Label="Neue Simulation" Background="{StaticResource SystemAccentColor}" Foreground="{StaticResource SystemAltHighColor}"/>
+            <AppBarButton x:Name="AppBarButton_AddSimulation" Icon="Add" Label="Neue Simulation" Background="{StaticResource SystemAccentColor}" Foreground="{StaticResource SystemAltHighColor}" Click="AppBarButton_AddSimulation_Click"/>
             <AppBarButton Icon="OpenFile" Label="Datei öffnen"/>
             <CommandBar.Content>
                 <TextBlock Text="Simulationen" FontSize="{StaticResource FontSize_Title}" Padding="12,4"/>

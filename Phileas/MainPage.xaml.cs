@@ -24,16 +24,39 @@ namespace Phileas
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private readonly List<(string Tag, Type Page)> pageTypeList = new List<(string Tag, Type Page)>()
+        /// <summary>
+        /// Used to handle navigation requests from other sources than the navigation view.
+        /// </summary>
+        private static Frame staticContentFrame = null;
+
+        public static readonly Dictionary<string, Type> pageDic = new Dictionary<string, Type>()
         {
-            ("home", typeof(LandingPage)),
-            ("simulation", typeof(SimulationPage)),
-            ("settings", typeof(SettingsPage))
+            { "home", typeof(LandingPage) },
+            { "simulation", typeof(SimulationPage) },
+            { "settings", typeof(SettingsPage) } 
         };
 
         public MainPage()
         {
             this.InitializeComponent();
+
+            staticContentFrame = contentFrame;
+            contentFrame.Navigated += OnContentFrameNavigated;
+        }
+
+        private void OnContentFrameNavigated(object sender, NavigationEventArgs e)
+        {
+            // update selected item in nav view
+            if (contentFrame.SourcePageType == typeof(SettingsPage))
+            {
+                NavigationView.SelectedItem = NavigationView.SettingsItem;
+            }
+            else if (contentFrame.SourcePageType != null)
+            {
+                string tag = pageDic.FirstOrDefault(entry => entry.Value == e.SourcePageType).Key;
+
+                NavigationView.SelectedItem = NavigationView.MenuItems.OfType<NavigationViewItem>().FirstOrDefault(item => item.Tag.Equals(tag));
+            }
         }
 
         private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -48,13 +71,25 @@ namespace Phileas
             }
         }
 
+        public static void Navigate(Type pageType, object parameter = null)
+        {
+            if (staticContentFrame == null) throw new NullReferenceException("Content frame is not loaded in the static instance.");
+
+            if (pageDic.ContainsValue(pageType)) staticContentFrame.Navigate(pageType, parameter, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            else throw new ArgumentException("Type of Page does not exist: " + pageType.ToString());
+        }
+
         private void Navigate(string navItemTag, NavigationTransitionInfo navTransitionInfo)
         {
-            Type pageType = pageTypeList.FirstOrDefault(item => item.Tag.Equals(navItemTag)).Page;
+            Type pageType = pageDic.ContainsKey(navItemTag) ? pageDic[navItemTag] : null;
 
             if (pageType != null && !pageType.Equals(contentFrame.CurrentSourcePageType))
             {
-                contentFrame.Navigate(pageType, null, navTransitionInfo);
+                NavigationTransitionInfo navTransInfo = pageType == typeof(LandingPage) ? 
+                new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft } :
+                new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight };
+
+                contentFrame.Navigate(pageType, null, navTransInfo);
             }
         }
 

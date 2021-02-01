@@ -26,5 +26,10 @@ namespace Phileas.Controls.Pages
         {
             this.InitializeComponent();
         }
+
+        private void AppBarButton_AddSimulation_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.Navigate(typeof(SimulationPage));
+        }
     }
 }
