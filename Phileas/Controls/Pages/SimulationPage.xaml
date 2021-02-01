@@ -51,7 +51,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <CommandBar Grid.Row="0" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed" Margin="0,0,0,8">
+                    <CommandBar Grid.Row="0" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False" Margin="0,0,0,8">
                         <CommandBar.Content>
                             <TextBlock Text="Mathematisches Modell" FontSize="18" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400"/>
                         </CommandBar.Content>
@@ -82,7 +82,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <CommandBar Grid.Row="0" DefaultLabelPosition="Right" Margin="0,0,0,8" OverflowButtonVisibility="Collapsed">
+                    <CommandBar Grid.Row="0" DefaultLabelPosition="Right" Margin="0,0,0,8" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False">
                         <CommandBar.Content>
                             <TextBlock Text="Visualisierung" FontSize="18" VerticalAlignment="Center" Margin="12,8,0,0" Height="40"/>
                         </CommandBar.Content>

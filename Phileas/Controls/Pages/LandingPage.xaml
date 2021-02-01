@@ -44,7 +44,7 @@
                        Grid.Row="0"/>
 
 
-            <ListView Grid.Row="1" Grid.ColumnSpan="2">
+            <ListView x:Name="ListView_LastUsedSimulations" Grid.Row="1" Grid.ColumnSpan="2" Tapped="ListView_LastUsedSimulations_Tapped" SelectionChanged="ListView_SelectionChanged">
                 <x:String>Simulation 1</x:String>
                 <x:String>Simulation 2</x:String>
                 <x:String>Simulation 3</x:String>
@@ -80,9 +80,8 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
             </CommandBar>
-            
-            <ListView Grid.Row="1" Grid.ColumnSpan="2">
-                <x:String>Vorschlag 1</x:String>
+
+            <ListView x:Name="ListView_Recommendations" Grid.Row="1" Grid.ColumnSpan="2" Tapped="ListView_Recommendations_Tapped">
                 <x:String>Vorschlag 2</x:String>
                 <x:String>Vorschlag 3</x:String>
                 <x:String>Vorschlag 4</x:String>
