@@ -12,14 +12,18 @@
         <NavigationView x:Name="NavigationView"
                         IsSettingsVisible="True" 
                         IsPaneOpen="False"
-                        PaneDisplayMode="Left"
+                        PaneDisplayMode="LeftCompact"
                         IsBackButtonVisible="Collapsed"
                         ItemInvoked="NavigationView_ItemInvoked"
                         Loaded="NavigationView_Loaded"
                         >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Startseite" Tag="home"/>
-                <NavigationViewItem Icon="Calculator" Content="Simulation" Tag="simulation"/>
+                <NavigationViewItem Content="Simulation" Tag="simulation">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D2;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
 
             <NavigationView.Content>

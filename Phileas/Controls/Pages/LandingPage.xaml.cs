@@ -31,5 +31,10 @@ namespace Phileas.Controls.Pages
         {
             MainPage.Navigate(typeof(SimulationPage));
         }
+
+        private void ListView_Simulations_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            MainPage.Navigate(typeof(SimulationPage));
+        }
     }
 }

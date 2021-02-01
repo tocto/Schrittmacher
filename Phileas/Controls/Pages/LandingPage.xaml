@@ -27,7 +27,8 @@
             </CommandBar.Content>
         </CommandBar>
 
-        <ListView x:Name="ListView_Simulations" Grid.Row="1" Grid.ColumnSpan="2" Padding="0,0,12,0">
+        <ListView x:Name="ListView_Simulations" Grid.Row="1" Grid.ColumnSpan="2" Padding="0,0,12,0"
+                  ItemClick="ListView_Simulations_ItemClick" IsItemClickEnabled="True">
             <x:String>Simulation 1</x:String>
             <x:String>Simulation 2</x:String>
             <x:String>Simulation 3</x:String>
