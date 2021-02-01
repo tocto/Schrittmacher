@@ -15,7 +15,8 @@
                         PaneDisplayMode="Left"
                         IsBackButtonVisible="Collapsed"
                         ItemInvoked="NavigationView_ItemInvoked"
-                        Loaded="NavigationView_Loaded">
+                        Loaded="NavigationView_Loaded"
+                        >
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Home" Content="Startseite" Tag="home"/>
                 <NavigationViewItem Icon="Calculator" Content="Simulation" Tag="simulation"/>

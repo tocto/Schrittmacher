@@ -12,84 +12,38 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <CommandBar Grid.Column="1"
                         Grid.Row="0"
                         DefaultLabelPosition="Right"
-                        Margin="0,0,0,40">
-            <AppBarButton x:Name="AppBarButton_OpenSelected" Icon="NewWindow" Label="Auswahl öffnen" IsEnabled="False"/>
-            <AppBarButton Icon="Add" Label="Neue Simulation"/>
+                        Margin="0,0,0,8">
+            <AppBarButton x:Name="AppBarButton_OpenSelected" Icon="NewWindow" Label="Auswahl öffnen" IsEnabled="False" Visibility="Collapsed"/>
+            <AppBarButton Icon="Add" Label="Neue Simulation" Background="{StaticResource SystemAccentColor}" Foreground="{StaticResource SystemAltHighColor}"/>
             <AppBarButton Icon="OpenFile" Label="Datei öffnen"/>
+            <CommandBar.Content>
+                <TextBlock Text="Simulationen" FontSize="{StaticResource FontSize_Title}" Padding="12,4"/>
+            </CommandBar.Content>
         </CommandBar>
 
-        <!--users simulations-->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            
-
-            <TextBlock Text="Zuletzt verwendet" 
-                       FontSize="24"
-                       Grid.Column="0"
-                       Grid.Row="0"/>
-
-
-            <ListView x:Name="ListView_LastUsedSimulations" Grid.Row="1" Grid.ColumnSpan="2" Tapped="ListView_LastUsedSimulations_Tapped" SelectionChanged="ListView_SelectionChanged">
-                <x:String>Simulation 1</x:String>
-                <x:String>Simulation 2</x:String>
-                <x:String>Simulation 3</x:String>
-                <x:String>Simulation 4</x:String>
-                <x:String>Simulation 5</x:String>
-            </ListView>
-        </Grid>
-
-        <!--recommondations-->
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-
-            <TextBlock Text="Empfohlen" 
-                       FontSize="24"
-                       Grid.Column="0"
-                       Grid.Row="0"/>
-            <CommandBar Grid.Column="1"
-                        Grid.Row="0"
-                        Background="Transparent"
-                        DefaultLabelPosition="Collapsed">
-                <AppBarButton Label="Auswahl öffnen">
-                    <AppBarButton.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA80;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-            </CommandBar>
-
-            <ListView x:Name="ListView_Recommendations" Grid.Row="1" Grid.ColumnSpan="2" Tapped="ListView_Recommendations_Tapped">
-                <x:String>Vorschlag 2</x:String>
-                <x:String>Vorschlag 3</x:String>
-                <x:String>Vorschlag 4</x:String>
-                <x:String>Vorschlag 5</x:String>
-            </ListView>
-        </Grid>
-
-        <!--Actions-->
+        <ListView x:Name="ListView_Simulations" Grid.Row="1" Grid.ColumnSpan="2" Padding="0,0,12,0">
+            <x:String>Simulation 1</x:String>
+            <x:String>Simulation 2</x:String>
+            <x:String>Simulation 3</x:String>
+            <x:String>Simulation 4</x:String>
+            <x:String>Simulation 5</x:String>
+            <x:String>Simulation 1</x:String>
+            <x:String>Simulation 2</x:String>
+            <x:String>Simulation 3</x:String>
+            <x:String>Simulation 4</x:String>
+            <x:String>Simulation 5</x:String>
+            <x:String>Simulation 1</x:String>
+            <x:String>Simulation 2</x:String>
+            <x:String>Simulation 3</x:String>
+            <x:String>Simulation 4</x:String>
+            <x:String>Simulation 5</x:String>
+        </ListView>
 
     </Grid>
 </Page>

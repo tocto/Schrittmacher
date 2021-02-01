@@ -26,20 +26,5 @@ namespace Phileas.Controls.Pages
         {
             this.InitializeComponent();
         }
-
-        private void ListView_LastUsedSimulations_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ListView_Recommendations.SelectedIndex = -1; // ensure selection in only one list   
-        }
-
-        private void ListView_Recommendations_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            ListView_LastUsedSimulations.SelectedIndex = -1; // ensure selection in only one list
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            AppBarButton_OpenSelected.IsEnabled = e.AddedItems.Count > 0 ? true : false;
-        }
     }
 }

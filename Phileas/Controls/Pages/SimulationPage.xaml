@@ -33,7 +33,7 @@
             </AppBarButton>
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
-                <TextBox x:Name="RichtEditBox_SimulationTitle" Grid.Row="0" PlaceholderText="Titel ..." PlaceholderForeground="Gray" Background="Transparent" Margin="4" BorderThickness="0" Padding="0" FontSize="24"/>
+                <TextBox x:Name="RichtEditBox_SimulationTitle" Grid.Row="0" PlaceholderText="Titel ..." PlaceholderForeground="Gray" Background="Transparent" Margin="4" BorderThickness="0" Padding="0" FontSize="{StaticResource FontSize_Title}"/>
             </CommandBar.Content>
         </CommandBar>
 
@@ -53,7 +53,7 @@
 
                     <CommandBar Grid.Row="0" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False" Margin="0,0,0,8">
                         <CommandBar.Content>
-                            <TextBlock Text="Mathematisches Modell" FontSize="18" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400"/>
+                            <TextBlock Text="Mathematisches Modell" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400"/>
                         </CommandBar.Content>
                         <AppBarButton x:Name="AppBarButton_AddExpression" Icon="Add" Label="Ausdruck" Click="AppBarButton_AddExpression_Click"/>
                     </CommandBar>
@@ -84,7 +84,7 @@
 
                     <CommandBar Grid.Row="0" DefaultLabelPosition="Right" Margin="0,0,0,8" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False">
                         <CommandBar.Content>
-                            <TextBlock Text="Visualisierung" FontSize="18" VerticalAlignment="Center" Margin="12,8,0,0" Height="40"/>
+                            <TextBlock Text="Visualisierung" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Margin="12,8,0,0" Height="40"/>
                         </CommandBar.Content>
                         <AppBarButton x:Name="AppBarButton_AddPlot" Icon="Add" Label="Diagramm" Click="AppBarButton_AddPlot_Click"/>
                     </CommandBar>
