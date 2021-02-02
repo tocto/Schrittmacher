@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Phileas.Controls.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:usercontrols="using:Phileas.Controls.UserControls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -33,46 +33,19 @@
             </AppBarButton>
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
-                <TextBox x:Name="RichtEditBox_SimulationTitle" Grid.Row="0" PlaceholderText="Titel ..." PlaceholderForeground="Gray" Background="Transparent" Margin="4" BorderThickness="0" Padding="0" FontSize="{StaticResource FontSize_Title}"/>
+                <TextBox x:Name="RichtEditBox_SimulationTitle" PlaceholderText="Titel ..." PlaceholderForeground="Gray" Background="Transparent" Margin="4" Width="400" BorderThickness="0" Padding="0" FontSize="{StaticResource FontSize_Title}"/>
             </CommandBar.Content>
         </CommandBar>
 
         
 
-        <RichEditBox x:Name="TextBox_SimulationNotes" Grid.Row="1" PlaceholderText="Notizen zur Simulation ..." BorderThickness="0" Padding="0,0,12,0" Margin="0,8,0,0" MaxHeight="80"
+        <RichEditBox x:Name="TextBox_SimulationNotes" Grid.Row="1" PlaceholderText="Notizen zur Simulation ..." BorderThickness="0" Padding="0,0,12,0" Margin="0,12,0,0" MaxHeight="80"
                  TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         
 
         <SplitView OpenPaneLength="400" IsPaneOpen="True" DisplayMode="Inline" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8">
             <SplitView.Pane>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <CommandBar Grid.Row="0" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False" Margin="0,0,0,8">
-                        <CommandBar.Content>
-                            <TextBlock Text="Mathematisches Modell" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400"/>
-                        </CommandBar.Content>
-                        <AppBarButton x:Name="AppBarButton_AddExpression" Icon="Add" Label="Ausdruck" Click="AppBarButton_AddExpression_Click"/>
-                    </CommandBar>
-
-                    <ListView x:Name="ListView_Expressions" 
-                              SelectionMode="None"
-                              ItemsSource="{x:Bind expressionList, Mode=TwoWay}"
-                              Grid.Row="1">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0,4">
-                                    <TextBox Text="{Binding Target}" />
-                                    <TextBlock Text="=" Width="24" Height="24" TextAlignment="Center" VerticalAlignment="Center"/>
-                                    <TextBox Text="{Binding Assignment}" Width="280"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
+                <usercontrols:MathModelView MathModel="{x:Bind Simulation.MathModel}"/>
             </SplitView.Pane>
 
             <SplitView.Content>

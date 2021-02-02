@@ -128,10 +128,17 @@
     <Compile Include="Controls\Pages\SimulationPage.xaml.cs">
       <DependentUpon>SimulationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserControls\MathModelView.xaml.cs">
+      <DependentUpon>MathModelView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\MathModel\Expression.cs" />
+    <Compile Include="Model\Expression.cs" />
+    <Compile Include="Model\MathModel.cs" />
+    <Compile Include="Model\MathModelStructureUnit.cs" />
+    <Compile Include="Model\Simulation.cs" />
+    <Compile Include="Model\Value.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Pages\SimulationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserControls\MathModelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

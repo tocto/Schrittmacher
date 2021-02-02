@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Phileas.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace Phileas
     /// </summary>
     sealed partial class App : Application
     {
+        public static Simulation Simulation = new Simulation();
+
+
         /// <summary>
         /// Initialisiert das Singletonanwendungsobjekt. Dies ist die erste Zeile von erstelltem Code
         /// und daher das logische Äquivalent von main() bzw. WinMain().

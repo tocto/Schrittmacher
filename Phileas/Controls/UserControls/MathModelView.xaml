@@ -1,0 +1,53 @@
+﻿<UserControl
+    x:Class="Phileas.Controls.UserControls.MathModelView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Phileas.Controls.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="800"
+    d:DesignWidth="400">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <CommandBar Grid.Row="0" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False" Margin="0,0,0,8">
+            <CommandBar.Content>
+                <TextBlock Text="Mathematisches Modell" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400"/>
+            </CommandBar.Content>
+            <AppBarButton x:Name="AppBarButton_AddExpression" Icon="Add" Label="Ausdruck" Click="AppBarButton_AddExpression_Click"/>
+        </CommandBar>
+
+
+        <ListView   x:Name="ListView_Expressions" 
+                    SelectionMode="None"
+                    ItemsSource="{x:Bind MathModel.Expressions}"
+                    Grid.Row="1">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,4" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AutoSuggestBox Text="{Binding Value.Name}" Grid.Column="0" Margin="4"/>
+                        <TextBlock Text="=" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Height="24"/>
+                        <TextBox Text="{Binding AssignmentString}" Grid.Column="2" Height="36" VerticalContentAlignment="Bottom"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</UserControl>
