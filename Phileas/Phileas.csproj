@@ -128,6 +128,9 @@
     <Compile Include="Controls\Pages\SimulationPage.xaml.cs">
       <DependentUpon>SimulationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Plots\BasicLineChart.xaml.cs">
+      <DependentUpon>BasicLineChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserControls\MathModelView.xaml.cs">
       <DependentUpon>MathModelView.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Pages\SimulationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Plots\BasicLineChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
