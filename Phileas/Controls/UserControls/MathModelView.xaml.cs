@@ -35,8 +35,15 @@ namespace Phileas.Controls.UserControls
         private void AppBarButton_Compute_Click(object sender, RoutedEventArgs e)
         {
             Calculator calculator = new Calculator();
-            var results = calculator.Calc(this.MathModel, this.MathModel.Expressions[0].Name, this.MathModel.Expressions[1].Name)[0];
-            TextBlock_TestOutputY.Text = results.ToString();
+
+            List<(double, double)> result = calculator.Calc(this.MathModel, this.MathModel.Expressions[1].Name, 1, 10, this.MathModel.Expressions[0].Name);
+
+            foreach(var item in result)
+            {
+                TextBlock_TestOutputX.Text += item.Item1.ToString() + " ";
+                TextBlock_TestOutputY.Text += item.Item2.ToString() + " ";
+            }
+            
         }
     }
 }
