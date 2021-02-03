@@ -26,6 +26,10 @@ namespace Phileas.Controls.Pages
     {
         public Simulation Simulation = App.Simulation;
 
+        /// <summary>
+        /// Each plot has it's specific math model, which was given, when the plot was created. 
+        /// </summary>
+        /// TODO: clone math models an decouble them from each other
         ObservableCollection<string> plots = new ObservableCollection<string>();
 
         public SimulationPage()

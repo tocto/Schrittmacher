@@ -13,8 +13,10 @@ namespace Phileas.Model
 
         HashSet<string> initialValues = new HashSet<string>();
 
-        // Dic for results <f, List<(x, f(x))>>
-        Dictionary<string, List<(double, double)>> results = new Dictionary<string, List<(double, double)>>();
+        /// <summary>
+        /// Dic for results <fName, List<(x, f(x))>>
+        /// </summary>
+        Dictionary<string, List<(double xValue, double yValue)>> results = new Dictionary<string, List<(double, double)>>();
 
         string steppingVariableName = null;
 
