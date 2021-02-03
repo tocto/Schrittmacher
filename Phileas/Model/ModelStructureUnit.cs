@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
-    public abstract class MathModelStructureUnit : INotifyPropertyChanged
+    public abstract class ModelStructureUnit : INotifyPropertyChanged
     {
         private string name;
 

@@ -134,11 +134,11 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Expression.cs" />
+    <Compile Include="Model\Calculator.cs" />
+    <Compile Include="Model\MathModelExpression.cs" />
     <Compile Include="Model\MathModel.cs" />
-    <Compile Include="Model\MathModelStructureUnit.cs" />
+    <Compile Include="Model\ModelStructureUnit.cs" />
     <Compile Include="Model\Simulation.cs" />
-    <Compile Include="Model\Value.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +183,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MathParser.org-mXparser">
+      <Version>4.4.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
     </PackageReference>

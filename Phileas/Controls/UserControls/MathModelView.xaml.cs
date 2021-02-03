@@ -29,7 +29,14 @@ namespace Phileas.Controls.UserControls
 
         private void AppBarButton_AddExpression_Click(object sender, RoutedEventArgs e)
         {
-            MathModel.Expressions.Add(new Expression());
+            MathModel.Expressions.Add(new MathModelExpression());
+        }
+
+        private void AppBarButton_Compute_Click(object sender, RoutedEventArgs e)
+        {
+            Calculator calculator = new Calculator();
+            var results = calculator.Calc(this.MathModel, this.MathModel.Expressions[0].Name, this.MathModel.Expressions[1].Name)[0];
+            TextBlock_TestOutputY.Text = results.ToString();
         }
     }
 }

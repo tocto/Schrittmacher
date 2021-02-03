@@ -1,4 +1,5 @@
-﻿using System;
+﻿using org.mariuszgromada.math.mxparser;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
-    public class MathModel : MathModelStructureUnit
+    public class MathModel : ModelStructureUnit
     {
-        private ObservableCollection<Expression> expressions = new ObservableCollection<Expression>() { new Expression() };
+        private ObservableCollection<MathModelExpression> expressions = new ObservableCollection<MathModelExpression>() { new MathModelExpression() };
 
-        public ObservableCollection<Expression> Expressions
+        public ObservableCollection<MathModelExpression> Expressions
         {
             get
             {

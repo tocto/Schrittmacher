@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
-    public class Expression : MathModelStructureUnit
+    public class MathModelExpression : ModelStructureUnit
     {
-        public Value Value { get; set; }
-
         public string AssignmentExpression { get; set; }
     }
 }
