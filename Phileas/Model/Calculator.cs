@@ -55,7 +55,7 @@ namespace Phileas.Model
             // add start value to results
             foreach (var key in results.Keys)
             {
-                Expression expression = new Expression(expressionsDic[key].getArgumentExpressionString(), expressionsDic["t"]);
+                Expression expression = new Expression(expressionsDic[key].getArgumentExpressionString(), expressionsDic.Values.ToArray());
                 var startFunctionValue = expression.calculate();
                 results[key].Add((valueOfSteppingVariable, startFunctionValue));
             }

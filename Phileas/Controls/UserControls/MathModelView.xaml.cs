@@ -45,5 +45,11 @@ namespace Phileas.Controls.UserControls
             }
             
         }
+
+        private void AppBarButton_DeleteMathModelExpression_Click(object sender, RoutedEventArgs e)
+        {
+            var expression = (sender as FrameworkElement).DataContext as MathModelExpression;
+            if (expression != null) this.MathModel.Expressions.Remove(expression);
+        }
     }
 }
