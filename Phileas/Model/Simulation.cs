@@ -8,6 +8,6 @@ namespace Phileas.Model
 {
     public class Simulation
     {
-        public MathModel MathModel { get; set; } = new MathModel();
+        public MathModel MathModel { private get; set; } = new MathModel();
     }
 }
