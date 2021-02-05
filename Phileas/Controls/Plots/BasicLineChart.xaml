@@ -15,8 +15,37 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <CommandBar Grid.Row="0" Background="Transparent" DefaultLabelPosition="Right">
+        <CommandBar Grid.Row="2" Background="Transparent" DefaultLabelPosition="Right">
+            <CommandBar.Content>
+                <StackPanel Orientation="Horizontal" Spacing="20" Opacity="0.3">
+                    <TextBlock Text="y-Achse: "/>
+                    <DropDownButton Content="s">
+                        <DropDownButton.Flyout>
+                            <MenuFlyout Placement="Bottom">
+                                <MenuFlyoutItem Text="s"/>
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+
+                    <TextBlock Text="x-Achse: "/>
+                    <DropDownButton Content="t">
+                        <DropDownButton.Flyout>
+                            <MenuFlyout Placement="Bottom">
+                                <MenuFlyoutItem Text="s"/>
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+
+                    <TextBlock Text="Schritte:"/>
+                    <TextBox PlaceholderText="100"/>
+
+                    <TextBlock Text="Schrittweite:"/>
+                    <TextBox PlaceholderText="1"/>
+
+                </StackPanel>
+            </CommandBar.Content>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="AppBarButton_DeleteChart" Icon="Delete" Label="Löschen"/>
             </CommandBar.SecondaryCommands>

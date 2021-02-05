@@ -29,16 +29,29 @@
 
         <ListView x:Name="ListView_Simulations" Grid.Row="1" Grid.ColumnSpan="2" Padding="0,0,12,0"
                   ItemClick="ListView_Simulations_ItemClick" IsItemClickEnabled="True">
-            <x:String>Simulation 1</x:String>
-            <x:String>Simulation 2</x:String>
-            <x:String>Simulation 3</x:String>
-            <x:String>Simulation 4</x:String>
-            <x:String>Simulation 5</x:String>
-            <x:String>Simulation 1</x:String>
-            <x:String>Simulation 2</x:String>
-            <x:String>Simulation 3</x:String>
-            <x:String>Simulation 4</x:String>
-            <x:String>Simulation 5</x:String>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding}" FontSize="{StaticResource FontSize_Subtitle}" Grid.Column="0"/>
+                        <TextBlock Text="Letzte Bearbietung: 12.02.2021" Grid.Column="1"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" Spacing="20">
+                            <Grid Height="80" Width="120" Background="Silver"/>
+                            <Grid Height="80" Width="120" Background="Silver"/>
+                            <Grid Height="80" Width="120" Background="Silver"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
             <x:String>Simulation 1</x:String>
             <x:String>Simulation 2</x:String>
             <x:String>Simulation 3</x:String>
