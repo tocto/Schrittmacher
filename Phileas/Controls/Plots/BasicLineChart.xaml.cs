@@ -65,7 +65,7 @@ namespace Phileas.Controls.Plots
 
         private void MakeChart()
         {
-            var results = calculator.Calc(App.Simulation.MathModel, this.xParameter, stepIncrement, stepsCount, yParameer);
+            var results = calculator.Calc(App.Simulation.MathModel, this.xParameter, yParameer);
 
             foreach (var data in results)
             {

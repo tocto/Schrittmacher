@@ -20,14 +20,15 @@ namespace Phileas.Model
 
         string steppingVariableName = null;
 
-        double stepSize;
+        public double StepCount { get; set; } = 100;
 
-        public List<(double, double)> Calc(MathModel mathModel, string steppingVariableName, int stepSize, int numberOfSteps, params string[] dependedVariable)
+        public double StepRange { get; set; } = 1;
+
+        public List<(double, double)> Calc(MathModel mathModel, string steppingVariableName, params string[] dependedVariableName)
         {
             ResetCalculator();
 
             this.steppingVariableName = steppingVariableName;
-            this.stepSize = stepSize;
 
             // set initial value of stepping variable
             if (!mathModel.Expressions.Any(e => e.Name.Equals(steppingVariableName)))
@@ -39,7 +40,7 @@ namespace Phileas.Model
             if (valueOfSteppingVariable.Equals(double.NaN)) throw new ArgumentException("Stepping variable is not given with a valid initial value.");
 
             //prepare results dictionary
-            foreach (var v in dependedVariable) results.Add(v, new List<(double, double)>());
+            foreach (var v in dependedVariableName) results.Add(v, new List<(double, double)>());
 
             //Prepare given math model for calculation
             foreach (MathModelExpression mme in mathModel.Expressions)
@@ -63,7 +64,7 @@ namespace Phileas.Model
             }
 
 
-            for (int i = 0; i < numberOfSteps; i++)
+            for (int i = 0; i < StepCount; i++)
             {
                 CalcResultsOfStep(i);
             }
@@ -73,13 +74,13 @@ namespace Phileas.Model
             //Expression ex = new Expression(e.AssignmentExpression, a2, a3);
             //ex.calculate();
 
-            return results[dependedVariable[0]];
+            return results[dependedVariableName[0]];
         }
 
         private void CalcResultsOfStep(int step)
         {
             var steppingVariableExpression = expressionsDic[steppingVariableName];
-            var nextBaseValue = steppingVariableExpression.getArgumentValue() + stepSize;
+            var nextBaseValue = steppingVariableExpression.getArgumentValue() + StepRange;
             steppingVariableExpression.setArgumentValue(nextBaseValue);
 
             foreach(var key in results.Keys)

@@ -54,7 +54,6 @@ Global
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Debug|x64.Deploy.0 = Debug|x64
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Debug|x86.ActiveCfg = Debug|x86
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Debug|x86.Build.0 = Debug|x86
-		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Debug|x86.Deploy.0 = Debug|x86
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Release|ARM.ActiveCfg = Release|ARM
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Release|ARM.Build.0 = Release|ARM
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Release|ARM.Deploy.0 = Release|ARM
@@ -65,8 +64,6 @@ Global
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Release|x64.Build.0 = Release|x64
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Release|x64.Deploy.0 = Release|x64
 		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Release|x86.ActiveCfg = Release|x86
-		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Release|x86.Build.0 = Release|x86
-		{41255EA5-706E-44F6-B021-4D2A53A487D3}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

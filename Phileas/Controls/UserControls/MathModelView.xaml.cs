@@ -36,7 +36,7 @@ namespace Phileas.Controls.UserControls
         {
             Calculator calculator = new Calculator();
 
-            List<(double, double)> result = calculator.Calc(this.MathModel, this.MathModel.Expressions[1].Name, 1, 10, this.MathModel.Expressions[0].Name);
+            List<(double, double)> result = calculator.Calc(this.MathModel, this.MathModel.Expressions[1].Name, this.MathModel.Expressions[0].Name);
 
             foreach(var item in result)
             {
