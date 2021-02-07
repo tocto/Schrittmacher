@@ -66,7 +66,7 @@ namespace Phileas.Model
 
             for (int i = 0; i < StepCount; i++)
             {
-                CalcResultsOfStep(i);
+                CalcStep();
             }
 
             //Argument a2 = new Argument(e2.Name + " = " + e2.AssignmentExpression);
@@ -77,17 +77,46 @@ namespace Phileas.Model
             return results[dependedVariableName[0]];
         }
 
-        private void CalcResultsOfStep(int step)
+        private void CalcStep()
+        {
+            double newX = GoOneStep();
+
+            HashSet<string> checklistForStep = expressionsDic.Keys.ToHashSet();
+
+            SetupExpressionSetForStepCalculation();
+
+            CalcAllMappingValues(newX, checklistForStep);
+        }
+
+        private void SetupExpressionSetForStepCalculation()
+        {
+            
+        }
+
+        private void CalcAllMappingValues(double newX, HashSet<string> checklistForStep)
+        {
+            foreach (var key in expressionsDic.Keys)
+            {
+                double newY = new Expression(expressionsDic[key].getArgumentExpressionString(), expressionsDic.Values.ToArray()).calculate();
+
+                if (!newY.Equals(double.NaN))
+                {
+                    checklistForStep.ExceptWith(new string[] { key });
+
+                    if (results.ContainsKey(key)) results[key].Add((newX, newY));
+                }
+            }
+
+            if (checklistForStep.Count > 0) CalcAllMappingValues(newX, checklistForStep);
+        }
+
+        private double GoOneStep()
         {
             var steppingVariableExpression = expressionsDic[steppingVariableName];
             var nextBaseValue = steppingVariableExpression.getArgumentValue() + StepRange;
             steppingVariableExpression.setArgumentValue(nextBaseValue);
 
-            foreach(var key in results.Keys)
-            {
-                double nextValueOfKey = new Expression(expressionsDic[key].getArgumentExpressionString(), expressionsDic.Values.ToArray()).calculate();
-                results[key].Add((nextBaseValue, nextValueOfKey));
-            }
+            return nextBaseValue;
         }
 
         /// <summary>
