@@ -65,13 +65,9 @@ namespace Phileas.Controls.Plots
 
         private void MakeChart()
         {
-            var results = calculator.Calc(App.Simulation.MathModel, this.xParameter, yParameer);
+            var results = calculator.Calc(App.Simulation.MathModel, 10);
 
-            foreach (var data in results)
-            {
-                xData.Add(data.Item1.ToString());
-                yData.Add(data.Item2);
-            }
+            throw new NotImplementedException("adjustin data set needs to be encapsulated.");
 
             this.CartesienChart.Update();
         }

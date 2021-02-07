@@ -10,9 +10,26 @@ namespace Phileas.Model
 {
     public class MathModel : ModelStructureUnit
     {
-        private ObservableCollection<MathModelExpression> expressions = new ObservableCollection<MathModelExpression>() { new MathModelExpression() };
+        private ObservableCollection<MathModelExpression> expressions = new ObservableCollection<MathModelExpression>();
 
         public ObservableCollection<MathModelExpression> Expressions
+        {
+            get
+            {
+                return this.expressions;
+            }
+
+            set
+            {
+                if (value != this.expressions)
+                {
+                    this.expressions = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public ObservableCollection<MathModelExpression> InitialValues
         {
             get
             {

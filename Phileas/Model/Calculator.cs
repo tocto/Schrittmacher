@@ -9,127 +9,93 @@ namespace Phileas.Model
 {
     public class Calculator
     {
-        Dictionary<string, Argument> expressionsDic = new Dictionary<string, Argument>();
+        Dictionary<string, List<double>> outputDic = new Dictionary<string, List<double>>();
 
-        HashSet<string> initialValues = new HashSet<string>();
+        Dictionary<string, double> constants = new Dictionary<string, double>(); // depricated
 
-        /// <summary>
-        /// Dic for results <fName, List<(x, f(x))>>
-        /// </summary>
-        Dictionary<string, List<(double xValue, double yValue)>> results = new Dictionary<string, List<(double, double)>>();
+        Dictionary<string, Argument> argumentDic = new Dictionary<string, Argument>();
 
-        string steppingVariableName = null;
+        MathModel model = null;
 
-        public double StepCount { get; set; } = 100;
-
-        public double StepRange { get; set; } = 1;
-
-        public List<(double, double)> Calc(MathModel mathModel, string steppingVariableName, params string[] dependedVariableName)
+        public Dictionary<string, List<double>> Calc(MathModel model, int stepsCount)
         {
-            ResetCalculator();
+            this.model = model;
 
-            this.steppingVariableName = steppingVariableName;
+            FillArgumentDic();
 
-            // set initial value of stepping variable
-            if (!mathModel.Expressions.Any(e => e.Name.Equals(steppingVariableName)))
-                throw new ArgumentException("Stepping variable is not given.");
+            PrepareResultDic();
 
-            var mmeInitial = mathModel.Expressions.Single(i => i.Name.Equals(steppingVariableName));
-            Expression expressionInitial = new Expression(mmeInitial.AssignmentExpression);
-            var valueOfSteppingVariable = expressionInitial.calculate();
-            if (valueOfSteppingVariable.Equals(double.NaN)) throw new ArgumentException("Stepping variable is not given with a valid initial value.");
+            IdentifyConstants();
 
-            //prepare results dictionary
-            foreach (var v in dependedVariableName) results.Add(v, new List<(double, double)>());
-
-            //Prepare given math model for calculation
-            foreach (MathModelExpression mme in mathModel.Expressions)
+            for (uint i = 0; i <= stepsCount; i++)
             {
-                Argument argument = new Argument(mme.Name + " = " + mme.AssignmentExpression);
-                expressionsDic.Add(mme.Name, argument);
-
-                // identify inital values by checking if expression returns a valid result
-                Expression expessionHypotheses = new Expression();
-                expessionHypotheses.setExpressionString(argument.getArgumentExpressionString());
-                //var temp = expessionHypotheses.getArgumentsNumber();
-                if (expessionHypotheses.calculate() != double.NaN) initialValues.Add(mme.Name);
-            }
-
-            // add start value to results
-            foreach (var key in results.Keys)
-            {
-                Expression expression = new Expression(expressionsDic[key].getArgumentExpressionString(), expressionsDic.Values.ToArray());
-                var startFunctionValue = expression.calculate();
-                results[key].Add((valueOfSteppingVariable, startFunctionValue));
-            }
-
-
-            for (int i = 0; i < StepCount; i++)
-            {
-                CalcStep();
-            }
-
-            //Argument a2 = new Argument(e2.Name + " = " + e2.AssignmentExpression);
-            //Argument a3 = new Argument("y = 3/4 + s");
-            //Expression ex = new Expression(e.AssignmentExpression, a2, a3);
-            //ex.calculate();
-
-            return results[dependedVariableName[0]];
-        }
-
-        private void CalcStep()
-        {
-            double newX = GoOneStep();
-
-            HashSet<string> checklistForStep = expressionsDic.Keys.ToHashSet();
-
-            SetupExpressionSetForStepCalculation();
-
-            CalcAllMappingValues(newX, checklistForStep);
-        }
-
-        private void SetupExpressionSetForStepCalculation()
-        {
-            
-        }
-
-        private void CalcAllMappingValues(double newX, HashSet<string> checklistForStep)
-        {
-            foreach (var key in expressionsDic.Keys)
-            {
-                double newY = new Expression(expressionsDic[key].getArgumentExpressionString(), expressionsDic.Values.ToArray()).calculate();
-
-                if (!newY.Equals(double.NaN))
+                foreach(var c in constants)
                 {
-                    checklistForStep.ExceptWith(new string[] { key });
+                    outputDic[c.Key].Add(c.Value);
+                }
 
-                    if (results.ContainsKey(key)) results[key].Add((newX, newY));
+                CompleteValueSet(i);
+            }
+
+            return outputDic;
+        }
+
+        private void FillArgumentDic()
+        {
+            foreach(var expression in model.Expressions)
+            {
+                if (!argumentDic.Keys.Contains(expression.Name))
+                {
+                    argumentDic.Add(expression.Name, new Argument( expression.Name + "=" + expression.AssignmentExpression));
                 }
             }
-
-            if (checklistForStep.Count > 0) CalcAllMappingValues(newX, checklistForStep);
         }
 
-        private double GoOneStep()
+        private void PrepareResultDic()
         {
-            var steppingVariableExpression = expressionsDic[steppingVariableName];
-            var nextBaseValue = steppingVariableExpression.getArgumentValue() + StepRange;
-            steppingVariableExpression.setArgumentValue(nextBaseValue);
-
-            return nextBaseValue;
+            foreach (var expression in model.Expressions)
+            {
+                if(!outputDic.Keys.Contains(expression.Name)) outputDic.Add(expression.Name, new List<double>());
+            }
         }
 
-        /// <summary>
-        /// Resets object association of cache variable.
-        /// </summary>
-        /// <remarks>
-        /// New Objects ensures, that old results can still be used elsewhere.
-        /// </remarks>
-        private void ResetCalculator()
+        private void IdentifyConstants()
         {
-            expressionsDic = new Dictionary<string, Argument>();
-            initialValues = new HashSet<string>();
-            results = new Dictionary<string, List<(double, double)>>();
+            foreach (var expression in this.model.Expressions)
+            {
+                double value = new Expression(expression.AssignmentExpression).calculate();
+
+                if (!value.Equals(double.NaN))
+                {
+                    constants.Add(expression.Name, value);
+                    argumentDic[expression.Name].setArgumentValue(value);
+                }
+            }
         }
+
+        private void CompleteValueSet(uint stepCounter)
+        {
+            Dictionary<string, Argument> temp = new Dictionary<string, Argument>();
+            do
+            {
+                foreach (var id in outputDic.Keys)
+                {
+                    
+                    string expressionString = model.Expressions.First(s => s.Name.Equals(id)).AssignmentExpression; // change to single
+                    
+                    Expression expression = new Expression(expressionString, argumentDic.Values.ToArray());
+                    double value = expression.calculate();
+
+                    if (!value.Equals(double.NaN))
+                    {
+                        argumentDic[id].setArgumentValue(value);
+                        outputDic[id].Add(value);
+                    }
+                }
+            }
+            while (outputDic.Values.Any(v => v.Count < stepCounter));
+        }
+
+
     }
 }

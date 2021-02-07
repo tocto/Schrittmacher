@@ -22,7 +22,7 @@
                 <TextBlock Text="Mathematisches Modell" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400"/>
             </CommandBar.Content>
             <AppBarButton x:Name="AppBarButton_AddExpression" Icon="Add" Label="Ausdruck" Click="AppBarButton_AddExpression_Click"/>
-            <AppBarButton x:Name="AppBarButton_Compute" Icon="Play" Label="Berechnen" Click="AppBarButton_Compute_Click" Visibility="Collapsed"/>
+            <AppBarButton x:Name="AppBarButton_Compute" Icon="Play" Label="Berechnen" Click="AppBarButton_Compute_Click" Visibility="Visible"/>
         </CommandBar>
 
 
