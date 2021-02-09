@@ -4,6 +4,7 @@ using LiveCharts.Uwp;
 using Phileas.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,11 +28,9 @@ namespace Phileas.Controls.Plots
 
         string xParameter = "t";
 
-        string yParameer = "s";
+        string yParameter = "s";
 
-        int stepsCount = 100;
-
-        int stepIncrement = 1;
+        int numberOfSteps = 10;
 
         Calculator calculator = new Calculator();
 
@@ -65,9 +64,14 @@ namespace Phileas.Controls.Plots
 
         private void MakeChart()
         {
-            var results = calculator.Calc(App.Simulation.MathModel, 10);
+            Dictionary<string, List<double>> results = calculator.Calc(App.Simulation.MathModel, numberOfSteps);
 
-            throw new NotImplementedException("adjustin data set needs to be encapsulated.");
+            for(int i=0; i < results[xParameter].Count; i++)
+            {
+                var temp = results[xParameter];
+                xData.Add(results[xParameter][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
+                yData.Add(results[yParameter][i]);
+            }
 
             this.CartesienChart.Update();
         }

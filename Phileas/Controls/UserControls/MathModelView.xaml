@@ -13,8 +13,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <CommandBar Grid.Row="0" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False" Margin="0,0,0,8">
@@ -22,7 +20,6 @@
                 <TextBlock Text="Mathematisches Modell" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400"/>
             </CommandBar.Content>
             <AppBarButton x:Name="AppBarButton_AddExpression" Icon="Add" Label="Ausdruck" Click="AppBarButton_AddExpression_Click"/>
-            <AppBarButton x:Name="AppBarButton_Compute" Icon="Play" Label="Berechnen" Click="AppBarButton_Compute_Click" Visibility="Visible"/>
         </CommandBar>
 
 
@@ -60,9 +57,6 @@
             </ListView.ItemTemplate>
             <x:String></x:String>
         </ListView>
-
-        <TextBlock x:Name="TextBlock_TestOutputY" Grid.Row="2"/>
-        <TextBlock x:Name="TextBlock_TestOutputX" Grid.Row="3"/>
 
     </Grid>
 </UserControl>

@@ -17,8 +17,10 @@ namespace Phileas.Model
 
         MathModel model = null;
 
-        public Dictionary<string, List<double>> Calc(MathModel model, int stepsCount)
+        public Dictionary<string, List<double>> Calc(MathModel model, int numberOfSteps)
         {
+            Reset();
+
             this.model = model;
 
             FillArgumentDic();
@@ -27,17 +29,19 @@ namespace Phileas.Model
 
             IdentifyConstants();
 
-            for (uint i = 0; i <= stepsCount; i++)
+            for (uint i = 0; i <= numberOfSteps; i++)
             {
-                foreach(var c in constants)
-                {
-                    outputDic[c.Key].Add(c.Value);
-                }
-
                 CompleteValueSet(i);
             }
 
             return outputDic;
+        }
+
+        private void Reset()
+        {
+            outputDic.Clear();
+            argumentDic.Clear();
+            constants.Clear();
         }
 
         private void FillArgumentDic()
@@ -75,7 +79,6 @@ namespace Phileas.Model
 
         private void CompleteValueSet(uint stepCounter)
         {
-            Dictionary<string, Argument> temp = new Dictionary<string, Argument>();
             do
             {
                 foreach (var id in outputDic.Keys)
@@ -86,14 +89,14 @@ namespace Phileas.Model
                     Expression expression = new Expression(expressionString, argumentDic.Values.ToArray());
                     double value = expression.calculate();
 
-                    if (!value.Equals(double.NaN))
+                    if (!value.Equals(double.NaN) && outputDic[id].Count < stepCounter + 1) // valid and not yet added
                     {
                         argumentDic[id].setArgumentValue(value);
                         outputDic[id].Add(value);
                     }
                 }
             }
-            while (outputDic.Values.Any(v => v.Count < stepCounter));
+            while (outputDic.Values.Any(v => v.Count < stepCounter + 1));
         }
 
 

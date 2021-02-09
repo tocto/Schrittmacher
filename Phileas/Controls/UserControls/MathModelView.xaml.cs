@@ -32,26 +32,6 @@ namespace Phileas.Controls.UserControls
             MathModel.Expressions.Add(new MathModelExpression());
         }
 
-        private void AppBarButton_Compute_Click(object sender, RoutedEventArgs e)
-        {
-            //Calculator calculator = new Calculator();
-
-            //try // temp for issue
-            //{
-            //    List<(double, double)> result = calculator.Calc(this.MathModel, this.MathModel.Expressions[1].Name, this.MathModel.Expressions[0].Name);
-
-            //    foreach (var item in result)
-            //    {
-            //        TextBlock_TestOutputX.Text += item.Item1.ToString() + " ";
-            //        TextBlock_TestOutputY.Text += item.Item2.ToString() + " ";
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    // do nothing but hope
-            //}
-        }
-
         private void AppBarButton_DeleteMathModelExpression_Click(object sender, RoutedEventArgs e)
         {
             var expression = (sender as FrameworkElement).DataContext as MathModelExpression;
