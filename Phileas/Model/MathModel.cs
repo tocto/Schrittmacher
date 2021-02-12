@@ -8,41 +8,18 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
+    /// <summary>
+    /// A mathematic equation system holding initial values which represents a real world problem.
+    /// </summary>
     public class MathModel : ModelStructureUnit
     {
-        private ObservableCollection<MathModelExpression> expressions = new ObservableCollection<MathModelExpression>();
+        private readonly ObservableCollection<MathModelExpression> expressions = new ObservableCollection<MathModelExpression>();
 
         public ObservableCollection<MathModelExpression> Expressions
         {
             get
             {
                 return this.expressions;
-            }
-
-            set
-            {
-                if (value != this.expressions)
-                {
-                    this.expressions = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
-        public ObservableCollection<MathModelExpression> InitialValues
-        {
-            get
-            {
-                return this.expressions;
-            }
-
-            set
-            {
-                if (value != this.expressions)
-                {
-                    this.expressions = value;
-                    NotifyPropertyChanged();
-                }
             }
         }
     }

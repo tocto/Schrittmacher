@@ -25,7 +25,7 @@
 
         <ListView   x:Name="ListView_Expressions" 
                     SelectionMode="None"
-                    ItemsSource="{x:Bind MathModel.Expressions, Mode=TwoWay}"
+                    ItemsSource="{x:Bind MathModel.Expressions}"
                     Grid.Row="1">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
