@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Phileas.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -76,11 +77,11 @@ namespace Phileas.Model
         {
             string[] array = this.stringExpression.Split("=");
 
-            if (array.Count() > 2) throw new ArgumentException(); // todo special e
+            if (array.Count() > 2) throw new MathModelSyntaxException("To many assignments ('=') used.");
 
             // update name
             string nameCanidate = array[0].Trim();
-            if (nameCanidate.Contains(" ")) throw new ArgumentException(); // todo special e ("Containing whitspaces")
+            if (nameCanidate.Contains(" ")) throw new MathModelSyntaxException("Target variable contains whitespaces.");
             else this.Name = nameCanidate;
 
 

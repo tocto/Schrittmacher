@@ -121,6 +121,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\IncompleteMathModelException.cs" />
+    <Compile Include="Exceptions\MathModelSyntaxException.cs" />
     <Compile Include="Views\Pages\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
     </Compile>

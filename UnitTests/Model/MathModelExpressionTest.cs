@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Phileas.Exceptions;
 using Phileas.Model;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace UnitTests.Model
         string comment = "// motion equation for constant speed";
 
         [TestMethod]
-        public void StringExpression_SetAndUpdate()
+        public void StringRepresentation_SetAndUpdate()
         {
             string validStringExpression = name + " " + "=" + assignment + comment;
             MathModelExpression mme = new MathModelExpression();
@@ -26,6 +27,15 @@ namespace UnitTests.Model
             Assert.AreEqual(name, mme.Name, "Name should be extracted correctly.");
             Assert.AreEqual(assignment, mme.AssignmentExpression, "Assignment expression should be extracted correctly.");
             Assert.AreEqual(comment.Substring(2), mme.Note, "Comment should be set without the comment indicator '//'.");
+        }
+
+        [TestMethod]
+        public void StringRepresentation_Exception()
+        {
+            MathModelExpression mme = new MathModelExpression();
+
+            Assert.ThrowsException<MathModelSyntaxException>(() => mme.StringRepresentation = "s _t = 4*t");
+            Assert.ThrowsException<MathModelSyntaxException>(() => mme.StringRepresentation = "s_t = 4*t = 4");
         }
 
         [TestMethod]
