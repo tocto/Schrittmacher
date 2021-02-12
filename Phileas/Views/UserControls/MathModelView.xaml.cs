@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Phileas.Controls.UserControls
+namespace Phileas.Views.UserControls
 {
     public sealed partial class MathModelView : UserControl
     {

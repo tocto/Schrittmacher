@@ -120,22 +120,22 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pages\LandingPage.xaml.cs">
+    <Compile Include="Views\Pages\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pages\SettingsPage.xaml.cs">
+    <Compile Include="Views\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Pages\SimulationPage.xaml.cs">
+    <Compile Include="Views\Pages\SimulationPage.xaml.cs">
       <DependentUpon>SimulationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Plots\BasicLineChart.xaml.cs">
+    <Compile Include="Views\Plots\BasicLineChart.xaml.cs">
       <DependentUpon>BasicLineChart.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\UserControls\MathModelView.xaml.cs">
+    <Compile Include="Views\UserControls\MathModelView.xaml.cs">
       <DependentUpon>MathModelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Views\Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Calculator.cs" />
@@ -165,27 +165,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\Pages\LandingPage.xaml">
+    <Page Include="Views\Pages\LandingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pages\SettingsPage.xaml">
+    <Page Include="Views\Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Pages\SimulationPage.xaml">
+    <Page Include="Views\Pages\SimulationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Plots\BasicLineChart.xaml">
+    <Page Include="Views\Plots\BasicLineChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\UserControls\MathModelView.xaml">
+    <Page Include="Views\UserControls\MathModelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

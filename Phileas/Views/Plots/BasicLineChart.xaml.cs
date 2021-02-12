@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Phileas.Controls.Plots
+namespace Phileas.Views.Plots
 {
     public sealed partial class BasicLineChart : UserControl
     {
@@ -30,7 +30,7 @@ namespace Phileas.Controls.Plots
 
         string yParameter = "s";
 
-        int numberOfSteps = 10;
+        uint numberOfSteps = 10;
 
         Calculator calculator = new Calculator();
 

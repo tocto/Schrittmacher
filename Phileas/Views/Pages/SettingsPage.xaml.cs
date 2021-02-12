@@ -15,26 +15,16 @@ using Windows.UI.Xaml.Navigation;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
-namespace Phileas.Controls.Pages
+namespace Phileas.Views.Pages
 {
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
     /// </summary>
-    public sealed partial class LandingPage : Page
+    public sealed partial class SettingsPage : Page
     {
-        public LandingPage()
+        public SettingsPage()
         {
             this.InitializeComponent();
-        }
-
-        private void AppBarButton_AddSimulation_Click(object sender, RoutedEventArgs e)
-        {
-            MainPage.Navigate(typeof(SimulationPage));
-        }
-
-        private void ListView_Simulations_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            MainPage.Navigate(typeof(SimulationPage));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Phileas.Controls.Pages;
+﻿using Phileas.Views.Pages;
 using System;
 using System.Collections.Generic;
 using System.IO;

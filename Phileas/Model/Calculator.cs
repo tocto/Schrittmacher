@@ -17,15 +17,17 @@ namespace Phileas.Model
 
         MathModel model = null;
 
-        public Dictionary<string, List<double>> Calc(MathModel model, int numberOfSteps)
+        public Dictionary<string, List<double>> Calc(MathModel model, uint numberOfSteps)
         {
+            if (model == null) throw new ArgumentNullException("Model must not be null.");
+
             Reset();
 
             this.model = model;
 
             FillArgumentDic();
 
-            PrepareResultDic();
+            PrepareOutputDic();
 
             IdentifyConstants();
 
@@ -39,7 +41,7 @@ namespace Phileas.Model
 
         private void Reset()
         {
-            outputDic.Clear();
+            outputDic = new Dictionary<string, List<double>>(); // so refernces to the old object can still be used by the client
             argumentDic.Clear();
             constants.Clear();
         }
@@ -55,7 +57,7 @@ namespace Phileas.Model
             }
         }
 
-        private void PrepareResultDic()
+        private void PrepareOutputDic()
         {
             foreach (var expression in model.Expressions)
             {
@@ -79,17 +81,26 @@ namespace Phileas.Model
 
         private void CompleteValueSet(uint stepCounter)
         {
+            int maxLoopsIfSolvable = outputDic.Count;
+            int loopCounter = 0;
+
             do
             {
+                if (loopCounter == maxLoopsIfSolvable) throw new InvalidOperationException();
+                loopCounter++;
+
                 foreach (var id in outputDic.Keys)
                 {
-                    
-                    string expressionString = model.Expressions.First(s => s.Name.Equals(id)).AssignmentExpression; // change to single
+                    if (outputDic[id].Count > stepCounter) continue; // skip if already added
+
+                    // attempt to find solution
+                    string expressionString = model.Expressions.First(s => s.Name.Equals(id)).AssignmentExpression;
                     
                     Expression expression = new Expression(expressionString, argumentDic.Values.ToArray());
                     double value = expression.calculate();
 
-                    if (!value.Equals(double.NaN) && outputDic[id].Count < stepCounter + 1) // valid and not yet added
+                    // check if valid 
+                    if (!value.Equals(double.NaN)) 
                     {
                         argumentDic[id].setArgumentValue(value);
                         outputDic[id].Add(value);
