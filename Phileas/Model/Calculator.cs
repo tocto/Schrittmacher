@@ -79,7 +79,7 @@ namespace Phileas.Model
         {
             foreach (var expression in this.model.Expressions)
             {
-                double value = new Expression(expression.StringRepresentation).calculate();
+                double value = new Expression(expression.AssignmentExpression).calculate();
 
                 if (!value.Equals(double.NaN))
                 {
@@ -104,9 +104,9 @@ namespace Phileas.Model
                     if (outputDic[id].Count > stepCounter) continue; // skip if already added
 
                     // attempt to find solution
-                    string expressionString = model.Expressions.First(s => s.Name.Equals(id)).StringRepresentation;
+                    string assignmentString = model.Expressions.First(s => s.Name.Equals(id)).AssignmentExpression;
                     
-                    Expression expression = new Expression(expressionString, argumentDic.Values.ToArray());
+                    Expression expression = new Expression(assignmentString, argumentDic.Values.ToArray());
                     double value = expression.calculate();
 
                     // check if valid 
