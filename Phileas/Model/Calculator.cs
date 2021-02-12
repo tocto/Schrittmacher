@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
+    /// <summary>
+    /// Solves the equation of a given math model.
+    /// </summary>
     public class Calculator
     {
         Dictionary<string, List<double>> outputDic = new Dictionary<string, List<double>>();
@@ -17,6 +20,12 @@ namespace Phileas.Model
 
         MathModel model = null;
 
+        /// <summary>
+        /// Attempts to solve the given math model equations.
+        /// </summary>
+        /// <param name="model">the model of concern</param>
+        /// <param name="numberOfSteps">The number of steps following the intial values given in the math model.</param>
+        /// <returns>A Dictionary where the key is the name of the parameter an the value is a list with a value for each calculated step.</returns>
         public Dictionary<string, List<double>> Calc(MathModel model, uint numberOfSteps)
         {
             if (model == null) throw new ArgumentNullException("Model must not be null.");
