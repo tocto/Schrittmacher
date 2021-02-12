@@ -29,8 +29,8 @@ namespace UnitTests.Model
             MathModel model = new MathModel();
             uint stepCount = 10;
 
-            model.Expressions.Add(new MathModelExpression() { Name = "s", AssignmentExpression = "t * v" });
-            model.Expressions.Add(new MathModelExpression() { Name = "t", AssignmentExpression = "1" });
+            model.Expressions.Add(new MathModelExpression("s = t * v"));
+            model.Expressions.Add(new MathModelExpression("t = 1"));
            
 
             Assert.ThrowsException<IncompleteMathModelException>(() => calculator.Calc(model, stepCount));
@@ -43,11 +43,11 @@ namespace UnitTests.Model
             MathModel model = new MathModel();
             uint stepCount = 10;
 
-            model.Expressions.Add(new MathModelExpression() { Name = "s", AssignmentExpression = "t * v" });
-            model.Expressions.Add(new MathModelExpression() { Name = "t", AssignmentExpression = "t + dt" });
-            model.Expressions.Add(new MathModelExpression() { Name = "v", AssignmentExpression = "1" });
-            model.Expressions.Add(new MathModelExpression() { Name = "t", AssignmentExpression = "0" });
-            model.Expressions.Add(new MathModelExpression() { Name = "dt", AssignmentExpression = "1" });
+            model.Expressions.Add(new MathModelExpression("s = t * v"));
+            model.Expressions.Add(new MathModelExpression("t = t + dt"));
+            model.Expressions.Add(new MathModelExpression("v = 1"));
+            model.Expressions.Add(new MathModelExpression("t = 0"));
+            model.Expressions.Add(new MathModelExpression("dt = 1"));
 
             //act
             var resutls = calculator.Calc(model, stepCount);
@@ -64,9 +64,9 @@ namespace UnitTests.Model
             MathModel model = new MathModel();
             uint stepCount = 10;
 
-            model.Expressions.Add(new MathModelExpression() { Name = "s", AssignmentExpression = "t * v" });
-            model.Expressions.Add(new MathModelExpression() { Name = "t", AssignmentExpression = "0" });
-            model.Expressions.Add(new MathModelExpression() { Name = "v", AssignmentExpression = "0" });
+            model.Expressions.Add(new MathModelExpression("s = t * v"));
+            model.Expressions.Add(new MathModelExpression("t = 1"));
+            model.Expressions.Add(new MathModelExpression("v = 0"));
 
             var resutls = calculator.Calc(model, stepCount);
 
@@ -81,9 +81,9 @@ namespace UnitTests.Model
             MathModel model = new MathModel();
             uint stepCount = 1;
 
-            model.Expressions.Add(new MathModelExpression() { Name = "s", AssignmentExpression = "t * v" });
-            model.Expressions.Add(new MathModelExpression() { Name = "t", AssignmentExpression = "2" });
-            model.Expressions.Add(new MathModelExpression() { Name = "v", AssignmentExpression = "1" });
+            model.Expressions.Add(new MathModelExpression("s = t * v"));
+            model.Expressions.Add(new MathModelExpression("t = 2"));
+            model.Expressions.Add(new MathModelExpression("v = 1"));
 
             var results = calculator.Calc(model, stepCount);
 
@@ -93,9 +93,9 @@ namespace UnitTests.Model
             MathModel model2 = new MathModel();
             uint stepCount2 = 1;
 
-            model2.Expressions.Add(new MathModelExpression() { Name = "s", AssignmentExpression = "t * v" });
-            model2.Expressions.Add(new MathModelExpression() { Name = "t", AssignmentExpression = "2" });
-            model2.Expressions.Add(new MathModelExpression() { Name = "v", AssignmentExpression = "5" });
+            model2.Expressions.Add(new MathModelExpression("s = t * v"));
+            model2.Expressions.Add(new MathModelExpression("t = 2"));
+            model2.Expressions.Add(new MathModelExpression("v = 5"));
 
             var results2 = calculator.Calc(model2, stepCount2);
 
@@ -105,9 +105,9 @@ namespace UnitTests.Model
             MathModel model3 = new MathModel();
             uint stepCount3 = 1;
 
-            model3.Expressions.Add(new MathModelExpression() { Name = "s", AssignmentExpression = "t * v" });
-            model3.Expressions.Add(new MathModelExpression() { Name = "t", AssignmentExpression = "0" });
-            model3.Expressions.Add(new MathModelExpression() { Name = "v", AssignmentExpression = "0" });
+            model3.Expressions.Add(new MathModelExpression("s = t * v"));
+            model3.Expressions.Add(new MathModelExpression("t = 0"));
+            model3.Expressions.Add(new MathModelExpression("v = 0"));
 
             var results3 = calculator.Calc(model3, stepCount3);
 
