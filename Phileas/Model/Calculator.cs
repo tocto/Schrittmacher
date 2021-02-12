@@ -1,4 +1,5 @@
 ﻿using org.mariuszgromada.math.mxparser;
+using Phileas.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,7 +96,7 @@ namespace Phileas.Model
 
             do
             {
-                if (loopCounter == maxLoopsIfSolvable) throw new InvalidOperationException();
+                if (loopCounter == maxLoopsIfSolvable) throw new IncompleteMathModelException("The equation system is not complete.");
                 loopCounter++;
 
                 foreach (var id in outputDic.Keys)

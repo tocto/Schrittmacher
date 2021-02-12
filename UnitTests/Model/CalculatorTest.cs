@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using org.mariuszgromada.math.mxparser;
+using Phileas.Exceptions;
 using Phileas.Model;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace UnitTests.Model
             model.Expressions.Add(new MathModelExpression() { Name = "t", AssignmentExpression = "1" });
            
 
-            Assert.ThrowsException<InvalidOperationException>(() => calculator.Calc(model, stepCount));
+            Assert.ThrowsException<IncompleteMathModelException>(() => calculator.Calc(model, stepCount));
         }
 
         [TestMethod]
