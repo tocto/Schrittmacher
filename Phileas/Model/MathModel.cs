@@ -11,7 +11,7 @@ namespace Phileas.Model
     /// <summary>
     /// A mathematic equation system holding initial values which represents a real world problem.
     /// </summary>
-    public class MathModel : ModelStructureUnit
+    public class MathModel : MathModelStructureUnit
     {
         private readonly ObservableCollection<MathModelExpression> expressions = new ObservableCollection<MathModelExpression>();
 

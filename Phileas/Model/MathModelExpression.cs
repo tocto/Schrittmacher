@@ -10,7 +10,7 @@ namespace Phileas.Model
     /// <summary>
     /// A mathematical expression which assignes a value or formular to a target variable.
     /// </summary>
-    public class MathModelExpression : ModelStructureUnit
+    public class MathModelExpression : MathModelStructureUnit
     {
         private string stringExpression = string.Empty;
 

@@ -8,12 +8,18 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
-    public abstract class ModelStructureUnit : INotifyPropertyChanged
+    /// <summary>
+    /// Basic math model element
+    /// </summary>
+    public abstract class MathModelStructureUnit : INotifyPropertyChanged
     {
         private string name;
 
         private string note;
 
+        /// <summary>
+        /// This is an identifactor of the object in the math model, e.g. "x" for "x = 2".
+        /// </summary>
         public string Name
         {
             get 
@@ -30,6 +36,9 @@ namespace Phileas.Model
             }
         }
 
+        /// <summary>
+        /// Keeps additional information about the object.
+        /// </summary>
         public string Note
         {
             get
