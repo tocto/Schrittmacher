@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
+    /// <summary>
+    /// Holds a string representation of a math model and can translate it to math model expressions
+    /// </summary>
     public class MathModelExpressionTextBlock : INotifyPropertyChanged
     {
         private string expressionsTextModel = string.Empty;
@@ -30,6 +33,10 @@ namespace Phileas.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Get the expressions contained in the string of the text model.
+        /// </summary>
+        /// <returns></returns>
         public List<MathModelExpression> GetMathModelExpressions()
         {
             mathModelExpressions = new List<MathModelExpression>();
