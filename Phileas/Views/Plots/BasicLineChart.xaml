@@ -19,7 +19,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <CommandBar HorizontalAlignment="Stretch" Background="Transparent" VerticalContentAlignment="Center">
+        <CommandBar HorizontalAlignment="Stretch" Background="Transparent" VerticalContentAlignment="Center" Grid.Row="0">
             <CommandBar.SecondaryCommands>
                 <AppBarButton Icon="Copy" Label="kopieren"/>
                 <AppBarToggleButton Icon="Zoom" Label="Zoom"/>
@@ -27,13 +27,13 @@
                 <AppBarButton Icon="Delete" Label="Löschen"/>
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
-                <TextBlock x:Name="TextBox_Title" Text="Titel" FontSize="{StaticResource FontSize_Subtitle}" Grid.Row="0"/>
+                <TextBlock x:Name="TextBox_Title" Text="Titel" FontSize="{StaticResource FontSize_Subtitle}"/>
             </CommandBar.Content>
         </CommandBar>
 
         <TextBlock x:Name="TextBox_Ordinate" Text="Ordinate mit einer Einheit" MaxWidth="200" TextWrapping="Wrap" HorizontalAlignment="Left" FontSize="{StaticResource FontSize_Small}" Grid.Row="1" />
         
-        <lvc:CartesianChart x:Name="CartesienChart" Grid.Row="2" Series="{x:Bind SeriesCollection, Mode=OneWay}" Zoom="Xy"/>
+        <lvc:CartesianChart x:Name="CartesienChart" Grid.Row="2" Series="{x:Bind SeriesCollection, Mode=OneWay}"/>
 
         <TextBlock x:Name="TextBox_Abscissa" Text="Abszisse mit einer Einheit" HorizontalAlignment="Right" FontSize="{StaticResource FontSize_Small}" Grid.Row="3" TextAlignment="Right" MaxWidth="200" TextWrapping="Wrap"/>
 

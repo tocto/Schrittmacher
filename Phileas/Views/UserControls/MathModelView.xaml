@@ -19,44 +19,15 @@
             <CommandBar.Content>
                 <TextBlock Text="Mathematisches Modell" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400"/>
             </CommandBar.Content>
-            <AppBarButton x:Name="AppBarButton_AddExpression" Icon="Add" Label="Ausdruck" Click="AppBarButton_AddExpression_Click"/>
         </CommandBar>
 
-
-        <ListView   x:Name="ListView_Expressions" 
-                    SelectionMode="None"
-                    ItemsSource="{x:Bind MathModel.Expressions}"
-                    Grid.Row="1">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,4" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="24"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <AutoSuggestBox Text="{Binding Name, Mode=TwoWay}" Grid.Column="1" Margin="4"/>
-                        <Button Content="=" HorizontalContentAlignment="Center" Grid.Column="2" Padding="4,0,4,4" Background="Transparent" HorizontalAlignment="Stretch" Margin="0,0,2,0">
-                            <Button.Flyout>
-                                <CommandBarFlyout>
-                                    <AppBarButton x:Name="AppBarButton_DeleteMathModelExpression" Icon="Delete" Label="Ausdruck entfernen" Click="AppBarButton_DeleteMathModelExpression_Click"/>
-                                </CommandBarFlyout>
-                            </Button.Flyout>
-                        </Button>
-                        <TextBox Text="{Binding AssignmentExpression, Mode=TwoWay}" Grid.Column="3" Height="36" VerticalContentAlignment="Bottom"/>
-
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <x:String></x:String>
-        </ListView>
+        <TextBox x:Name="TextBox_MathModelExpressions" 
+                 Grid.Row="1" Margin="8" MinHeight="200"
+                 AcceptsReturn="True" IsSpellCheckEnabled="False"
+                 Text="{x:Bind MathModel.MathModelExpressionBlock.ExpressionsTextModel, Mode=TwoWay}"
+                 LostFocus="TextBox_MathModelExpressions_LostFocus"
+                 PlaceholderText="// BEZIEHUNGEN der Größen zueinander, z.B. &#x0d; s = v * t &#x0d; t = t + dt &#x0d; &#x0d; // ANFANGSWERTE &#x0d; v = 10 &#x0d; t = 0 &#x0d; dt = 1 // Schrittweite &#x0d; &#x0d; // KOMMENTARE immer mit '//' einleiten.">
+        </TextBox>
 
     </Grid>
 </UserControl>
