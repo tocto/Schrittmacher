@@ -23,7 +23,7 @@
 
 
         <TextBox x:Name="TextBox_MathModelExpressions" Grid.Row="1" PlaceholderText="Formuliere Zuweisungen und Anfangswerte" Margin="8" MinHeight="200"
-                 AcceptsReturn="True" LostFocus="TextBox_MathModelExpressions_LostFocus" TextChanged="TextBox_MathModelExpressions_TextChanged"/>
+                 AcceptsReturn="True" LostFocus="TextBox_MathModelExpressions_LostFocus"/>
 
     </Grid>
 </UserControl>

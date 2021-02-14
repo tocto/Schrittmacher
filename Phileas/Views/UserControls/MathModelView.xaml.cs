@@ -42,10 +42,5 @@ namespace Phileas.Views.UserControls
         {
 
         }
-
-        private void TextBox_MathModelExpressions_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }
