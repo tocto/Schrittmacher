@@ -78,6 +78,7 @@ namespace Phileas.Model
             string[] array = this.stringExpression.Split("=");
 
             if (array.Count() > 2) throw new MathModelSyntaxException("To many assignments ('=') used.");
+            if (array.Count() < 2) return; 
 
             // update name
             string nameCanidate = array[0].Trim();

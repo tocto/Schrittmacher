@@ -21,9 +21,13 @@
             </CommandBar.Content>
         </CommandBar>
 
-
-        <TextBox x:Name="TextBox_MathModelExpressions" Grid.Row="1" PlaceholderText="Formuliere Zuweisungen und Anfangswerte" Margin="8" MinHeight="200"
-                 AcceptsReturn="True" LostFocus="TextBox_MathModelExpressions_LostFocus"/>
+        <TextBox x:Name="TextBox_MathModelExpressions" 
+                 Grid.Row="1" Margin="8" MinHeight="200"
+                 AcceptsReturn="True" IsSpellCheckEnabled="False"
+                 Text="{x:Bind MathModel.MathModelExpressionBlock.ExpressionsTextModel, Mode=TwoWay}"
+                 LostFocus="TextBox_MathModelExpressions_LostFocus"
+                 PlaceholderText="// BEZIEHUNGEN der Größen zueinander, z.B. &#x0d; s = v * t &#x0d; t = t + dt &#x0d; &#x0d; // ANFANGSWERTE &#x0d; v = 10 &#x0d; t = 0 &#x0d; dt = 1 // Schrittweite &#x0d; &#x0d; // KOMMENTARE immer mit '//' einleiten.">
+        </TextBox>
 
     </Grid>
 </UserControl>

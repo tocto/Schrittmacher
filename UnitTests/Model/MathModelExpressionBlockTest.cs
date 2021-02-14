@@ -23,7 +23,7 @@ namespace UnitTests.Model
 
         string model6 = " y = mx + n \n s = a/2 * t^2 \n //comment \n m = 4 // rise ";
 
-        MathModelExpressionBlock mmeBlock = new MathModelExpressionBlock();
+        MathModelExpressionTextBlock mmeBlock = new MathModelExpressionTextBlock();
 
         [TestMethod]
         public void GetMathModelExpressions()

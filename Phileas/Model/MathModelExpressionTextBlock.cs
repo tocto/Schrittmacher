@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
-    public class MathModelExpressionBlock : INotifyPropertyChanged
+    public class MathModelExpressionTextBlock : INotifyPropertyChanged
     {
         private string expressionsTextModel = string.Empty;
 
