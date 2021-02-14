@@ -37,5 +37,15 @@ namespace Phileas.Views.UserControls
             var expression = (sender as FrameworkElement).DataContext as MathModelExpression;
             if (expression != null) this.MathModel.Expressions.Remove(expression);
         }
+
+        private void TextBox_MathModelExpressions_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_MathModelExpressions_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
