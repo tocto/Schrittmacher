@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Phileas.Model
@@ -15,7 +16,7 @@ namespace Phileas.Model
 
         ChartValues<double> yData = new ChartValues<double>();
 
-        SeriesCollection SeriesCollection { get; set; } = new SeriesCollection();
+        SeriesCollection SeriesCollection { get; set; } = null; // use the one associated to the cartesian chart object
 
         PlotData plotData = new PlotData();
 
@@ -36,6 +37,7 @@ namespace Phileas.Model
 
             this.plotData = plotData;
             this.cartesianChart = cartesianChart;
+            this.SeriesCollection = cartesianChart.Series;
 
             MakeChart();
         }
@@ -44,12 +46,13 @@ namespace Phileas.Model
         {
             PrepareAxis();
 
-            FillChartWithData();
+            PrepareLineSeries();
+
+            AddDataToChart();
         }
 
         private void PrepareAxis()
         {
-            // absziss axis
             Axis xAxis = new Axis()
             {
                 Title = plotData.XAxisTitle,
@@ -67,28 +70,25 @@ namespace Phileas.Model
 
             cartesianChart.AxisY.Clear();
             cartesianChart.AxisY.Add(yAxis);
-
-            // ordinate axis
-            LineSeries visualData = new LineSeries()
-            {
-                Title = plotData.yParameterKey,
-                Values = yData
-            };
-
-            SeriesCollection.Add(visualData);
         }
 
-        private void FillChartWithData()
+        private void PrepareLineSeries()
+        {
+            SeriesCollection.Add( new LineSeries()
+                {
+                    Title = plotData.yParameterKey,
+                    Values = yData,
+                    LineSmoothness = 0
+                });
+        }
+
+        private void AddDataToChart()
         {
             for (int i = 0; i < plotData.DataPoints[plotData.xParameterKey].Count; i++)
             {
                 xData.Add(plotData.DataPoints[plotData.xParameterKey][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
                 yData.Add(plotData.DataPoints[plotData.yParameterKey][i]);
             }
-
-            cartesianChart.Series = this.SeriesCollection;
-
-            cartesianChart.Update();
         }
     }
 }

@@ -58,23 +58,39 @@ namespace Phileas.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Calculates the plot data based on the current math model and adds those date to the plot collection of the simulation.
+        /// </summary>
+        /// <param name="numberOfSteps"></param>
+        /// <param name="xParamterKey"></param>
+        /// <param name="yParameterKey"></param>
         public void Plot(uint numberOfSteps, string xParamterKey, string yParameterKey)
         {
-            Calculator calculator = new Calculator();
-
-            Dictionary<string, List<double>> results = null;
-            
-            results = calculator.Calc(App.Simulation.MathModel, numberOfSteps); // exception might thrown
+            var dataPoints = CalcDataPoints(numberOfSteps);
 
             PlotData plotData = new PlotData()
             {
-                DataPoints = results,
+                DataPoints = dataPoints,
                 xParameterKey = xParamterKey,
                 yParameterKey = yParameterKey,
                 Title = "Neues Diagramm ohne Titel" // temp
             };
 
             this.plots.Add(plotData);
+        }
+
+        /// <summary>
+        /// Calculates all data point based on the current math model.
+        /// </summary>
+        /// <param name="numberOfSteps"></param>
+        /// <returns></returns>
+        public Dictionary<string, List<double>> CalcDataPoints(uint numberOfSteps)
+        {
+            Calculator calculator = new Calculator();
+
+            Dictionary<string, List<double>> results = calculator.Calc(App.Simulation.MathModel, numberOfSteps); // exception might thrown
+
+            return results;
         }
 
 

@@ -28,6 +28,8 @@ namespace Phileas.Views.Plots
     {
         PlotData plotData = new PlotData();
 
+        SeriesCollection SeriesCollection = new SeriesCollection();
+
         public BasicLineChart()
         {
             this.InitializeComponent();
@@ -57,6 +59,15 @@ namespace Phileas.Views.Plots
         {
             PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, plotData);
             await dialog.ShowAsync();
+        }
+
+        private void AppBarButton_Sync_Click(object sender, RoutedEventArgs e)
+        {
+            uint numberOfSteps = (uint) this.plotData.DataPoints.Values.First().Count - 1;
+
+            this.plotData.DataPoints = App.Simulation.CalcDataPoints(numberOfSteps);
+            
+            MakeChart();
         }
     } 
     
