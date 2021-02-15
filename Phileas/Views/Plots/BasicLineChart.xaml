@@ -23,7 +23,6 @@
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="AppBarButton_Edit" Icon="Edit" Label="Bearbeiten" Click="AppBarButton_Edit_ClickAsync"/>
-                <AppBarButton x:Name="AppBarButton_Sync" Icon="Sync" Label="Synchronisieren" Click="AppBarButton_Sync_Click"/>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton x:Name="AppBarButton_Delete" Icon="Delete" Label="Löschen" Click="AppBarButton_Delete_Click"/>

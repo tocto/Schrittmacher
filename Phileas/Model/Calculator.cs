@@ -2,6 +2,7 @@
 using Phileas.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,6 +109,8 @@ namespace Phileas.Model
                     
                     Expression expression = new Expression(assignmentString, argumentDic.Values.ToArray());
                     double value = expression.calculate();
+
+                    Debug.WriteLine(expression.getErrorMessage());
 
                     // check if valid 
                     if (!value.Equals(double.NaN)) 
