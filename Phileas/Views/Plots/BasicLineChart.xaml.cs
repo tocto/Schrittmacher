@@ -24,56 +24,31 @@ namespace Phileas.Views.Plots
 {
     public sealed partial class BasicLineChart : UserControl
     {
-        public string Title = "Diagramm";
-
-        string xParameter = "t";
-
-        string yParameter = "s";
-
-        uint numberOfSteps = 10;
-
-        Calculator calculator = new Calculator();
-
-        public MathModel MathModel { get; set; } = null;
-
-        List<string> xData = new List<string>();
-
-        ChartValues<double> yData = new ChartValues<double>();
-
-        SeriesCollection SeriesCollection { get; set; } = new SeriesCollection();
+        PlotData plotData = new PlotData();
 
         public BasicLineChart()
         {
             this.InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            LineSeries visualData = new LineSeries()
-            {
-                Title = this.Title,
-                Values = yData
-            };
-
-            CartesienChart.AxisX.Add(new Axis() { Labels = xData });
-
-            SeriesCollection.Add(visualData);
-
-            MakeChart();
-        }
-
         private void MakeChart()
         {
-            Dictionary<string, List<double>> results = calculator.Calc(App.Simulation.MathModel, numberOfSteps);
+            PlotFactory plotFactory = new PlotFactory();
+            plotFactory.MakePlot(this.plotData, CartesienChart);
+        }
 
-            for(int i=0; i < results[xParameter].Count; i++)
+        private void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            if (args.NewValue != null && args.NewValue as PlotData != this.plotData)
             {
-                var temp = results[xParameter];
-                xData.Add(results[xParameter][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
-                yData.Add(results[yParameter][i]);
+                this.plotData = args.NewValue as PlotData;
+                MakeChart();
             }
+        }
 
-            this.CartesienChart.Update();
+        private void AppBarButton_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            App.Simulation.Plots.Remove(plotData);
         }
     } 
     

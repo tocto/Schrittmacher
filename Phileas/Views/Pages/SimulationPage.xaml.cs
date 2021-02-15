@@ -26,12 +26,6 @@ namespace Phileas.Views.Pages
     {
         public Simulation Simulation = App.Simulation;
 
-        /// <summary>
-        /// Each plot has it's specific math model, which was given, when the plot was created. 
-        /// </summary>
-        /// TODO: clone math models an decouble them from each other
-        ObservableCollection<string> plots = new ObservableCollection<string>();
-
         public SimulationPage()
         {
             this.InitializeComponent();
@@ -39,7 +33,7 @@ namespace Phileas.Views.Pages
 
         private void AppBarButton_AddPlot_Click(object sender, RoutedEventArgs e)
         {
-            plots.Add("neu");
+            Simulation.Plot(10, "t", "s");
         }
     }
 }

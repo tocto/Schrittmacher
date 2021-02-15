@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="500"
-    Loaded="UserControl_Loaded">
+    DataContextChanged="UserControl_DataContextChanged">
 
     <Grid BorderBrush="Gray">
         <Grid.RowDefinitions>
@@ -21,21 +21,18 @@
 
         <CommandBar HorizontalAlignment="Stretch" Background="Transparent" VerticalContentAlignment="Center" Grid.Row="0">
             <CommandBar.SecondaryCommands>
-                <AppBarButton Icon="Copy" Label="kopieren"/>
-                <AppBarToggleButton Icon="Zoom" Label="Zoom"/>
-                <AppBarSeparator/>
-                <AppBarButton Icon="Delete" Label="Löschen"/>
+                <AppBarButton x:Name="AppBarButton_Delete" Icon="Delete" Label="Löschen" Click="AppBarButton_Delete_Click"/>
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
-                <TextBlock x:Name="TextBox_Title" Text="Titel" FontSize="{StaticResource FontSize_Subtitle}"/>
+                <TextBlock x:Name="TextBox_Title" Text="{Binding Title}" FontSize="{StaticResource FontSize_Subtitle}"/>
             </CommandBar.Content>
         </CommandBar>
 
-        <TextBlock x:Name="TextBox_Ordinate" Text="Ordinate mit einer Einheit" MaxWidth="200" TextWrapping="Wrap" HorizontalAlignment="Left" FontSize="{StaticResource FontSize_Small}" Grid.Row="1" />
+        <!--<TextBlock x:Name="TextBox_Ordinate" Text="Ordinate mit einer Einheit" MaxWidth="200" TextWrapping="Wrap" HorizontalAlignment="Left" FontSize="{StaticResource FontSize_Small}" Grid.Row="1" />-->
         
-        <lvc:CartesianChart x:Name="CartesienChart" Grid.Row="2" Series="{x:Bind SeriesCollection, Mode=OneWay}"/>
+        <lvc:CartesianChart x:Name="CartesienChart" Grid.Row="2"/>
 
-        <TextBlock x:Name="TextBox_Abscissa" Text="Abszisse mit einer Einheit" HorizontalAlignment="Right" FontSize="{StaticResource FontSize_Small}" Grid.Row="3" TextAlignment="Right" MaxWidth="200" TextWrapping="Wrap"/>
+        <!--<TextBlock x:Name="TextBox_Abscissa" Text="Abszisse mit einer Einheit" HorizontalAlignment="Right" FontSize="{StaticResource FontSize_Small}" Grid.Row="3" TextAlignment="Right" MaxWidth="200" TextWrapping="Wrap"/>-->
 
     </Grid>
 </UserControl>

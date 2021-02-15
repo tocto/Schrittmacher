@@ -17,6 +17,10 @@ namespace Phileas.Model
 
         private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
 
+        public string xParameterKey { get; set; } = "t";
+
+        public string yParameterKey { get; set; } = "s";
+
         public string Title
         {
             get => this.title;

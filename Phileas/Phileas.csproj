@@ -124,6 +124,7 @@
     <Compile Include="Exceptions\MathModelSyntaxException.cs" />
     <Compile Include="Model\MathModelExpressionTextBlock.cs" />
     <Compile Include="Model\PlotData.cs" />
+    <Compile Include="Model\PlotFactory.cs" />
     <Compile Include="Views\Pages\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
     </Compile>

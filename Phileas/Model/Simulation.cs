@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Phileas.Model
 
         private readonly MathModel mathModel = new MathModel();
 
+        private readonly ObservableCollection<PlotData> plots = new ObservableCollection<PlotData>();
 
         public string Title
         {
@@ -49,7 +51,31 @@ namespace Phileas.Model
 
         public MathModel MathModel { get => this.mathModel; }
 
+        public ObservableCollection<PlotData> Plots
+        {
+            get => this.plots;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Plot(uint numberOfSteps, string xParamterKey, string yParameterKey)
+        {
+            Calculator calculator = new Calculator();
+
+            Dictionary<string, List<double>> results = null;
+            
+            results = calculator.Calc(App.Simulation.MathModel, numberOfSteps); // exception might thrown
+
+            PlotData plotData = new PlotData()
+            {
+                DataPoints = results,
+                xParameterKey = xParamterKey,
+                yParameterKey = yParameterKey,
+                Title = "Neues Diagramm ohne Titel" // temp
+            };
+
+            this.plots.Add(plotData);
+        }
 
 
     }
