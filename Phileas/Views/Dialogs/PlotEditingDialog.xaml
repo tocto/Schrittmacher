@@ -11,23 +11,32 @@
     CloseButtonText="Schließen"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
 
-    <StackPanel Orientation="Vertical" Spacing="8">
-        
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
 
         <TextBox x:Name="TextBox_Title" Header="Titel" Text="{x:Bind plotData.Title, Mode=TwoWay}" Grid.Row="0" Grid.ColumnSpan="2"/>
-        
-        <TextBox x:Name="TextBox_xAxisLabel" Header="Beschriftung der Abszisse (x-Achse)" Text="{x:Bind plotData.XAxisTitle, Mode=TwoWay}" Grid.Row="1" Grid.ColumnSpan="2"/>
-        
-        <TextBox x:Name="TextBox_yAxisLabel" Header="Beschriftung der Ordinate (y-Achse)" Text="{x:Bind plotData.YAxisTitle, Mode=TwoWay}" Grid.Row="2" Grid.ColumnSpan="2"/>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="80"/>
-            </Grid.ColumnDefinitions>
-        <TextBlock x:Name="TextBlock_LineSmothness" Text="Linienglättung:" Grid.Column="0" VerticalAlignment="Center"/>
-        <ToggleSwitch x:Name="ToggleSwith_LineSmothness" IsOn="False" Toggled="ToggleSwith_LineSmothness_Toggled" Grid.Column="1"/>
-        </Grid>
+        <ComboBox x:Name="ComboBox_xParamater" Header="x-Achse" Grid.Row="1" Grid.Column="0"/>
 
-    </StackPanel>
+        <TextBox x:Name="TextBox_xAxisLabel" Header="Beschriftung" Text="{x:Bind plotData.XAxisTitle, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+
+        <ComboBox x:Name="ComboBox_yParamater" Header="y-Achse"  Grid.Row="2" Grid.Column="0"/>
+
+        <TextBox x:Name="TextBox_yAxisLabel" Header="Beschriftung" Text="{x:Bind plotData.YAxisTitle, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBox Header="Schritte" Text="100" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="100"/>
+
+        <ToggleSwitch x:Name="ToggleSwith_LineSmothness" Header="Linienglättung" IsOn="False" Toggled="ToggleSwith_LineSmothness_Toggled" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Width="100"/>
+
+    </Grid>
 </ContentDialog>

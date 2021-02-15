@@ -17,13 +17,7 @@
 
         <CommandBar Grid.Row="0" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False" Margin="0,0,0,8">
             <CommandBar.Content>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
                 <TextBlock Text="Modell" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Margin="12,8,0,0" Height="40" Width="400" Grid.Column="0"/>
-                </Grid>
             </CommandBar.Content>
         </CommandBar>
 

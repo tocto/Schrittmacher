@@ -33,6 +33,8 @@ namespace Phileas.Views.Pages
 
         private void AppBarButton_AddPlot_Click(object sender, RoutedEventArgs e)
         {
+            
+
             try
             {
                 Simulation.Plot(10, "t", "s");
