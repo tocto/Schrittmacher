@@ -2,12 +2,14 @@
 using LiveCharts;
 using LiveCharts.Uwp;
 using Phileas.Model;
+using Phileas.Views.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -33,8 +35,8 @@ namespace Phileas.Views.Plots
 
         private void MakeChart()
         {
-            PlotFactory plotFactory = new PlotFactory();
-            plotFactory.MakePlot(this.plotData, CartesienChart);
+            PlotDecorator plotFactory = new PlotDecorator();
+            plotFactory.DecoratePlot(this.plotData, CartesienChart);
         }
 
         private void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
@@ -49,6 +51,12 @@ namespace Phileas.Views.Plots
         private void AppBarButton_Delete_Click(object sender, RoutedEventArgs e)
         {
             App.Simulation.Plots.Remove(plotData);
+        }
+
+        private async void AppBarButton_Edit_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, plotData);
+            await dialog.ShowAsync();
         }
     } 
     

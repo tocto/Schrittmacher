@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
-    public class PlotFactory
+    public class PlotDecorator
     {
         List<string> xData = new List<string>();
 
@@ -29,7 +29,7 @@ namespace Phileas.Model
         /// </remarks>
         /// <param name="plotData"></param>
         /// <param name="cartesianChart"></param>
-        public void MakePlot(PlotData plotData, CartesianChart cartesianChart)
+        public void DecoratePlot(PlotData plotData, CartesianChart cartesianChart)
         {
             if (plotData == null || cartesianChart == null) throw new ArgumentNullException();
             if (plotData.DataPoints == null) throw new ArgumentException("There are no data point entries.");
@@ -52,16 +52,26 @@ namespace Phileas.Model
             // absziss axis
             Axis xAxis = new Axis()
             {
-                Title = plotData.YAxisTitle,
+                Title = plotData.XAxisTitle,
                 Labels = xData
             };
 
+            cartesianChart.AxisX.Clear();
             cartesianChart.AxisX.Add(xAxis);
+
+            Axis yAxis = new Axis()
+            {
+                Title = plotData.YAxisTitle,
+                LabelFormatter = v => v.ToString()
+            };
+
+            cartesianChart.AxisY.Clear();
+            cartesianChart.AxisY.Add(yAxis);
 
             // ordinate axis
             LineSeries visualData = new LineSeries()
             {
-                Title = plotData.XAxisTitle,
+                Title = plotData.yParameterKey,
                 Values = yData
             };
 

@@ -11,11 +11,11 @@ namespace Phileas.Model
     {
         private string title = string.Empty;
 
+        private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
+
         private string xAxisTitle = string.Empty;
         
         private string yAxisTitle = string.Empty;
-
-        private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
 
         public string xParameterKey { get; set; } = "t";
 

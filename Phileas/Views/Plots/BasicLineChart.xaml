@@ -19,20 +19,23 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <CommandBar HorizontalAlignment="Stretch" Background="Transparent" VerticalContentAlignment="Center" Grid.Row="0">
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="AppBarButton_Delete" Icon="Delete" Label="Löschen" Click="AppBarButton_Delete_Click"/>
-            </CommandBar.SecondaryCommands>
+        <CommandBar HorizontalAlignment="Stretch" Background="Transparent" VerticalContentAlignment="Center" Grid.Row="0" Margin="20,0,0,12">
             <CommandBar.Content>
                 <TextBlock x:Name="TextBox_Title" Text="{Binding Title}" FontSize="{StaticResource FontSize_Subtitle}"/>
             </CommandBar.Content>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="AppBarButton_Edit" Icon="Edit" Label="Bearbeiten" Click="AppBarButton_Edit_ClickAsync"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="AppBarButton_Delete" Icon="Delete" Label="Löschen" Click="AppBarButton_Delete_Click"/>
+            </CommandBar.SecondaryCommands>
         </CommandBar>
 
-        <!--<TextBlock x:Name="TextBox_Ordinate" Text="Ordinate mit einer Einheit" MaxWidth="200" TextWrapping="Wrap" HorizontalAlignment="Left" FontSize="{StaticResource FontSize_Small}" Grid.Row="1" />-->
-        
+        <!--<TextBlock x:Name="TextBox_Ordinate" Text="{Binding XAxisTitle}" MaxWidth="200" TextWrapping="Wrap" HorizontalAlignment="Left" FontSize="{StaticResource FontSize_Small}" Grid.Row="1" />-->
+
         <lvc:CartesianChart x:Name="CartesienChart" Grid.Row="2"/>
 
-        <!--<TextBlock x:Name="TextBox_Abscissa" Text="Abszisse mit einer Einheit" HorizontalAlignment="Right" FontSize="{StaticResource FontSize_Small}" Grid.Row="3" TextAlignment="Right" MaxWidth="200" TextWrapping="Wrap"/>-->
+        <!--<TextBlock x:Name="TextBox_Abscissa" Text="{Binding YAxisTitle}" HorizontalAlignment="Right" FontSize="{StaticResource FontSize_Small}" Grid.Row="3" TextAlignment="Right" MaxWidth="200" TextWrapping="Wrap"/>-->
 
     </Grid>
 </UserControl>
