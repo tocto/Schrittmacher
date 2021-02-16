@@ -32,19 +32,19 @@ namespace Phileas.Views.Pages
             this.InitializeComponent();
         }
 
-        private void AppBarButton_AddPlot_Click(object sender, RoutedEventArgs e)
+        private void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
         {
             Plotter plotter = new Plotter();
             PlotData plotData = new PlotData();
 
             try
             {
-                plotData.DataPoints = plotter.CalcDataPoints(0);
+                plotData.DataPoints = plotter.CalcDataPoints(App.Simulation,0);
                 App.Simulation.Plots.Add(plotData);
 
                 ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 Debug.WriteLine(exception.Message);
             }

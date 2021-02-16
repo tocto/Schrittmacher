@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
+    /// <summary>
+    /// Fills a chart with data.
+    /// </summary>
     public class Plotter
     {
         List<string> xData = new List<string>();
@@ -22,26 +25,37 @@ namespace Phileas.Model
 
         CartesianChart cartesianChart = null;
 
+        Simulation simulation;
+
         /// <summary>
-        /// Update plot in the ui.
+        /// Updates the chart with data points.
         /// </summary>
         /// <remarks>
-        /// Must run in ui thread.
+        /// Thread must be started from UI/Main-Thread.
         /// </remarks>
         /// <param name="plotData"></param>
         /// <param name="cartesianChart"></param>
-        public void Plot(PlotData plotData, CartesianChart cartesianChart)
+        public void Plot(Simulation simulation, PlotData plotData, CartesianChart cartesianChart)
         {
-            if (plotData == null || cartesianChart == null) throw new ArgumentNullException();
+            if (simulation == null || plotData == null || cartesianChart == null) throw new ArgumentNullException();
             if (plotData.DataPoints == null) throw new ArgumentException("There are no data point entries.");
 
+            // assign fields for global use
+            this.simulation = simulation;
             this.plotData = plotData;
             this.cartesianChart = cartesianChart;
-
-            cartesianChart.Series.Clear();
             this.SeriesCollection = cartesianChart.Series;
 
+            ResetChart();
+
             MakeChart();
+        }
+
+        private void ResetChart()
+        {
+            cartesianChart.Series?.Clear();
+            cartesianChart.AxisX?.Clear();
+            cartesianChart.AxisY?.Clear();
         }
 
         private void MakeChart()
@@ -49,6 +63,8 @@ namespace Phileas.Model
             PrepareAxis();
 
             PrepareLineSeries();
+
+            MakeData();
 
             AddDataToChart();
         }
@@ -61,7 +77,6 @@ namespace Phileas.Model
                 Labels = xData
             };
 
-            cartesianChart.AxisX.Clear();
             cartesianChart.AxisX.Add(xAxis);
 
             Axis yAxis = new Axis()
@@ -70,7 +85,6 @@ namespace Phileas.Model
                 LabelFormatter = v => v.ToString()
             };
 
-            cartesianChart.AxisY.Clear();
             cartesianChart.AxisY.Add(yAxis);
         }
 
@@ -84,30 +98,32 @@ namespace Phileas.Model
                 });
         }
 
-        private void AddDataToChart()
+        private void MakeData()
         {
-            this.plotData.DataPoints = CalcDataPoints(plotData.NumberOfSteps);
-
-            for (int i = 0; i < plotData.DataPoints[plotData.XParameterKey].Count; i++)
-            {
-                xData.Add(plotData.DataPoints[plotData.XParameterKey][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
-                yData.Add(plotData.DataPoints[plotData.YParameterKey][i]);
-            }
+            this.plotData.DataPoints = CalcDataPoints(this.simulation, plotData.NumberOfSteps);
         }
-
 
         /// <summary>
         /// Calculates all data point based on the current math model.
         /// </summary>
         /// <param name="numberOfSteps"></param>
         /// <returns></returns>
-        public Dictionary<string, List<double>> CalcDataPoints(uint numberOfSteps)
+        public Dictionary<string, List<double>> CalcDataPoints(Simulation simulation, uint numberOfSteps)
         {
             Calculator calculator = new Calculator();
 
-            Dictionary<string, List<double>> results = calculator.Calc(App.Simulation.MathModel, numberOfSteps); // exception might thrown
+            Dictionary<string, List<double>> results = calculator.Calc(simulation.MathModel, numberOfSteps); // exception might thrown
 
             return results;
+        }
+
+        private void AddDataToChart()
+        {
+            for (int i = 0; i < plotData.DataPoints[plotData.XParameterKey].Count; i++)
+            {
+                xData.Add(plotData.DataPoints[plotData.XParameterKey][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
+                yData.Add(plotData.DataPoints[plotData.YParameterKey][i]);
+            }
         }
     }
 }

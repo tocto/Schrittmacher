@@ -110,8 +110,6 @@ namespace Phileas.Model
                     Expression expression = new Expression(assignmentString, argumentDic.Values.ToArray());
                     double value = expression.calculate();
 
-                    Debug.WriteLine(expression.getErrorMessage());
-
                     // check if valid 
                     if (!value.Equals(double.NaN)) 
                     {

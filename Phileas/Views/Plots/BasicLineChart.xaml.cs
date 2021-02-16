@@ -38,7 +38,7 @@ namespace Phileas.Views.Plots
         private void MakeChart()
         {
             Plotter plotFactory = new Plotter();
-            plotFactory.Plot(this.plotData, CartesienChart);
+            plotFactory.Plot(App.Simulation, this.plotData, CartesienChart);
         }
 
         private async void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)

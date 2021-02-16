@@ -55,7 +55,7 @@ namespace Phileas.Views.Dialogs
                 Plotter plotter = new Plotter();
                 try
                 {
-                    plotter.Plot(plotData, cartesianChart);
+                    plotter.Plot(App.Simulation, plotData, cartesianChart);
                 }
                 catch (Exception e)
                 {
@@ -80,6 +80,7 @@ namespace Phileas.Views.Dialogs
             try
             {
                 uint number = (uint) Math.Ceiling(Convert.ToDouble(this.TextBox_NumberOfSteps.Text));
+                number = number > 500 ? 500 : number; // TODO temp max, until calculator is optimized
                 this.TextBox_NumberOfSteps.Text =  number.ToString();
             }
             catch(Exception exception)

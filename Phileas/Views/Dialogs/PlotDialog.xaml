@@ -13,10 +13,10 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="72"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -24,17 +24,17 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="TextBox_Title" Header="Titel" PlaceholderText="optional" Text="{x:Bind plotData.Title}" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TextBox_Title" Header="Titel" PlaceholderText="optional" Text="{x:Bind plotData.Title}" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
 
-        <ComboBox x:Name="ComboBox_xParamater" Header="x-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.XParameterKey}" Grid.Row="1" Grid.Column="0"/>
+        <ComboBox x:Name="ComboBox_yParamater" Header="y-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.YParameterKey}"  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
 
-        <TextBox x:Name="TextBox_xAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.XAxisTitle}" Grid.Row="1" Grid.Column="1"/>
+        <TextBox x:Name="TextBox_yAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.YAxisTitle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
 
-        <ComboBox x:Name="ComboBox_yParamater" Header="y-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.YParameterKey}"  Grid.Row="2" Grid.Column="0"/>
+        <ComboBox x:Name="ComboBox_xParamater" Header="x-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.XParameterKey}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
 
-        <TextBox x:Name="TextBox_yAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.YAxisTitle}" Grid.Row="2" Grid.Column="1"/>
+        <TextBox x:Name="TextBox_xAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.XAxisTitle}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
 
-        <TextBox x:Name="TextBox_NumberOfSteps" Header="Schritte" Text="{x:Bind plotData.NumberOfSteps}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="100" TextChanged="TextBox_NumberOfSteps_TextChanged"/>
+        <TextBox x:Name="TextBox_NumberOfSteps" Header="Schritte" Text="{x:Bind plotData.NumberOfSteps}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="100" TextChanged="TextBox_NumberOfSteps_TextChanged" VerticalAlignment="Center"/>
 
         <ToggleSwitch x:Name="ToggleSwith_LineSmothness" Header="Linienglättung" IsOn="{x:Bind plotData.IsLineSmothnessOn}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Width="100"/>
 
