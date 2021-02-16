@@ -37,16 +37,33 @@ namespace Phileas.Views.Plots
 
         private void MakeChart()
         {
-            PlotDecorator plotFactory = new PlotDecorator();
-            plotFactory.DecoratePlot(this.plotData, CartesienChart);
+            Plotter plotFactory = new Plotter();
+            plotFactory.Plot(this.plotData, CartesienChart);
         }
 
-        private void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        private async void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             if (args.NewValue != null && args.NewValue as PlotData != this.plotData)
             {
                 this.plotData = args.NewValue as PlotData;
-                MakeChart();
+
+                if (plotData.XParameterKey == string.Empty)
+                {
+                    await ShowDialogAsync();
+                }
+                else
+                {
+                    MakeChart();
+                }
+            }
+        }
+
+        private async Task ShowDialogAsync()
+        {
+            if (this.plotData.XParameterKey == string.Empty)
+            {
+                PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, this.plotData);
+                await dialog.ShowAsync();
             }
         }
 

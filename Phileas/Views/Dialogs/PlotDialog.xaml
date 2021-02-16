@@ -1,0 +1,42 @@
+﻿<ContentDialog
+    x:Class="Phileas.Views.Dialogs.PlotEditingDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Phileas.Views.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Diagrammeigenschaften"
+    PrimaryButtonText="Speichern"
+    CloseButtonText="Schließen"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox x:Name="TextBox_Title" Header="Titel" PlaceholderText="optional" Text="{x:Bind plotData.Title}" Grid.Row="0" Grid.ColumnSpan="2"/>
+
+        <ComboBox x:Name="ComboBox_xParamater" Header="x-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.XParameterKey}" Grid.Row="1" Grid.Column="0"/>
+
+        <TextBox x:Name="TextBox_xAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.XAxisTitle}" Grid.Row="1" Grid.Column="1"/>
+
+        <ComboBox x:Name="ComboBox_yParamater" Header="y-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.YParameterKey}"  Grid.Row="2" Grid.Column="0"/>
+
+        <TextBox x:Name="TextBox_yAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.YAxisTitle}" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBox x:Name="TextBox_NumberOfSteps" Header="Schritte" Text="{x:Bind plotData.NumberOfSteps}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="100" TextChanged="TextBox_NumberOfSteps_TextChanged"/>
+
+        <ToggleSwitch x:Name="ToggleSwith_LineSmothness" Header="Linienglättung" IsOn="{x:Bind plotData.IsLineSmothnessOn}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Width="100"/>
+
+    </Grid>
+</ContentDialog>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -33,15 +34,17 @@ namespace Phileas.Views.Pages
 
         private void AppBarButton_AddPlot_Click(object sender, RoutedEventArgs e)
         {
-            
+            Plotter plotter = new Plotter();
+            PlotData plotData = new PlotData();
 
             try
             {
-                Simulation.Plot(10, "t", "s");
+                plotData.DataPoints = plotter.CalcDataPoints(0);
+                App.Simulation.Plots.Add(plotData);
             }
             catch(Exception exception)
             {
-                // todo give user info
+                Debug.WriteLine(exception.Message);
             }
         }
     }

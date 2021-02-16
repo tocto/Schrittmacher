@@ -11,15 +11,19 @@ namespace Phileas.Model
     {
         private string title = string.Empty;
 
-        private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
-
         private string xAxisTitle = string.Empty;
         
         private string yAxisTitle = string.Empty;
 
-        public string xParameterKey { get; set; } = "t";
+        private uint numberOfSteps = 100;
 
-        public string yParameterKey { get; set; } = "s";
+        private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
+
+        private string xParameterKey { get; set; } = string.Empty;
+
+        private string yParameterKey { get; set; } = string.Empty;
+
+        private bool isLineSmothnessOn = false;
 
         public string Title
         {
@@ -63,6 +67,19 @@ namespace Phileas.Model
             }
         }
 
+        public uint NumberOfSteps
+        {
+            get => this.numberOfSteps;
+
+            set
+            {
+                if (this.numberOfSteps != value)
+                {
+                    this.numberOfSteps = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("NumberOfSteps"));
+                }
+            }
+        }
 
         public Dictionary<string, List<double>> DataPoints
         {
@@ -74,6 +91,48 @@ namespace Phileas.Model
                 {
                     this.dataPoints = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DataPoints"));
+                }
+            }
+        }
+
+        public string XParameterKey
+        {
+            get => this.xParameterKey;
+
+            set
+            {
+                if (this.xParameterKey != value)
+                {
+                    this.xParameterKey = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("XParameterKey"));
+                }
+            }
+        }
+
+        public string YParameterKey
+        {
+            get => this.yParameterKey;
+
+            set
+            {
+                if (this.yParameterKey != value)
+                {
+                    this.yParameterKey = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("YParameterKey"));
+                }
+            }
+        }
+
+        public bool IsLineSmothnessOn
+        {
+            get => this.isLineSmothnessOn;
+
+            set
+            {
+                if (this.isLineSmothnessOn != value)
+                {
+                    this.isLineSmothnessOn = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsLineSmothnessOn"));
                 }
             }
         }

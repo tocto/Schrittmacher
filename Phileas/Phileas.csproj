@@ -124,9 +124,9 @@
     <Compile Include="Exceptions\MathModelSyntaxException.cs" />
     <Compile Include="Model\MathModelExpressionTextBlock.cs" />
     <Compile Include="Model\PlotData.cs" />
-    <Compile Include="Model\PlotDecorator.cs" />
-    <Compile Include="Views\Dialogs\PlotEditingDialog.xaml.cs">
-      <DependentUpon>PlotEditingDialog.xaml</DependentUpon>
+    <Compile Include="Model\Plotter.cs" />
+    <Compile Include="Views\Dialogs\PlotDialog.xaml.cs">
+      <DependentUpon>PlotDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\LandingPage.xaml.cs">
       <DependentUpon>LandingPage.xaml</DependentUpon>
@@ -173,7 +173,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\Dialogs\PlotEditingDialog.xaml">
+    <Page Include="Views\Dialogs\PlotDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

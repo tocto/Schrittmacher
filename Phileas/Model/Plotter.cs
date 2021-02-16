@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Phileas.Model
 {
-    public class PlotDecorator
+    public class Plotter
     {
         List<string> xData = new List<string>();
 
@@ -30,7 +30,7 @@ namespace Phileas.Model
         /// </remarks>
         /// <param name="plotData"></param>
         /// <param name="cartesianChart"></param>
-        public void DecoratePlot(PlotData plotData, CartesianChart cartesianChart)
+        public void Plot(PlotData plotData, CartesianChart cartesianChart)
         {
             if (plotData == null || cartesianChart == null) throw new ArgumentNullException();
             if (plotData.DataPoints == null) throw new ArgumentException("There are no data point entries.");
@@ -76,7 +76,7 @@ namespace Phileas.Model
         {
             SeriesCollection.Add( new LineSeries()
                 {
-                    Title = plotData.yParameterKey,
+                    Title = plotData.YParameterKey,
                     Values = yData,
                     LineSmoothness = 0
                 });
@@ -84,11 +84,28 @@ namespace Phileas.Model
 
         private void AddDataToChart()
         {
-            for (int i = 0; i < plotData.DataPoints[plotData.xParameterKey].Count; i++)
+            this.plotData.DataPoints = CalcDataPoints(plotData.NumberOfSteps);
+
+            for (int i = 0; i < plotData.DataPoints[plotData.XParameterKey].Count; i++)
             {
-                xData.Add(plotData.DataPoints[plotData.xParameterKey][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
-                yData.Add(plotData.DataPoints[plotData.yParameterKey][i]);
+                xData.Add(plotData.DataPoints[plotData.XParameterKey][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
+                yData.Add(plotData.DataPoints[plotData.YParameterKey][i]);
             }
+        }
+
+
+        /// <summary>
+        /// Calculates all data point based on the current math model.
+        /// </summary>
+        /// <param name="numberOfSteps"></param>
+        /// <returns></returns>
+        public Dictionary<string, List<double>> CalcDataPoints(uint numberOfSteps)
+        {
+            Calculator calculator = new Calculator();
+
+            Dictionary<string, List<double>> results = calculator.Calc(App.Simulation.MathModel, numberOfSteps); // exception might thrown
+
+            return results;
         }
     }
 }
