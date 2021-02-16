@@ -2,12 +2,14 @@
 using LiveCharts;
 using LiveCharts.Uwp;
 using Phileas.Model;
+using Phileas.Views.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,56 +26,56 @@ namespace Phileas.Views.Plots
 {
     public sealed partial class BasicLineChart : UserControl
     {
-        public string Title = "Diagramm";
+        PlotData plotData = new PlotData();
 
-        string xParameter = "t";
-
-        string yParameter = "s";
-
-        uint numberOfSteps = 10;
-
-        Calculator calculator = new Calculator();
-
-        public MathModel MathModel { get; set; } = null;
-
-        List<string> xData = new List<string>();
-
-        ChartValues<double> yData = new ChartValues<double>();
-
-        SeriesCollection SeriesCollection { get; set; } = new SeriesCollection();
+        SeriesCollection SeriesCollection = new SeriesCollection();
 
         public BasicLineChart()
         {
             this.InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            LineSeries visualData = new LineSeries()
-            {
-                Title = this.Title,
-                Values = yData
-            };
-
-            CartesienChart.AxisX.Add(new Axis() { Labels = xData });
-
-            SeriesCollection.Add(visualData);
-
-            MakeChart();
-        }
-
         private void MakeChart()
         {
-            Dictionary<string, List<double>> results = calculator.Calc(App.Simulation.MathModel, numberOfSteps);
+            Plotter plotFactory = new Plotter();
+            plotFactory.Plot(App.Simulation, this.plotData, CartesienChart);
+        }
 
-            for(int i=0; i < results[xParameter].Count; i++)
+        private async void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        {
+            if (args.NewValue != null && args.NewValue as PlotData != this.plotData)
             {
-                var temp = results[xParameter];
-                xData.Add(results[xParameter][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
-                yData.Add(results[yParameter][i]);
-            }
+                this.plotData = args.NewValue as PlotData;
 
-            this.CartesienChart.Update();
+                if (plotData.XParameterKey == string.Empty)
+                {
+                    await ShowDialogAsync();
+                }
+                else
+                {
+                    MakeChart();
+                }
+            }
+        }
+
+        private async Task ShowDialogAsync()
+        {
+            if (this.plotData.XParameterKey == string.Empty)
+            {
+                PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, this.plotData);
+                await dialog.ShowAsync();
+            }
+        }
+
+        private void AppBarButton_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            App.Simulation.Plots.Remove(plotData);
+        }
+
+        private async void AppBarButton_Edit_ClickAsync(object sender, RoutedEventArgs e)
+        {
+            PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, plotData);
+            await dialog.ShowAsync();
         }
     } 
     

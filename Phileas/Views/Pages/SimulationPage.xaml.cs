@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,20 +27,27 @@ namespace Phileas.Views.Pages
     {
         public Simulation Simulation = App.Simulation;
 
-        /// <summary>
-        /// Each plot has it's specific math model, which was given, when the plot was created. 
-        /// </summary>
-        /// TODO: clone math models an decouble them from each other
-        ObservableCollection<string> plots = new ObservableCollection<string>();
-
         public SimulationPage()
         {
             this.InitializeComponent();
         }
 
-        private void AppBarButton_AddPlot_Click(object sender, RoutedEventArgs e)
+        private void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
         {
-            plots.Add("neu");
+            Plotter plotter = new Plotter();
+            PlotData plotData = new PlotData();
+
+            try
+            {
+                plotData.DataPoints = plotter.CalcDataPoints(App.Simulation,0);
+                App.Simulation.Plots.Add(plotData);
+
+                ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
+            }
         }
     }
 }

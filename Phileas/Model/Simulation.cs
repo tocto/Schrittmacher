@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Phileas.Model
 
         private readonly MathModel mathModel = new MathModel();
 
+        private readonly ObservableCollection<PlotData> plots = new ObservableCollection<PlotData>();
 
         public string Title
         {
@@ -47,10 +49,16 @@ namespace Phileas.Model
             }
         }
 
-        public MathModel MathModel { get => this.mathModel; }
+        public MathModel MathModel
+        {
+            get => this.mathModel;
+        }
+
+        public ObservableCollection<PlotData> Plots
+        {
+            get => this.plots;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-
     }
 }
