@@ -37,6 +37,8 @@ namespace Phileas.Model
 
             this.plotData = plotData;
             this.cartesianChart = cartesianChart;
+
+            cartesianChart.Series.Clear();
             this.SeriesCollection = cartesianChart.Series;
 
             MakeChart();
