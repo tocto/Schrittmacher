@@ -41,6 +41,8 @@ namespace Phileas.Views.Pages
             {
                 plotData.DataPoints = plotter.CalcDataPoints(0);
                 App.Simulation.Plots.Add(plotData);
+
+                ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
             }
             catch(Exception exception)
             {

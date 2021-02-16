@@ -78,7 +78,7 @@ namespace Phileas.Model
                 {
                     Title = plotData.YParameterKey,
                     Values = yData,
-                    LineSmoothness = 0
+                    LineSmoothness = Convert.ToDouble(plotData.IsLineSmothnessOn)
                 });
         }
 

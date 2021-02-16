@@ -25,6 +25,7 @@ namespace Phileas.Model
 
         private bool isLineSmothnessOn = false;
 
+        #region public properties
         public string Title
         {
             get => this.title;
@@ -136,6 +137,7 @@ namespace Phileas.Model
                 }
             }
         }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
