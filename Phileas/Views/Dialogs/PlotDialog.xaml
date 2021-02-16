@@ -5,6 +5,7 @@
     xmlns:local="using:Phileas.Views.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Title="Diagrammeigenschaften"
     PrimaryButtonText="Speichern"
@@ -34,7 +35,7 @@
 
         <TextBox x:Name="TextBox_xAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.XAxisTitle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
 
-        <TextBox x:Name="TextBox_NumberOfSteps" Header="Schritte" Text="{x:Bind plotData.NumberOfSteps}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="100" TextChanged="TextBox_NumberOfSteps_TextChanged" VerticalAlignment="Center"/>
+        <muxc:NumberBox x:Name="NumberBox_Steps" Header="Schritte" SpinButtonPlacementMode="Compact" Value="{x:Bind plotData.NumberOfSteps}" SmallChange="10" LargeChange="100" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="100" PlaceholderText="max. 500" ValueChanged="NumberBox_Steps_ValueChanged"/>
 
         <ToggleSwitch x:Name="ToggleSwith_LineSmothness" Header="Linienglättung" IsOn="{x:Bind plotData.IsLineSmothnessOn}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Width="100"/>
 

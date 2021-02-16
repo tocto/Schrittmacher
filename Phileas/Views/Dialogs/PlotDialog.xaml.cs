@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using MUXC = Microsoft.UI.Xaml.Controls;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -71,22 +72,15 @@ namespace Phileas.Views.Dialogs
             plotData.YAxisTitle = this.TextBox_yAxisTitle.Text;
             plotData.XParameterKey = this.ComboBox_xParamater.SelectedItem.ToString();
             plotData.YParameterKey = this.ComboBox_yParamater.SelectedItem.ToString();
-            plotData.NumberOfSteps = Convert.ToUInt32(this.TextBox_NumberOfSteps.Text) is uint number ? number : plotData.NumberOfSteps;
+            plotData.NumberOfSteps = Convert.ToUInt32(this.NumberBox_Steps.Value) is uint number ? number : plotData.NumberOfSteps;
             plotData.IsLineSmothnessOn = this.ToggleSwith_LineSmothness.IsOn;
         }
 
-        private void TextBox_NumberOfSteps_TextChanged(object sender, TextChangedEventArgs e)
+        private void NumberBox_Steps_ValueChanged(MUXC.NumberBox sender, MUXC.NumberBoxValueChangedEventArgs args)
         {
-            try
-            {
-                uint number = (uint) Math.Ceiling(Convert.ToDouble(this.TextBox_NumberOfSteps.Text));
-                number = number > 500 ? 500 : number; // TODO temp max, until calculator is optimized
-                this.TextBox_NumberOfSteps.Text =  number.ToString();
-            }
-            catch(Exception exception)
-            {
-                this.TextBox_NumberOfSteps.Text = this.plotData.NumberOfSteps.ToString();
-            }
+            uint number = (uint) Math.Ceiling(this.NumberBox_Steps.Value);
+
+            NumberBox_Steps.Value = number > 500 ? 0 : number; // because it is uint, the use is in a number circle 0 -> 500 -> 0 -> ...
         }
     }
 }
