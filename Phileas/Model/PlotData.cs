@@ -4,20 +4,30 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace Phileas.Model
 {
-    public class PlotData : INotifyPropertyChanged
+    [Serializable]
+    public class PlotData : INotifyPropertyChanged, IXmlSerializable
     {
         private string title = string.Empty;
 
         private string xAxisTitle = string.Empty;
-        
+
         private string yAxisTitle = string.Empty;
 
         private uint numberOfSteps = 100;
 
         private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
+
+        [XmlElement("DataPointOrder")]
+        public List<string> DataPointOrder
+        {
+            get => this.dataPoints.Keys.ToList();
+        }
 
         private string xParameterKey { get; set; } = string.Empty;
 
@@ -82,6 +92,7 @@ namespace Phileas.Model
             }
         }
 
+        [System.Xml.Serialization.XmlIgnore]
         public Dictionary<string, List<double>> DataPoints
         {
             get => this.dataPoints;
@@ -140,5 +151,35 @@ namespace Phileas.Model
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public XmlSchema GetSchema()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteElementString("Name", this.title);
+            writer.WriteElementString("XAxisTitle", this.xAxisTitle);
+            writer.WriteElementString("YAxisTitle", this.yAxisTitle);
+            writer.WriteElementString("XParameter", this.XParameterKey);
+            writer.WriteElementString("YParameter", this.yParameterKey);
+            writer.WriteElementString("NumberOfSteps", this.numberOfSteps.ToString());
+
+            // transfrom data point dictionary into xml tree
+            writer.WriteStartElement("DataPoints");
+
+            foreach(var key in dataPoints.Keys)
+            {
+                writer.WriteElementString(key, string.Join(",", this.dataPoints[key].ToArray()));
+            }
+
+            writer.WriteEndElement();
+        }
     }
 }

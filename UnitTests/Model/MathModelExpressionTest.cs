@@ -22,10 +22,10 @@ namespace UnitTests.Model
             string validStringExpression = name + " " + "=" + assignment + comment;
             MathModelExpression mme = new MathModelExpression();
 
-            mme.StringRepresentation = validStringExpression;
+            mme.Text = validStringExpression;
 
             Assert.AreEqual(name, mme.Name, "Name should be extracted correctly.");
-            Assert.AreEqual(assignment, mme.AssignmentExpression, "Assignment expression should be extracted correctly.");
+            Assert.AreEqual(assignment, mme.Assignment, "Assignment expression should be extracted correctly.");
             Assert.AreEqual(comment.Substring(2), mme.Note, "Comment should be set without the comment indicator '//'.");
         }
 
@@ -34,8 +34,8 @@ namespace UnitTests.Model
         {
             MathModelExpression mme = new MathModelExpression();
 
-            Assert.ThrowsException<MathModelSyntaxException>(() => mme.StringRepresentation = "s _t = 4*t");
-            Assert.ThrowsException<MathModelSyntaxException>(() => mme.StringRepresentation = "s_t = 4*t = 4");
+            Assert.ThrowsException<MathModelSyntaxException>(() => mme.Text = "s _t = 4*t");
+            Assert.ThrowsException<MathModelSyntaxException>(() => mme.Text = "s_t = 4*t = 4");
         }
 
         [TestMethod]

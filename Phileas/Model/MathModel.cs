@@ -13,9 +13,12 @@ namespace Phileas.Model
     /// <summary>
     /// A mathematic equation system holding initial values which represents a real world problem.
     /// </summary>
+    [Serializable]
     public class MathModel : MathModelStructureUnit, INotifyPropertyChanged
     {
         private string expressionsTextModel = string.Empty;
+
+        private readonly HashSet<MathModelExpression> expressions = new HashSet<MathModelExpression>();
 
         /// <summary>
         /// Keeps the user generated math model as text.
@@ -38,9 +41,7 @@ namespace Phileas.Model
         /// <summary>
         /// Holdes the isolated math model expressions which are in summary the mathematical operations and assignments of the model.
         /// </summary>
-        private readonly ObservableCollection<MathModelExpression> expressions = new ObservableCollection<MathModelExpression>();
-
-        public ObservableCollection<MathModelExpression> Expressions
+        public HashSet<MathModelExpression> Expressions
         {
             get
             {

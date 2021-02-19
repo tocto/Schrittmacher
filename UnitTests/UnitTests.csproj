@@ -120,6 +120,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataStorage\XMLWriterTest.cs" />
     <Compile Include="Model\CalculatorTest.cs" />
     <Compile Include="Model\MathModelExpressionTest.cs" />
     <Compile Include="Model\MathModelTest.cs" />

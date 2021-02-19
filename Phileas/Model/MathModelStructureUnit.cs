@@ -11,11 +11,12 @@ namespace Phileas.Model
     /// <summary>
     /// Basic math model element
     /// </summary>
+    [Serializable]
     public abstract class MathModelStructureUnit : INotifyPropertyChanged
     {
-        private string name;
+        private string name = string.Empty;
 
-        private string note;
+        private string note = string.Empty;
 
         /// <summary>
         /// This is an identifactor of the object in the math model, e.g. "x" for "x = 2".
