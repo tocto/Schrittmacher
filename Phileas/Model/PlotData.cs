@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 namespace Phileas.Model
 {
     [Serializable]
-    public class PlotData : INotifyPropertyChanged, IXmlSerializable
+    public class PlotData : INotifyPropertyChanged, IXmlSerializable, IEquatable<PlotData>
     {
         private string title = string.Empty;
 
@@ -22,12 +22,6 @@ namespace Phileas.Model
         private uint numberOfSteps = 100;
 
         private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
-
-        [XmlElement("DataPointOrder")]
-        public List<string> DataPointOrder
-        {
-            get => this.dataPoints.Keys.ToList();
-        }
 
         private string xParameterKey { get; set; } = string.Empty;
 
@@ -230,6 +224,56 @@ namespace Phileas.Model
             }
 
             writer.WriteEndElement();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as PlotData);
+        }
+
+        public bool Equals(PlotData other)
+        {
+            return other != null &&
+                   title == other.title &&
+                   xAxisTitle == other.xAxisTitle &&
+                   yAxisTitle == other.yAxisTitle &&
+                   numberOfSteps == other.numberOfSteps &&
+                   IsDataPointsEquals(other.dataPoints) &&
+                   xParameterKey == other.xParameterKey &&
+                   yParameterKey == other.yParameterKey &&
+                   isLineSmothnessOn == other.isLineSmothnessOn;
+        }
+
+        public bool IsDataPointsEquals(Dictionary<string, List<double>> other)
+        {
+            if (!this.dataPoints.Keys.Count.Equals(other.Keys.Count)) return false;
+
+            foreach(string key in this.dataPoints.Keys)
+            {
+                if (!other.Keys.Contains(key) 
+                    || !this.dataPoints[key].SequenceEqual(other[key])) 
+                    return false;
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -1119939092;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(title);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xAxisTitle);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yAxisTitle);
+            hashCode = hashCode * -1521134295 + numberOfSteps.GetHashCode();
+            foreach (string key in dataPoints.Keys)
+            {
+                hashCode = hashCode * -1521134295 + key.GetHashCode();
+                foreach (var point in dataPoints[key]) hashCode = hashCode * -1521134295 + point.GetHashCode();
+            }
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xParameterKey);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yParameterKey);
+            hashCode = hashCode * -1521134295 + isLineSmothnessOn.GetHashCode();
+            return hashCode;
         }
     }
 }

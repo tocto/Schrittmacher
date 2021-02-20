@@ -125,6 +125,7 @@
     <Compile Include="Model\CalculatorTest.cs" />
     <Compile Include="Model\MathModelExpressionTest.cs" />
     <Compile Include="Model\MathModelTest.cs" />
+    <Compile Include="Model\PlotDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestFactories\SimulationTestFactory.cs" />
     <Compile Include="UnitTestApp.xaml.cs">
