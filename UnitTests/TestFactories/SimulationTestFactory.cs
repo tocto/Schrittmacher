@@ -22,6 +22,7 @@ namespace UnitTests.TestFactories
             FillMathModel(simulation.MathModel);
 
             simulation.Plots.Add(MakePlotData());
+            simulation.Plots.Add(MakePlotData());
 
             return simulation;
         }

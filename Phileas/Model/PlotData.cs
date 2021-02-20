@@ -168,6 +168,13 @@ namespace Phileas.Model
                         break;
                 }
             }
+
+            // now move to the end of the current PlotData element (and skip all left entries, if there are some)
+            while (reader.Name != "PlotData")
+            {
+                reader.Read();
+            }
+            reader.Read(); // Move to the beginning of the next element node, so that the XMLDeserializer does know which class to call.
         }
 
         private void ReadDataPoints(XmlReader reader)
