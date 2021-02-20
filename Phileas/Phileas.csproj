@@ -120,6 +120,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataStorage\XMLReader.cs" />
     <Compile Include="DataStorage\XMLWriter.cs" />
     <Compile Include="Exceptions\IncompleteMathModelException.cs" />
     <Compile Include="Exceptions\MathModelSyntaxException.cs" />

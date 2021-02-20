@@ -159,7 +159,40 @@ namespace Phileas.Model
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            while (reader.Read())
+            {
+                switch (reader.Name)
+                {
+                    case "Name":
+                        this.title = reader.ReadContentAsString();
+                        break;
+                    case "XAxisTitle":
+                        this.XAxisTitle = reader.ReadContentAsString(); 
+                        break;
+                    case "YAxisTitle":
+                        this.YAxisTitle = reader.ReadContentAsString(); 
+                        break;
+                    case "XParameter":
+                        this.xParameterKey = reader.ReadContentAsString(); 
+                        break;
+                    case "YParameter":
+                        this.yParameterKey = reader.ReadContentAsString(); 
+                        break;
+                    case "NumberOfSteps":
+                        this.numberOfSteps = (uint) reader.ReadContentAsInt(); 
+                        break;
+                    default: break;
+                }
+
+                if (reader.Name == "DataPoints" && reader.IsStartElement())
+                {
+                    while (reader.Read())
+                    {
+                        string key = reader.Name;
+                        this.DataPoints.Add(key,reader.ReadContentAsString().Split(",").Select(double.Parse).ToList());
+                    }
+                }
+            }
         }
 
         public void WriteXml(XmlWriter writer)

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitTests.TestFactories;
 
 namespace UnitTests.DataStorage
 {
@@ -13,38 +14,25 @@ namespace UnitTests.DataStorage
     public class XMLWriterTest
     {
         [TestMethod]
-        public async Task Write_MME()
+        public async Task WriteAsync()
         {
-            var id = "XMLWriterTest";
+            Simulation simulation = SimulationTestFactory.Make();
 
-            PlotData mm = new PlotData()
-            {
-                Title = id,
-                XAxisTitle = "x-Axis",
-                YAxisTitle = "y-Axis",
-                XParameterKey = "x",
-                YParameterKey = "y",
-                NumberOfSteps = 100
-            };
-            mm.DataPoints.Add("s", new List<double>() { 0, 4 });
-            mm.DataPoints.Add("t", new List<double>() { 0, 1 });
+            var file = await XMLWriter.Write(simulation);
 
-            var file = await XMLWriter.Write(mm);
-
-            Assert.IsTrue(file.Name.StartsWith(id) && file.Name.EndsWith(".xml"), "Exported file should have the title of the simulation as name, if there are  no conflicts. However existing files with the same name should not be replaced, but a unique name should be generated.");
+            Assert.IsTrue(file.Name.StartsWith(simulation.Title) && file.Name.EndsWith(".xml"), "Exported file should have the title of the simulation as name, if there are  no conflicts. However existing files with the same name should not be replaced, but a unique name should be generated.");
         }
 
-        ////[TestMethod]
-        ////public async Task Write()
-        ////{
-        ////    var id = DateTime.Now.ToString();
+        [TestMethod]
+        public async Task WriteAsync_Excpetion()
+        {
+            // null
+            Simulation simulation = null;
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await XMLWriter.Write(simulation), "Simulation instace must not be a null refernce");
 
-        ////    Simulation simulation = new Simulation();
-        ////    simulation.Title = id;
-
-        ////    var file = await XMLWriter.Write(simulation);
-
-        ////    Assert.AreEqual(id, file.Name, "Exported file should have the title of the simulation as name, if there are  no conflicts.");
-        ////}
+            // no name
+            await Assert.ThrowsExceptionAsync<ArgumentException>(async () => await XMLWriter.Write(new Simulation()), "Simulation must have a name to be saved");
+            await Assert.ThrowsExceptionAsync<ArgumentException>(async () => await XMLWriter.Write(new Simulation() { Title = " " }), "Simulation must have a non empty name to be saved");
+        }
     }
 }
