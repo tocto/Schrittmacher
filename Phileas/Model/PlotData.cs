@@ -159,37 +159,54 @@ namespace Phileas.Model
 
         public void ReadXml(XmlReader reader)
         {
-            while (reader.Read())
+            reader.Read(); // move reader to first node
+
+            while(reader.NodeType != XmlNodeType.EndElement && !reader.Name.Equals("PlotData")) // stop if finished with PlotData instance
             {
+                if (reader.NodeType == XmlNodeType.EndElement) reader.Read(); // move to next node
+
                 switch (reader.Name)
                 {
                     case "Name":
-                        this.title = reader.ReadContentAsString();
+                        this.title = (string) reader.ReadElementContentAsString();
                         break;
                     case "XAxisTitle":
-                        this.XAxisTitle = reader.ReadContentAsString(); 
+                        this.XAxisTitle = (string)reader.ReadElementContentAsString(); 
                         break;
                     case "YAxisTitle":
-                        this.YAxisTitle = reader.ReadContentAsString(); 
+                        this.YAxisTitle = (string)reader.ReadElementContentAs(typeof(string), null); 
                         break;
                     case "XParameter":
-                        this.xParameterKey = reader.ReadContentAsString(); 
+                        this.xParameterKey = (string)reader.ReadElementContentAs(typeof(string), null); 
                         break;
                     case "YParameter":
-                        this.yParameterKey = reader.ReadContentAsString(); 
+                        this.yParameterKey = (string)reader.ReadElementContentAs(typeof(string), null); 
                         break;
                     case "NumberOfSteps":
-                        this.numberOfSteps = (uint) reader.ReadContentAsInt(); 
+                        this.numberOfSteps = (uint) reader.ReadElementContentAs(typeof(uint), null); 
                         break;
-                    default: break;
+                    case "DataPoints":
+                        ReadDataPoints(reader);
+                        break;
+                    default:
+                        reader.Read(); // skip all unknown, e.g. for obsolete elements
+                        break;
                 }
+            }
+        }
 
-                if (reader.Name == "DataPoints" && reader.IsStartElement())
+        private void ReadDataPoints(XmlReader reader)
+        {
+            if (reader.Name == "DataPoints" && reader.NodeType == XmlNodeType.Element)
+            {
+                reader.Read(); // move to first child element or end node
+
+                while (!reader.Name.Equals("DataPoints")) // stop when end is reached
                 {
-                    while (reader.Read())
+                    if (reader.NodeType == XmlNodeType.Element) // ensures skipping end element nodes
                     {
                         string key = reader.Name;
-                        this.DataPoints.Add(key,reader.ReadContentAsString().Split(",").Select(double.Parse).ToList());
+                        this.DataPoints.Add(key, reader.ReadElementContentAsString().Split(",").Select(double.Parse).ToList());
                     }
                 }
             }

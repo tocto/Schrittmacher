@@ -12,13 +12,13 @@ namespace Phileas.DataStorage
 {
     public class XMLReader
     {
-        public Simulation Read(StorageFile file)
+        public static async Task<Simulation> ReadAsync(StorageFile file)
         {
             Simulation simulation = null;
 
             System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(Simulation));
 
-            using (StreamReader stream = new StreamReader(file.Path))
+            using (var stream = await file.OpenStreamForReadAsync())
             {
                 simulation = (Simulation)reader.Deserialize(stream);
             }
