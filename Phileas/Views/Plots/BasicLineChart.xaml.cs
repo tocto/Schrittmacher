@@ -3,6 +3,7 @@ using LiveCharts;
 using LiveCharts.Uwp;
 using Phileas.Model;
 using Phileas.Views.Dialogs;
+using Phileas.Views.Pages;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -30,6 +31,8 @@ namespace Phileas.Views.Plots
 
         SeriesCollection SeriesCollection = new SeriesCollection();
 
+        public event EventHandler DeletionRequested;
+
         public BasicLineChart()
         {
             this.InitializeComponent();
@@ -37,8 +40,8 @@ namespace Phileas.Views.Plots
 
         private void MakeChart()
         {
-            Plotter plotFactory = new Plotter();
-            plotFactory.Plot(App.Simulation, this.plotData, CartesienChart);
+            Plotter plotter = new Plotter();
+            plotter.Plot(this.plotData, CartesienChart);
         }
 
         private async void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
@@ -47,7 +50,7 @@ namespace Phileas.Views.Plots
             {
                 this.plotData = args.NewValue as PlotData;
 
-                if (plotData.XParameterKey == string.Empty)
+                if (plotData.XParameter == string.Empty)
                 {
                     await ShowDialogAsync();
                 }
@@ -60,7 +63,7 @@ namespace Phileas.Views.Plots
 
         private async Task ShowDialogAsync()
         {
-            if (this.plotData.XParameterKey == string.Empty)
+            if (this.plotData.XParameter == string.Empty)
             {
                 PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, this.plotData);
                 await dialog.ShowAsync();
@@ -69,7 +72,7 @@ namespace Phileas.Views.Plots
 
         private void AppBarButton_Delete_Click(object sender, RoutedEventArgs e)
         {
-            App.Simulation.Plots.Remove(plotData);
+            DeletionRequested?.Invoke(this, null);
         }
 
         private async void AppBarButton_Edit_ClickAsync(object sender, RoutedEventArgs e)

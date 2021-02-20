@@ -63,7 +63,7 @@ namespace Phileas.Model
             {
                 if (!argumentDic.Keys.Contains(expression.Name))
                 {
-                    argumentDic.Add(expression.Name, new Argument(expression.MathExpressionString));
+                    argumentDic.Add(expression.Name, new Argument(expression.MathText));
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace Phileas.Model
         {
             foreach (var expression in this.model.Expressions)
             {
-                double value = new Expression(expression.AssignmentExpression).calculate();
+                double value = new Expression(expression.Assignment).calculate();
 
                 if (!value.Equals(double.NaN))
                 {
@@ -105,7 +105,7 @@ namespace Phileas.Model
                     if (outputDic[id].Count > stepCounter) continue; // skip if already added
 
                     // attempt to find solution
-                    string assignmentString = model.Expressions.First(s => s.Name.Equals(id)).AssignmentExpression;
+                    string assignmentString = model.Expressions.First(s => s.Name.Equals(id)).Assignment;
                     
                     Expression expression = new Expression(assignmentString, argumentDic.Values.ToArray());
                     double value = expression.calculate();

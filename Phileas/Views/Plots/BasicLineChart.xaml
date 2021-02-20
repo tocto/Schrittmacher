@@ -19,7 +19,7 @@
 
         <CommandBar HorizontalAlignment="Stretch" DefaultLabelPosition="Collapsed" Background="Transparent" VerticalContentAlignment="Center" Grid.Row="0" Margin="20,0,0,12">
             <CommandBar.Content>
-                <TextBlock x:Name="TextBox_Title" Text="{Binding Title}" FontSize="{StaticResource FontSize_Subtitle}"/>
+                <TextBlock x:Name="TextBox_Title" Text="{Binding Name}" FontSize="{StaticResource FontSize_Subtitle}"/>
             </CommandBar.Content>
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="AppBarButton_Edit" Icon="Edit" Label="Bearbeiten" Click="AppBarButton_Edit_ClickAsync"/>
@@ -29,7 +29,7 @@
             </CommandBar.SecondaryCommands>
         </CommandBar>
         
-        <lvc:CartesianChart x:Name="CartesienChart" Series="{x:Bind SeriesCollection, Mode=OneWay}" Grid.Row="2"/>
+        <lvc:CartesianChart x:Name="CartesienChart" Series="{x:Bind SeriesCollection}" Grid.Row="2"/>
 
     </Grid>
 </UserControl>

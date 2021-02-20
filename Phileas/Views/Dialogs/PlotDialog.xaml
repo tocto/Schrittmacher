@@ -17,7 +17,6 @@
             <RowDefinition Height="72"/>
             <RowDefinition Height="72"/>
             <RowDefinition Height="72"/>
-            <RowDefinition Height="72"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -25,19 +24,15 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="TextBox_Title" Header="Titel" PlaceholderText="optional" Text="{x:Bind plotData.Title}" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
+        <TextBox x:Name="TextBox_Title" Header="Titel" PlaceholderText="optional" Text="{x:Bind plotData.Name}" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
 
-        <ComboBox x:Name="ComboBox_yParamater" Header="y-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.YParameterKey}"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+        <ComboBox x:Name="ComboBox_yParamater" Header="y-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.YParameter}"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
 
         <TextBox x:Name="TextBox_yAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.YAxisTitle}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
 
-        <ComboBox x:Name="ComboBox_xParamater" Header="x-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.XParameterKey}" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+        <ComboBox x:Name="ComboBox_xParamater" Header="x-Achse" ItemsSource="{x:Bind plotData.DataPoints.Keys}" SelectedItem="{x:Bind plotData.XParameter}" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
 
         <TextBox x:Name="TextBox_xAxisTitle" Header="Beschriftung" PlaceholderText="optional" Text="{x:Bind plotData.XAxisTitle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center"/>
-
-        <muxc:NumberBox x:Name="NumberBox_Steps" Header="Schritte" SpinButtonPlacementMode="Compact" Value="{x:Bind plotData.NumberOfSteps}" SmallChange="10" LargeChange="100" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Width="100" PlaceholderText="max. 500" ValueChanged="NumberBox_Steps_ValueChanged"/>
-
-        <ToggleSwitch x:Name="ToggleSwith_LineSmothness" Header="Linienglättung" IsOn="{x:Bind plotData.IsLineSmothnessOn}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Width="100"/>
 
     </Grid>
 </ContentDialog>

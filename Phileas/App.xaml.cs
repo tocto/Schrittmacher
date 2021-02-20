@@ -1,13 +1,17 @@
-﻿using Phileas.Model;
+﻿using Phileas.DataStorage;
+using Phileas.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,7 +27,12 @@ namespace Phileas
     /// </summary>
     sealed partial class App : Application
     {
-        public static Simulation Simulation = new Simulation();
+
+        public static string SimulationsFolderName = "simulations";
+
+        public static string SimulationFileExtension = ".schrittmacher";
+
+        public static readonly  ObservableCollection<Simulation> Simulations = new ObservableCollection<Simulation>();
 
 
         /// <summary>
@@ -41,7 +50,7 @@ namespace Phileas
         /// werden z. B. verwendet, wenn die Anwendung gestartet wird, um eine bestimmte Datei zu öffnen.
         /// </summary>
         /// <param name="e">Details über Startanforderung und -prozess.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -74,6 +83,25 @@ namespace Phileas
                 }
                 // Sicherstellen, dass das aktuelle Fenster aktiv ist
                 Window.Current.Activate();
+            }
+
+            await LoadSimulationsAsync();
+        }
+
+        private async Task LoadSimulationsAsync()
+        {
+            StorageFolder simFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(App.SimulationsFolderName, CreationCollisionOption.OpenIfExists);
+
+            foreach (var file in await simFolder.GetFilesAsync())
+            {
+                try
+                {
+                    App.Simulations.Add(await XMLReader.ReadAsync(file));
+                }
+                catch
+                {
+                    // TODO inform the user about not readable file, move file to download folder and tell the user
+                }
             }
         }
 

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Phileas.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +24,8 @@ namespace Phileas.Views.Pages
     /// </summary>
     public sealed partial class LandingPage : Page
     {
+        private ObservableCollection<Simulation> simulations = App.Simulations;
+
         public LandingPage()
         {
             this.InitializeComponent();
@@ -29,12 +33,13 @@ namespace Phileas.Views.Pages
 
         private void AppBarButton_AddSimulation_Click(object sender, RoutedEventArgs e)
         {
+            
             MainPage.Navigate(typeof(SimulationPage));
         }
 
         private void ListView_Simulations_ItemClick(object sender, ItemClickEventArgs e)
         {
-            MainPage.Navigate(typeof(SimulationPage));
+            MainPage.Navigate(typeof(SimulationPage), e.ClickedItem);
         }
     }
 }

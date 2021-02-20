@@ -1,4 +1,5 @@
-﻿using Phileas.Model;
+﻿using Phileas.DataStorage;
+using Phileas.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,6 +16,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using MUXC = Microsoft.UI.Xaml.Controls;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
@@ -25,22 +27,29 @@ namespace Phileas.Views.Pages
     /// </summary>
     public sealed partial class SimulationPage : Page
     {
-        public Simulation Simulation = App.Simulation;
+        public Simulation Simulation = new Simulation();
 
         public SimulationPage()
         {
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is Simulation handedSimulation) Simulation = handedSimulation;
+        }
+
         private void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
         {
-            Plotter plotter = new Plotter();
             PlotData plotData = new PlotData();
+            uint numberOfSteps = (uint)NumberBox_Steps.Value;
 
             try
             {
-                plotData.DataPoints = plotter.CalcDataPoints(App.Simulation,0);
-                App.Simulation.Plots.Add(plotData);
+                plotData.DataPoints = new Calculator().Calc(this.Simulation.MathModel, numberOfSteps);
+                Simulation.Plots.Add(plotData);
 
                 ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
             }
@@ -48,6 +57,34 @@ namespace Phileas.Views.Pages
             {
                 Debug.WriteLine(exception.Message);
             }
+        }
+
+        private async void AppBarButton_Save_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await XMLWriter.Write(Simulation);
+                if (!App.Simulations.Contains(this.Simulation)) App.Simulations.Add(this.Simulation);
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.Message);
+            }
+        }
+
+        private void BasicLineChart_DeletionRequested(object sender, EventArgs e)
+        {
+            if ((sender as FrameworkElement).DataContext is PlotData plotData)
+            {
+                this.Simulation.Plots.Remove(plotData);
+            }
+        }
+
+        private void NumberBox_Steps_ValueChanged(MUXC.NumberBox sender, MUXC.NumberBoxValueChangedEventArgs args)
+        {
+            uint number = (uint)Math.Ceiling(this.NumberBox_Steps.Value);
+
+            NumberBox_Steps.Value = number > 500 || number < 10 ? 10 : number;
         }
     }
 }

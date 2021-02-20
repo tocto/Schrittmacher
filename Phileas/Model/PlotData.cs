@@ -4,38 +4,40 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace Phileas.Model
 {
-    public class PlotData : INotifyPropertyChanged
+    [Serializable]
+    public class PlotData : INotifyPropertyChanged, IXmlSerializable, IEquatable<PlotData>
     {
-        private string title = string.Empty;
+        private string name = string.Empty;
 
         private string xAxisTitle = string.Empty;
-        
-        private string yAxisTitle = string.Empty;
 
-        private uint numberOfSteps = 100;
+        private string yAxisTitle = string.Empty;
 
         private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
 
-        private string xParameterKey { get; set; } = string.Empty;
+        private string xParameter { get; set; } = string.Empty;
 
-        private string yParameterKey { get; set; } = string.Empty;
+        private string yParameter { get; set; } = string.Empty;
 
         private bool isLineSmothnessOn = false;
 
         #region public properties
-        public string Title
+        public string Name
         {
-            get => this.title;
+            get => this.name;
 
             set
             {
-                if (this.title != value)
+                if (this.name != value)
                 {
-                    this.title = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
+                    this.name = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
                 }
             }
         }
@@ -68,20 +70,7 @@ namespace Phileas.Model
             }
         }
 
-        public uint NumberOfSteps
-        {
-            get => this.numberOfSteps;
-
-            set
-            {
-                if (this.numberOfSteps != value)
-                {
-                    this.numberOfSteps = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("NumberOfSteps"));
-                }
-            }
-        }
-
+        [System.Xml.Serialization.XmlIgnore]
         public Dictionary<string, List<double>> DataPoints
         {
             get => this.dataPoints;
@@ -96,29 +85,29 @@ namespace Phileas.Model
             }
         }
 
-        public string XParameterKey
+        public string XParameter
         {
-            get => this.xParameterKey;
+            get => this.xParameter;
 
             set
             {
-                if (this.xParameterKey != value)
+                if (this.xParameter != value)
                 {
-                    this.xParameterKey = value;
+                    this.xParameter = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("XParameterKey"));
                 }
             }
         }
 
-        public string YParameterKey
+        public string YParameter
         {
-            get => this.yParameterKey;
+            get => this.yParameter;
 
             set
             {
-                if (this.yParameterKey != value)
+                if (this.yParameter != value)
                 {
-                    this.yParameterKey = value;
+                    this.yParameter = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("YParameterKey"));
                 }
             }
@@ -140,5 +129,131 @@ namespace Phileas.Model
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public XmlSchema GetSchema()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            reader.Read(); // move reader to first node
+
+            while(reader.NodeType != XmlNodeType.EndElement && !reader.Name.Equals("PlotData")) // stop if finished with PlotData instance
+            {
+                if (reader.NodeType == XmlNodeType.EndElement) reader.Read(); // move to next node
+
+                switch (reader.Name)
+                {
+                    case "Name":
+                        this.name = (string) reader.ReadElementContentAsString();
+                        break;
+                    case "XAxisTitle":
+                        this.XAxisTitle = (string)reader.ReadElementContentAsString(); 
+                        break;
+                    case "YAxisTitle":
+                        this.YAxisTitle = (string)reader.ReadElementContentAs(typeof(string), null); 
+                        break;
+                    case "XParameter":
+                        this.xParameter = (string)reader.ReadElementContentAs(typeof(string), null); 
+                        break;
+                    case "YParameter":
+                        this.yParameter = (string)reader.ReadElementContentAs(typeof(string), null); 
+                        break;
+                    case "DataPoints":
+                        ReadDataPoints(reader);
+                        break;
+                    default:
+                        reader.Read(); // skip all unknown, e.g. for obsolete elements
+                        break;
+                }
+            }
+        }
+
+        private void ReadDataPoints(XmlReader reader)
+        {
+            if (reader.Name == "DataPoints" && reader.NodeType == XmlNodeType.Element)
+            {
+                reader.Read(); // move to first child element or end node
+
+                while (!reader.Name.Equals("DataPoints")) // stop when end is reached
+                {
+                    if (reader.NodeType == XmlNodeType.Element) // ensures skipping end element nodes
+                    {
+                        string key = reader.Name;
+                        this.DataPoints.Add(key, reader.ReadElementContentAsString().Split(",").Select(double.Parse).ToList());
+                    }
+                }
+            }
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteElementString("Name", this.name);
+            writer.WriteElementString("XAxisTitle", this.xAxisTitle);
+            writer.WriteElementString("YAxisTitle", this.yAxisTitle);
+            writer.WriteElementString("XParameter", this.XParameter);
+            writer.WriteElementString("YParameter", this.yParameter);
+
+            // transfrom data point dictionary into xml tree
+            writer.WriteStartElement("DataPoints");
+
+            foreach(var key in dataPoints.Keys)
+            {
+                writer.WriteElementString(key, string.Join(",", this.dataPoints[key].ToArray()));
+            }
+
+            writer.WriteEndElement();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as PlotData);
+        }
+
+        public bool Equals(PlotData other)
+        {
+            return other != null &&
+                   name == other.name &&
+                   xAxisTitle == other.xAxisTitle &&
+                   yAxisTitle == other.yAxisTitle &&
+                   IsDataPointsEquals(other.dataPoints) &&
+                   xParameter == other.xParameter &&
+                   yParameter == other.yParameter &&
+                   isLineSmothnessOn == other.isLineSmothnessOn;
+        }
+
+        public bool IsDataPointsEquals(Dictionary<string, List<double>> other)
+        {
+            if (!this.dataPoints.Keys.Count.Equals(other.Keys.Count)) return false;
+
+            foreach(string key in this.dataPoints.Keys)
+            {
+                if (!other.Keys.Contains(key) 
+                    || !this.dataPoints[key].SequenceEqual(other[key])) 
+                    return false;
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -1119939092;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xAxisTitle);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yAxisTitle);
+
+            foreach (string key in dataPoints.Keys)
+            {
+                hashCode = hashCode * -1521134295 + key.GetHashCode();
+                foreach (var point in dataPoints[key]) hashCode = hashCode * -1521134295 + point.GetHashCode();
+            }
+
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xParameter);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yParameter);
+            hashCode = hashCode * -1521134295 + isLineSmothnessOn.GetHashCode();
+            return hashCode;
+        }
     }
 }

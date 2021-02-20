@@ -25,8 +25,6 @@ namespace Phileas.Model
 
         CartesianChart cartesianChart = null;
 
-        Simulation simulation;
-
         /// <summary>
         /// Updates the chart with data points.
         /// </summary>
@@ -35,13 +33,12 @@ namespace Phileas.Model
         /// </remarks>
         /// <param name="plotData"></param>
         /// <param name="cartesianChart"></param>
-        public void Plot(Simulation simulation, PlotData plotData, CartesianChart cartesianChart)
+        public void Plot(PlotData plotData, CartesianChart cartesianChart)
         {
-            if (simulation == null || plotData == null || cartesianChart == null) throw new ArgumentNullException();
+            if (plotData == null || cartesianChart == null) throw new ArgumentNullException();
             if (plotData.DataPoints == null) throw new ArgumentException("There are no data point entries.");
 
             // assign fields for global use
-            this.simulation = simulation;
             this.plotData = plotData;
             this.cartesianChart = cartesianChart;
             this.SeriesCollection = cartesianChart.Series;
@@ -64,9 +61,7 @@ namespace Phileas.Model
 
             PrepareLineSeries();
 
-            MakeData();
-
-            AddDataToChart();
+            ArrangeDataInChart();
         }
 
         private void PrepareAxis()
@@ -92,15 +87,10 @@ namespace Phileas.Model
         {
             SeriesCollection.Add( new LineSeries()
                 {
-                    Title = plotData.YParameterKey,
+                    Title = plotData.YParameter,
                     Values = yData,
                     LineSmoothness = Convert.ToDouble(plotData.IsLineSmothnessOn)
                 });
-        }
-
-        private void MakeData()
-        {
-            this.plotData.DataPoints = CalcDataPoints(this.simulation, plotData.NumberOfSteps);
         }
 
         /// <summary>
@@ -117,12 +107,12 @@ namespace Phileas.Model
             return results;
         }
 
-        private void AddDataToChart()
+        private void ArrangeDataInChart()
         {
-            for (int i = 0; i < plotData.DataPoints[plotData.XParameterKey].Count; i++)
+            for (int i = 0; i < plotData.DataPoints[plotData.XParameter].Count; i++)
             {
-                xData.Add(plotData.DataPoints[plotData.XParameterKey][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
-                yData.Add(plotData.DataPoints[plotData.YParameterKey][i]);
+                xData.Add(plotData.DataPoints[plotData.XParameter][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
+                yData.Add(plotData.DataPoints[plotData.YParameter][i]);
             }
         }
     }

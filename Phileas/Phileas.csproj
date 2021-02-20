@@ -120,6 +120,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataStorage\XMLReader.cs" />
+    <Compile Include="DataStorage\XMLWriter.cs" />
     <Compile Include="Exceptions\IncompleteMathModelException.cs" />
     <Compile Include="Exceptions\MathModelSyntaxException.cs" />
     <Compile Include="Model\PlotData.cs" />
@@ -148,7 +150,6 @@
     <Compile Include="Model\Calculator.cs" />
     <Compile Include="Model\MathModelExpression.cs" />
     <Compile Include="Model\MathModel.cs" />
-    <Compile Include="Model\MathModelStructureUnit.cs" />
     <Compile Include="Model\Simulation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
