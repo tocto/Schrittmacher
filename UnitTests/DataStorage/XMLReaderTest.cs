@@ -15,12 +15,15 @@ namespace UnitTests.DataStorage
         [TestMethod]
         public async Task ReadAsync()
         {
-            Simulation simToDeserialize = TestFactories.SimulationTestFactory.Make();
-            var xmlFile = await XMLWriter.Write(simToDeserialize);
+            Simulation simToXML = TestFactories.SimulationTestFactory.Make();
+            var xmlFile = await XMLWriter.Write(simToXML);
 
-            var simDeserialized = await XMLReader.ReadAsync(xmlFile);
+            var simFromXML = await XMLReader.ReadAsync(xmlFile);
 
-            Assert.AreEqual(simToDeserialize.Plots.First().DataPoints["x"].Count(), simDeserialized.Plots.First().DataPoints["x"].Count());
+            Assert.AreEqual(simToXML.Title, simFromXML.Title, "Name should be equal.");
+            Assert.AreEqual(simToXML.MathModel.Text, simFromXML.MathModel.Text, "Math Model text expression should be equal.");
+            Assert.IsTrue(simToXML.Plots.SequenceEqual(simFromXML.Plots), "Plot Data should be equal.");
+            // todo implement equals/getHashcode for simulation class + tests
         }
     }
 }
