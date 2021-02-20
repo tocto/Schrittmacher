@@ -44,7 +44,7 @@ namespace UnitTests.Model
             string validStringExpression = name + " " + "=" + assignment + comment;
             MathModelExpression mme = new MathModelExpression(validStringExpression);
 
-            Assert.AreEqual(name + "=" + assignment, mme.MathExpressionString, "Only the math expression without the comment should be returned.");
+            Assert.AreEqual(name + "=" + assignment, mme.MathText, "Only the math expression without the comment should be returned.");
 
         }
 

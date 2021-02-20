@@ -29,7 +29,7 @@
             </CommandBar.SecondaryCommands>
         </CommandBar>
         
-        <lvc:CartesianChart x:Name="CartesienChart" Series="{x:Bind SeriesCollection, Mode=OneWay}" Grid.Row="2"/>
+        <lvc:CartesianChart x:Name="CartesienChart" Series="{x:Bind SeriesCollection}" Grid.Row="2"/>
 
     </Grid>
 </UserControl>

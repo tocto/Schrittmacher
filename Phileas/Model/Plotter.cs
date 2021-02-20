@@ -92,7 +92,7 @@ namespace Phileas.Model
         {
             SeriesCollection.Add( new LineSeries()
                 {
-                    Title = plotData.YParameterKey,
+                    Title = plotData.YParameter,
                     Values = yData,
                     LineSmoothness = Convert.ToDouble(plotData.IsLineSmothnessOn)
                 });
@@ -119,10 +119,10 @@ namespace Phileas.Model
 
         private void AddDataToChart()
         {
-            for (int i = 0; i < plotData.DataPoints[plotData.XParameterKey].Count; i++)
+            for (int i = 0; i < plotData.DataPoints[plotData.XParameter].Count; i++)
             {
-                xData.Add(plotData.DataPoints[plotData.XParameterKey][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
-                yData.Add(plotData.DataPoints[plotData.YParameterKey][i]);
+                xData.Add(plotData.DataPoints[plotData.XParameter][i].ToString(CultureInfo.CreateSpecificCulture("de-DE")));
+                yData.Add(plotData.DataPoints[plotData.YParameter][i]);
             }
         }
     }

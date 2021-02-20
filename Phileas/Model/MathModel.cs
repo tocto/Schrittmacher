@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Phileas.Model
 {
@@ -14,11 +15,13 @@ namespace Phileas.Model
     /// A mathematic equation system holding initial values which represents a real world problem.
     /// </summary>
     [Serializable]
-    public class MathModel : MathModelStructureUnit, INotifyPropertyChanged
+    public class MathModel : INotifyPropertyChanged
     {
         private string expressionsTextModel = string.Empty;
 
         private readonly HashSet<MathModelExpression> expressions = new HashSet<MathModelExpression>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Keeps the user generated math model as text.
@@ -33,7 +36,7 @@ namespace Phileas.Model
                 {
                     this.expressionsTextModel = value;
                     UpdateExpressions();
-                    NotifyPropertyChanged();
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Text"));
                 }
             }
         }
@@ -41,6 +44,7 @@ namespace Phileas.Model
         /// <summary>
         /// Holdes the isolated math model expressions which are in summary the mathematical operations and assignments of the model.
         /// </summary>
+        [XmlIgnore]
         public HashSet<MathModelExpression> Expressions
         {
             get

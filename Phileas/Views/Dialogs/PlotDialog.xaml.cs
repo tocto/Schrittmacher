@@ -58,7 +58,7 @@ namespace Phileas.Views.Dialogs
                 {
                     plotter.Plot(App.Simulation, plotData, cartesianChart);
                 }
-                catch (Exception e)
+                catch
                 {
                     // do nothing
                 }
@@ -67,11 +67,11 @@ namespace Phileas.Views.Dialogs
 
         private void UpdatePlotDataProperties()
         {
-            plotData.Title = this.TextBox_Title.Text;
+            plotData.Name = this.TextBox_Title.Text;
             plotData.XAxisTitle = this.TextBox_xAxisTitle.Text;
             plotData.YAxisTitle = this.TextBox_yAxisTitle.Text;
-            plotData.XParameterKey = this.ComboBox_xParamater.SelectedItem.ToString();
-            plotData.YParameterKey = this.ComboBox_yParamater.SelectedItem.ToString();
+            plotData.XParameter = this.ComboBox_xParamater.SelectedItem.ToString();
+            plotData.YParameter = this.ComboBox_yParamater.SelectedItem.ToString();
             plotData.NumberOfSteps = Convert.ToUInt32(this.NumberBox_Steps.Value) is uint number ? number : plotData.NumberOfSteps;
             plotData.IsLineSmothnessOn = this.ToggleSwith_LineSmothness.IsOn;
         }

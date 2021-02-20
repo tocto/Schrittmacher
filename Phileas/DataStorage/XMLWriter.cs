@@ -11,14 +11,22 @@ namespace Phileas.DataStorage
 {
     public class XMLWriter
     {
-        public static async Task<StorageFile> Write(Simulation simulation)
+        public static async Task<StorageFile> Write(Simulation simulation, StorageFile file = null)
         {
             if (simulation == null) throw new ArgumentNullException();
-            if (simulation.Title == null || simulation.Title.Trim().Equals(string.Empty)) throw new ArgumentException("No name given.");
+            if (simulation.Name == null || simulation.Name.Trim().Equals(string.Empty)) throw new ArgumentException("No name given.");
+
+            if (file == null)
+            {
+                StorageFolder simulationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("simulations", CreationCollisionOption.OpenIfExists);
+                file = await simulationFolder.CreateFileAsync(simulation.Name + ".xml", CreationCollisionOption.GenerateUniqueName);
+            }
+            else if (!file.Name.EndsWith(".xml"))
+            {
+                await file.RenameAsync(file.Name + ".xml");
+            }
 
             System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Simulation));
-
-            StorageFile file = await DownloadsFolder.CreateFileAsync(simulation.Title + ".xml", CreationCollisionOption.GenerateUniqueName);
 
             using (var stream = await file.OpenStreamForWriteAsync())
             {

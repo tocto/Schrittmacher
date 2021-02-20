@@ -14,6 +14,8 @@ namespace Phileas.DataStorage
     {
         public static async Task<Simulation> ReadAsync(StorageFile file)
         {
+            if (file == null) throw new ArgumentNullException();
+
             Simulation simulation = null;
 
             System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(Simulation));

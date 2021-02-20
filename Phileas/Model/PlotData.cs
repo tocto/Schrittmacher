@@ -13,7 +13,7 @@ namespace Phileas.Model
     [Serializable]
     public class PlotData : INotifyPropertyChanged, IXmlSerializable, IEquatable<PlotData>
     {
-        private string title = string.Empty;
+        private string name = string.Empty;
 
         private string xAxisTitle = string.Empty;
 
@@ -23,23 +23,23 @@ namespace Phileas.Model
 
         private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
 
-        private string xParameterKey { get; set; } = string.Empty;
+        private string xParameter { get; set; } = string.Empty;
 
-        private string yParameterKey { get; set; } = string.Empty;
+        private string yParameter { get; set; } = string.Empty;
 
         private bool isLineSmothnessOn = false;
 
         #region public properties
-        public string Title
+        public string Name
         {
-            get => this.title;
+            get => this.name;
 
             set
             {
-                if (this.title != value)
+                if (this.name != value)
                 {
-                    this.title = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
+                    this.name = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
                 }
             }
         }
@@ -101,29 +101,29 @@ namespace Phileas.Model
             }
         }
 
-        public string XParameterKey
+        public string XParameter
         {
-            get => this.xParameterKey;
+            get => this.xParameter;
 
             set
             {
-                if (this.xParameterKey != value)
+                if (this.xParameter != value)
                 {
-                    this.xParameterKey = value;
+                    this.xParameter = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("XParameterKey"));
                 }
             }
         }
 
-        public string YParameterKey
+        public string YParameter
         {
-            get => this.yParameterKey;
+            get => this.yParameter;
 
             set
             {
-                if (this.yParameterKey != value)
+                if (this.yParameter != value)
                 {
-                    this.yParameterKey = value;
+                    this.yParameter = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("YParameterKey"));
                 }
             }
@@ -162,7 +162,7 @@ namespace Phileas.Model
                 switch (reader.Name)
                 {
                     case "Name":
-                        this.title = (string) reader.ReadElementContentAsString();
+                        this.name = (string) reader.ReadElementContentAsString();
                         break;
                     case "XAxisTitle":
                         this.XAxisTitle = (string)reader.ReadElementContentAsString(); 
@@ -171,10 +171,10 @@ namespace Phileas.Model
                         this.YAxisTitle = (string)reader.ReadElementContentAs(typeof(string), null); 
                         break;
                     case "XParameter":
-                        this.xParameterKey = (string)reader.ReadElementContentAs(typeof(string), null); 
+                        this.xParameter = (string)reader.ReadElementContentAs(typeof(string), null); 
                         break;
                     case "YParameter":
-                        this.yParameterKey = (string)reader.ReadElementContentAs(typeof(string), null); 
+                        this.yParameter = (string)reader.ReadElementContentAs(typeof(string), null); 
                         break;
                     case "NumberOfSteps":
                         this.numberOfSteps = (uint) reader.ReadElementContentAs(typeof(uint), null); 
@@ -208,11 +208,11 @@ namespace Phileas.Model
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteElementString("Name", this.title);
+            writer.WriteElementString("Name", this.name);
             writer.WriteElementString("XAxisTitle", this.xAxisTitle);
             writer.WriteElementString("YAxisTitle", this.yAxisTitle);
-            writer.WriteElementString("XParameter", this.XParameterKey);
-            writer.WriteElementString("YParameter", this.yParameterKey);
+            writer.WriteElementString("XParameter", this.XParameter);
+            writer.WriteElementString("YParameter", this.yParameter);
             writer.WriteElementString("NumberOfSteps", this.numberOfSteps.ToString());
 
             // transfrom data point dictionary into xml tree
@@ -234,13 +234,13 @@ namespace Phileas.Model
         public bool Equals(PlotData other)
         {
             return other != null &&
-                   title == other.title &&
+                   name == other.name &&
                    xAxisTitle == other.xAxisTitle &&
                    yAxisTitle == other.yAxisTitle &&
                    numberOfSteps == other.numberOfSteps &&
                    IsDataPointsEquals(other.dataPoints) &&
-                   xParameterKey == other.xParameterKey &&
-                   yParameterKey == other.yParameterKey &&
+                   xParameter == other.xParameter &&
+                   yParameter == other.yParameter &&
                    isLineSmothnessOn == other.isLineSmothnessOn;
         }
 
@@ -261,7 +261,7 @@ namespace Phileas.Model
         public override int GetHashCode()
         {
             int hashCode = -1119939092;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(title);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xAxisTitle);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yAxisTitle);
             hashCode = hashCode * -1521134295 + numberOfSteps.GetHashCode();
@@ -270,8 +270,8 @@ namespace Phileas.Model
                 hashCode = hashCode * -1521134295 + key.GetHashCode();
                 foreach (var point in dataPoints[key]) hashCode = hashCode * -1521134295 + point.GetHashCode();
             }
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xParameterKey);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yParameterKey);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xParameter);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yParameter);
             hashCode = hashCode * -1521134295 + isLineSmothnessOn.GetHashCode();
             return hashCode;
         }

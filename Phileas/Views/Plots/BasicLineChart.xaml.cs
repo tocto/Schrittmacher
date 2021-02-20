@@ -47,7 +47,7 @@ namespace Phileas.Views.Plots
             {
                 this.plotData = args.NewValue as PlotData;
 
-                if (plotData.XParameterKey == string.Empty)
+                if (plotData.XParameter == string.Empty)
                 {
                     await ShowDialogAsync();
                 }
@@ -60,7 +60,7 @@ namespace Phileas.Views.Plots
 
         private async Task ShowDialogAsync()
         {
-            if (this.plotData.XParameterKey == string.Empty)
+            if (this.plotData.XParameter == string.Empty)
             {
                 PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, this.plotData);
                 await dialog.ShowAsync();

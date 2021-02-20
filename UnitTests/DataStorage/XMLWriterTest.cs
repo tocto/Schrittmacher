@@ -20,7 +20,7 @@ namespace UnitTests.DataStorage
 
             var file = await XMLWriter.Write(simulation);
 
-            Assert.IsTrue(file.Name.StartsWith(simulation.Title) && file.Name.EndsWith(".xml"), "Exported file should have the title of the simulation as name, if there are  no conflicts. However existing files with the same name should not be replaced, but a unique name should be generated.");
+            Assert.IsTrue(file.Name.StartsWith(simulation.Name) && file.Name.EndsWith(".xml"), "Exported file should have the title of the simulation as name, if there are  no conflicts. However existing files with the same name should not be replaced, but a unique name should be generated.");
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace UnitTests.DataStorage
 
             // no name
             await Assert.ThrowsExceptionAsync<ArgumentException>(async () => await XMLWriter.Write(new Simulation()), "Simulation must have a name to be saved");
-            await Assert.ThrowsExceptionAsync<ArgumentException>(async () => await XMLWriter.Write(new Simulation() { Title = " " }), "Simulation must have a non empty name to be saved");
+            await Assert.ThrowsExceptionAsync<ArgumentException>(async () => await XMLWriter.Write(new Simulation() { Name = " " }), "Simulation must have a non empty name to be saved");
         }
     }
 }

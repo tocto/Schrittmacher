@@ -30,16 +30,12 @@ namespace UnitTests.TestFactories
         {
             string simId = DateTime.Now.Ticks.ToString();
 
-            simulation.Title = "Simulation " + simId;
+            simulation.Name = "Simulation " + simId;
             simulation.Note = "Note " + simId;
         }
 
         private static void FillMathModel(MathModel mathModel)
         {
-            string mmId = DateTime.Now.ToString();
-
-            mathModel.Name = "MathModel " + mmId;
-            mathModel.Note = "Note " + mmId;
             mathModel.Text = "y = x \n x = 1";
         }
 
@@ -47,19 +43,19 @@ namespace UnitTests.TestFactories
         {
             PlotData data = new PlotData()
             {
-                Title = "Diagram title",
+                Name = "Diagram title",
                 XAxisTitle = "x-Axis",
                 YAxisTitle = "y-Axis",
-                XParameterKey = "x",
-                YParameterKey = "y",
+                XParameter = "x",
+                YParameter = "y",
                 NumberOfSteps = 10
             };
 
             List<double> dataPoints = new List<double>();
             for (int i = 0; i < data.NumberOfSteps; i++) dataPoints.Add(1);
 
-            data.DataPoints.Add(data.XParameterKey, dataPoints.ToList()); // .toList() ensures unique instances
-            data.DataPoints.Add(data.YParameterKey, dataPoints.ToList());
+            data.DataPoints.Add(data.XParameter, dataPoints.ToList()); // .toList() ensures unique instances
+            data.DataPoints.Add(data.YParameter, dataPoints.ToList());
 
             return data;
         }

@@ -24,36 +24,36 @@ namespace UnitTests.Model
         {
             data = new PlotData()
             {
-                Title = "equal",
-                XParameterKey = "x",
-                YParameterKey = "y",
+                Name = "equal",
+                XParameter = "x",
+                YParameter = "y",
                 XAxisTitle = "x",
                 YAxisTitle = "y"
             };
 
             dataEqual = new PlotData()
             {
-                Title = "equal",
-                XParameterKey = "x",
-                YParameterKey = "y",
+                Name = "equal",
+                XParameter = "x",
+                YParameter = "y",
                 XAxisTitle = "x",
                 YAxisTitle = "y"
             };
 
             dataEqual2 = new PlotData()
             {
-                Title = "equal",
-                XParameterKey = "x",
-                YParameterKey = "y",
+                Name = "equal",
+                XParameter = "x",
+                YParameter = "y",
                 XAxisTitle = "x",
                 YAxisTitle = "y"
             };
 
             dataNotEqual = new PlotData()
             {
-                Title = "equal",
-                XParameterKey = "x",
-                YParameterKey = "y",
+                Name = "equal",
+                XParameter = "x",
+                YParameter = "y",
                 XAxisTitle = "x",
                 YAxisTitle = "y"
             };

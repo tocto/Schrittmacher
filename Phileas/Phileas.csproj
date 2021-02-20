@@ -150,7 +150,6 @@
     <Compile Include="Model\Calculator.cs" />
     <Compile Include="Model\MathModelExpression.cs" />
     <Compile Include="Model\MathModel.cs" />
-    <Compile Include="Model\MathModelStructureUnit.cs" />
     <Compile Include="Model\Simulation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

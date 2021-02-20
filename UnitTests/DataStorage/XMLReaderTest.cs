@@ -20,10 +20,17 @@ namespace UnitTests.DataStorage
 
             var simFromXML = await XMLReader.ReadAsync(xmlFile);
 
-            Assert.AreEqual(simToXML.Title, simFromXML.Title, "Name should be equal.");
+            Assert.AreEqual(simToXML.Name, simFromXML.Name, "Name should be equal.");
             Assert.AreEqual(simToXML.MathModel.Text, simFromXML.MathModel.Text, "Math Model text expression should be equal.");
+            Assert.AreEqual(simToXML.MathModel.Expressions.Count, simFromXML.MathModel.Expressions.Count, "Math model expresions should be updated when math model has been deserialized.");
             Assert.IsTrue(simToXML.Plots.SequenceEqual(simFromXML.Plots), "Plot Data should be equal.");
             // todo implement equals/getHashcode for simulation class + tests
+        }
+
+        [TestMethod]
+        public async Task ReadAsync_Exception()
+        {
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await XMLReader.ReadAsync(null));
         }
     }
 }

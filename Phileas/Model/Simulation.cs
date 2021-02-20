@@ -11,9 +11,10 @@ namespace Phileas.Model
     /// <summary>
     /// Base class for any numeric approximation.
     /// </summary>
+    [Serializable]
     public class Simulation : INotifyPropertyChanged
     {
-        private string title = string.Empty;
+        private string name = string.Empty;
 
         private string note = string.Empty;
 
@@ -21,16 +22,16 @@ namespace Phileas.Model
 
         private readonly ObservableCollection<PlotData> plots = new ObservableCollection<PlotData>();
 
-        public string Title
+        public string Name
         {
-            get => this.title;
+            get => this.name;
 
             set
             {
-                if (value != title)
+                if (value != name)
                 {
-                    this.title = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Title"));
+                    this.name = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
                 }
             }
         }

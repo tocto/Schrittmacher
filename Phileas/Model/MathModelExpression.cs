@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,11 +14,54 @@ namespace Phileas.Model
     /// A mathematical expression which assignes a value or formular to a target variable.
     /// </summary>
     [Serializable]
-    public class MathModelExpression : MathModelStructureUnit
+    public class MathModelExpression : INotifyPropertyChanged
     {
+        private string name = string.Empty;
+
+        private string note = string.Empty;
+
         private string text = string.Empty;
 
         private string assignment = string.Empty;
+
+        /// <summary>
+        /// This is an identifactor of the object in the math model, e.g. "x" for "x = 2".
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+            set
+            {
+                if (value != name)
+                {
+                    name = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Keeps additional information about the object.
+        /// </summary>
+        public string Note
+        {
+            get
+            {
+                return this.note;
+            }
+
+            set
+            {
+                if (value != this.note)
+                {
+                    this.note = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// The complete  string representation of this object including comments, e.g. "s = v * t" or "x = 1.5 // this is a comment".
@@ -42,7 +87,7 @@ namespace Phileas.Model
         /// <summary>
         /// The math expression of this object excluding comments. Only assigned variable an the calculation term will be return, e.g. "x = 1.5".
         /// </summary>
-        public string MathExpressionString
+        public string MathText
         {
             get => this.Name + "=" + this.Assignment;
         }
@@ -64,6 +109,11 @@ namespace Phileas.Model
             }
         }
 
+        // This method is called by the Set accessor of each property.  
+        // The CallerMemberName attribute that is applied to the optional propertyName  
+        // parameter causes the property name of the caller to be substituted as an argument.
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public MathModelExpression() : base()
         {
 
@@ -72,6 +122,11 @@ namespace Phileas.Model
         public MathModelExpression(string stringExpression) : base()
         {
             this.Text = stringExpression;
+        }
+
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void UpdateNameAndAssignment()

@@ -63,7 +63,7 @@ namespace Phileas.Model
             {
                 if (!argumentDic.Keys.Contains(expression.Name))
                 {
-                    argumentDic.Add(expression.Name, new Argument(expression.MathExpressionString));
+                    argumentDic.Add(expression.Name, new Argument(expression.MathText));
                 }
             }
         }
