@@ -42,13 +42,9 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" FontSize="{StaticResource FontSize_Subtitle}" Grid.Column="0" TextWrapping="Wrap"/>
-                        <TextBlock Text="Letzte Bearbietung: DD.MM.YYYY" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        <StackPanel Orientation="Horizontal" Grid.Column="2" Spacing="20">
-                            <Grid Height="80" Width="120" Background="Silver"/>
-                            <Grid Height="80" Width="120" Background="Silver"/>
-                            <Grid Height="80" Width="120" Background="Silver"/>
-                        </StackPanel>
+                        <TextBlock Text="{Binding Name}" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Top" Grid.Column="0" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="Letzte Bearbietung: DD.MM.YYYY" Grid.Column="1" Margin="24,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -10,7 +10,7 @@
 
     <Grid>
         <NavigationView x:Name="NavigationView"
-                        IsSettingsVisible="True" 
+                        IsSettingsVisible="False" 
                         IsPaneOpen="False"
                         PaneDisplayMode="LeftCompact"
                         IsBackButtonVisible="Collapsed"
