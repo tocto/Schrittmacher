@@ -39,6 +39,8 @@ namespace Phileas.Views.Pages
             base.OnNavigatedTo(e);
 
             if (e.Parameter is Simulation handedSimulation) Simulation = handedSimulation;
+
+            Bindings.Update();
         }
 
         private void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)

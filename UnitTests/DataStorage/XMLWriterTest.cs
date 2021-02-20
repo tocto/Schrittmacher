@@ -24,7 +24,18 @@ namespace UnitTests.DataStorage
         }
 
         [TestMethod]
-        public async Task WriteAsync_Excpetion()
+        public async Task WriteAsync_NoDuplicates()
+        {
+            Simulation simulation = SimulationTestFactory.Make();
+
+            var file = await XMLWriter.Write(simulation);
+            var file2 = await XMLWriter.Write(simulation);
+
+            Assert.AreEqual(file.Path, file2.Path, "Saving the same simulation should overwrite the file and not create duplicates.");
+        }
+
+        [TestMethod]
+        public async Task WriteAsync_Exception()
         {
             // null
             Simulation simulation = null;

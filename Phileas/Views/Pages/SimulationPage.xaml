@@ -48,7 +48,7 @@
 
         <SplitView OpenPaneLength="400" IsPaneOpen="True" DisplayMode="Inline" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8">
             <SplitView.Pane>
-                <usercontrols:MathModelView MathModel="{x:Bind Simulation.MathModel}"/>
+                <usercontrols:MathModelView DataContext="{x:Bind Simulation.MathModel,Mode=OneWay}"/>
             </SplitView.Pane>
 
             <SplitView.Content>

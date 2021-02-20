@@ -23,6 +23,7 @@ namespace UnitTests.DataStorage
             Assert.AreEqual(simToXML.Name, simFromXML.Name, "Name should be equal.");
             Assert.AreEqual(simToXML.MathModel.Text, simFromXML.MathModel.Text, "Math Model text expression should be equal.");
             Assert.AreEqual(simToXML.MathModel.Expressions.Count, simFromXML.MathModel.Expressions.Count, "Math model expresions should be updated when math model has been deserialized.");
+            Assert.AreEqual(simToXML.Plots.Count, simFromXML.Plots.Count, "Number of saved and read plot data must be equal.");
             Assert.IsTrue(simToXML.Plots.SequenceEqual(simFromXML.Plots), "Plot Data should be equal.");
             // todo implement equals/getHashcode for simulation class + tests
         }
