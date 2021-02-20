@@ -20,22 +20,14 @@ namespace Phileas.Views.UserControls
 {
     public sealed partial class MathModelView : UserControl
     {
-        public MathModel MathModel { get; set; } = new MathModel();
-
         public MathModelView()
         {
             this.InitializeComponent();
         }
 
-        private void AppBarButton_AddExpression_Click(object sender, RoutedEventArgs e)
+        private void TextBox_MathModelExpressions_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            MathModel.Expressions.Add(new MathModelExpression());
-        }
 
-        private void AppBarButton_DeleteMathModelExpression_Click(object sender, RoutedEventArgs e)
-        {
-            var expression = (sender as FrameworkElement).DataContext as MathModelExpression;
-            if (expression != null) this.MathModel.Expressions.Remove(expression);
         }
     }
 }
