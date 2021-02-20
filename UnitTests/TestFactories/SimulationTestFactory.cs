@@ -48,11 +48,10 @@ namespace UnitTests.TestFactories
                 YAxisTitle = "y-Axis",
                 XParameter = "x",
                 YParameter = "y",
-                NumberOfSteps = 10
             };
 
             List<double> dataPoints = new List<double>();
-            for (int i = 0; i < data.NumberOfSteps; i++) dataPoints.Add(1);
+            for (int i = 0; i < 10; i++) dataPoints.Add(1);
 
             data.DataPoints.Add(data.XParameter, dataPoints.ToList()); // .toList() ensures unique instances
             data.DataPoints.Add(data.YParameter, dataPoints.ToList());

@@ -18,12 +18,12 @@ namespace Phileas.DataStorage
 
             if (file == null)
             {
-                StorageFolder simulationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("simulations", CreationCollisionOption.OpenIfExists);
-                file = await simulationFolder.CreateFileAsync(simulation.Name + ".xml", CreationCollisionOption.GenerateUniqueName);
+                StorageFolder simulationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(App.SimulationsFolderName, CreationCollisionOption.OpenIfExists);
+                file = await simulationFolder.CreateFileAsync(simulation.Name + App.SimulationFileExtension, CreationCollisionOption.GenerateUniqueName);
             }
-            else if (!file.Name.EndsWith(".xml"))
+            else if (!file.Name.EndsWith(App.SimulationFileExtension))
             {
-                await file.RenameAsync(file.Name + ".xml");
+                await file.RenameAsync(file.Name + App.SimulationFileExtension);
             }
 
             System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(Simulation));

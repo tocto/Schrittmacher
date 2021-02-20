@@ -19,8 +19,6 @@ namespace Phileas.Model
 
         private string yAxisTitle = string.Empty;
 
-        private uint numberOfSteps = 100;
-
         private Dictionary<string, List<double>> dataPoints = new Dictionary<string, List<double>>();
 
         private string xParameter { get; set; } = string.Empty;
@@ -68,20 +66,6 @@ namespace Phileas.Model
                 {
                     this.yAxisTitle = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("YAxisTitle"));
-                }
-            }
-        }
-
-        public uint NumberOfSteps
-        {
-            get => this.numberOfSteps;
-
-            set
-            {
-                if (this.numberOfSteps != value)
-                {
-                    this.numberOfSteps = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("NumberOfSteps"));
                 }
             }
         }
@@ -176,9 +160,6 @@ namespace Phileas.Model
                     case "YParameter":
                         this.yParameter = (string)reader.ReadElementContentAs(typeof(string), null); 
                         break;
-                    case "NumberOfSteps":
-                        this.numberOfSteps = (uint) reader.ReadElementContentAs(typeof(uint), null); 
-                        break;
                     case "DataPoints":
                         ReadDataPoints(reader);
                         break;
@@ -213,7 +194,6 @@ namespace Phileas.Model
             writer.WriteElementString("YAxisTitle", this.yAxisTitle);
             writer.WriteElementString("XParameter", this.XParameter);
             writer.WriteElementString("YParameter", this.yParameter);
-            writer.WriteElementString("NumberOfSteps", this.numberOfSteps.ToString());
 
             // transfrom data point dictionary into xml tree
             writer.WriteStartElement("DataPoints");
@@ -237,7 +217,6 @@ namespace Phileas.Model
                    name == other.name &&
                    xAxisTitle == other.xAxisTitle &&
                    yAxisTitle == other.yAxisTitle &&
-                   numberOfSteps == other.numberOfSteps &&
                    IsDataPointsEquals(other.dataPoints) &&
                    xParameter == other.xParameter &&
                    yParameter == other.yParameter &&
@@ -264,12 +243,13 @@ namespace Phileas.Model
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xAxisTitle);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yAxisTitle);
-            hashCode = hashCode * -1521134295 + numberOfSteps.GetHashCode();
+
             foreach (string key in dataPoints.Keys)
             {
                 hashCode = hashCode * -1521134295 + key.GetHashCode();
                 foreach (var point in dataPoints[key]) hashCode = hashCode * -1521134295 + point.GetHashCode();
             }
+
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(xParameter);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(yParameter);
             hashCode = hashCode * -1521134295 + isLineSmothnessOn.GetHashCode();

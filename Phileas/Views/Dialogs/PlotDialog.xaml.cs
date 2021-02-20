@@ -56,7 +56,7 @@ namespace Phileas.Views.Dialogs
                 Plotter plotter = new Plotter();
                 try
                 {
-                    plotter.Plot(App.Simulation, plotData, cartesianChart);
+                    plotter.Plot(plotData, cartesianChart);
                 }
                 catch
                 {
@@ -72,15 +72,8 @@ namespace Phileas.Views.Dialogs
             plotData.YAxisTitle = this.TextBox_yAxisTitle.Text;
             plotData.XParameter = this.ComboBox_xParamater.SelectedItem.ToString();
             plotData.YParameter = this.ComboBox_yParamater.SelectedItem.ToString();
-            plotData.NumberOfSteps = Convert.ToUInt32(this.NumberBox_Steps.Value) is uint number ? number : plotData.NumberOfSteps;
-            plotData.IsLineSmothnessOn = this.ToggleSwith_LineSmothness.IsOn;
-        }
-
-        private void NumberBox_Steps_ValueChanged(MUXC.NumberBox sender, MUXC.NumberBoxValueChangedEventArgs args)
-        {
-            uint number = (uint) Math.Ceiling(this.NumberBox_Steps.Value);
-
-            NumberBox_Steps.Value = number > 500 ? 0 : number; // because it is uint, the use is in a number circle 0 -> 500 -> 0 -> ...
+            //plotData.NumberOfSteps = Convert.ToUInt32(this.NumberBox_Steps.Value) is uint number ? number : plotData.NumberOfSteps;
+            //plotData.IsLineSmothnessOn = this.ToggleSwith_LineSmothness.IsOn;
         }
     }
 }
