@@ -24,10 +24,5 @@ namespace Phileas.Views.UserControls
         {
             this.InitializeComponent();
         }
-
-        private void TextBox_MathModelExpressions_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
-        {
-
-        }
     }
 }

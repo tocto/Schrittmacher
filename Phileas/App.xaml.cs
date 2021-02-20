@@ -30,7 +30,7 @@ namespace Phileas
 
         public static string SimulationsFolderName = "simulations";
 
-        public static string SimulationFileExtension = ".schrittmacher";
+        public static string SimulationFileExtension = ".philogg";
 
         public static readonly  ObservableCollection<Simulation> Simulations = new ObservableCollection<Simulation>();
 

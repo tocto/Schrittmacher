@@ -18,6 +18,8 @@ namespace Phileas.Model
 
         private string note = string.Empty;
 
+        private string path = string.Empty;
+
         private MathModel mathModel = new MathModel(); // not readonly because serialization is simpler this way (readonly does not serialize using the default serializer)
 
         private readonly ObservableCollection<PlotData> plots = new ObservableCollection<PlotData>();
@@ -46,6 +48,20 @@ namespace Phileas.Model
                 {
                     this.note = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Note"));
+                }
+            }
+        }
+
+        public string Path
+        {
+            get => this.path;
+
+            set
+            {
+                if (this.path != value)
+                {
+                    this.path = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Path"));
                 }
             }
         }
