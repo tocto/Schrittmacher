@@ -53,7 +53,7 @@ namespace Phileas.Views.Dialogs
 
             if (this.plotData != null && this.cartesianChart != null)
             {
-                Plotter plotter = new Plotter();
+                PlotDecorator plotter = new PlotDecorator();
                 try
                 {
                     plotter.Plot(plotData, cartesianChart);

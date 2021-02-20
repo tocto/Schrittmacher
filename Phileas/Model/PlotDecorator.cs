@@ -13,7 +13,7 @@ namespace Phileas.Model
     /// <summary>
     /// Fills a chart with data.
     /// </summary>
-    public class Plotter
+    public class PlotDecorator
     {
         List<string> xData = new List<string>();
 

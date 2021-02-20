@@ -40,13 +40,13 @@ namespace Phileas.Views.Plots
 
         private void MakeChart()
         {
-            Plotter plotter = new Plotter();
+            PlotDecorator plotter = new PlotDecorator();
             plotter.Plot(this.plotData, CartesienChart);
         }
 
         private async void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            if (args.NewValue != null && args.NewValue as PlotData != this.plotData)
+            if (args.NewValue != null && args.NewValue is PlotData data && data != this.plotData)
             {
                 this.plotData = args.NewValue as PlotData;
 
