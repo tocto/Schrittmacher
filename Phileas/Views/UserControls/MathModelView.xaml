@@ -5,6 +5,7 @@
     xmlns:local="using:Schrittmacher.Views.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     d:DesignHeight="800"
     d:DesignWidth="400">
@@ -22,11 +23,16 @@
         </CommandBar>
 
         <TextBox x:Name="TextBox_MathModelExpressions" 
-                 Grid.Row="1" Margin="8" MinHeight="200"
+                 Grid.Row="1" Margin="8" Padding="8,8,8,48" MinHeight="200"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                  AcceptsReturn="True" IsSpellCheckEnabled="False"
                  Text="{Binding Text, Mode=TwoWay}"
-                 PlaceholderText="// BEZIEHUNGEN der Größen zueinander, z.B. &#x0d; s = v * t &#x0d; t = t + dt &#x0d; &#x0d; // ANFANGSWERTE &#x0d; v = 10 &#x0d; t = 0 &#x0d; dt = 0.1 // Dezimalzahlen mit &quot;.&quot; trennen &#x0d; &#x0d; // KOMMENTARE immer mit '//' einleiten. &#x0d; // keine Umlaute verwenden (ö,ä,ü)">
+                 TextChanged="TextBox_MathModelExpressions_TextChanged"
+                 PlaceholderText="// BEZIEHUNGEN der Größen zueinander, z.B. &#x0d; s = v * t &#x0d; t = t + dt &#x0d; &#x0d; // ANFANGSWERTE &#x0d; v = 10 &#x0d; t = 0 &#x0d; dt = 0.1 // Dezimalzahlen mit &quot;.&quot; trennen &#x0d; &#x0d; // KOMMENTARE immer mit '//' einleiten. &#x0d; // keine Umlaute verwenden (ö,ä,ü)"
+                 Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         </TextBox>
+
+        <muxc:InfoBar x:Name="InfoBar_Validation" Message="Syntax-Fehler festegestellt" VerticalAlignment="Bottom" Grid.Row="1" Margin="12" Background="Orange"/>
 
     </Grid>
 </UserControl>

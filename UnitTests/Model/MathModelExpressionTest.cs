@@ -39,12 +39,19 @@ namespace UnitTests.Model
         }
 
         [TestMethod]
-        public void MathExpressionString()
+        public void MathText()
         {
+            string invalidMathStringEmpty = "";
+            string invalidMathStringSpacesOnly = "  ";
+            string invalidMathStringComment = "// just comment";
             string validStringExpression = name + " " + "=" + assignment + comment;
-            MathModelExpression mme = new MathModelExpression(validStringExpression);
 
-            Assert.AreEqual(name + "=" + assignment, mme.MathText, "Only the math expression without the comment should be returned.");
+            Assert.AreEqual(string.Empty, new MathModelExpression(invalidMathStringEmpty).MathText, "Empty expression holds no math string.");
+            Assert.AreEqual(string.Empty, new MathModelExpression(invalidMathStringSpacesOnly).MathText, "Spaces only should be ingored.");
+            Assert.AreEqual(string.Empty, new MathModelExpression(invalidMathStringComment).MathText, "Comments should be excluded from math string.");
+            Assert.AreEqual(name + "=" + assignment, new MathModelExpression(validStringExpression).MathText, "Only the math expression without the comment should be returned.");
+
+
 
         }
 

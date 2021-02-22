@@ -89,7 +89,13 @@ namespace Schrittmacher.Model
         /// </summary>
         public string MathText
         {
-            get => this.Name + "=" + this.Assignment;
+            get
+            {
+                string mathText = string.Empty;
+                if (this.Name != string.Empty) mathText += this.Name;
+                if (this.Assignment != string.Empty) mathText += "=" + this.Assignment;
+                return mathText;
+            }
         }
 
         /// <summary>

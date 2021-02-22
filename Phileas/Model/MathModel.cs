@@ -57,17 +57,18 @@ namespace Schrittmacher.Model
         {
             this.expressions.Clear();
 
-            System.IO.StringReader stringReader = new System.IO.StringReader(this.expressionsTextModel);
-
-            string line;
-            while ((line = stringReader.ReadLine()) != null)
+            using (StringReader stringReader = new StringReader(this.expressionsTextModel))
             {
-                var lineFracments = line.Trim().Split("//");
-
-                if (lineFracments[0].Length == 0) continue; // if nothing is before '//'
-                else
+                string line;
+                while ((line = stringReader.ReadLine()) != null)
                 {
-                    expressions.Add(new MathModelExpression(line));
+                    var lineFracments = line.Trim().Split("//");
+
+                    if (lineFracments[0].Length == 0) continue; // if nothing is before '//'
+                    else
+                    {
+                        expressions.Add(new MathModelExpression(line));
+                    }
                 }
             }
         }
