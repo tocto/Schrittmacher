@@ -35,6 +35,8 @@
 
         <TextBox x:Name="TextBox_SimulationNotes" Grid.Row="1" Text="{x:Bind Simulation.Note, Mode=TwoWay}"  PlaceholderText="Notizen zur Simulation ..." BorderThickness="0" Padding="12,4" Margin="0,12,0,0" MaxHeight="80"
                  TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        
+        <ProgressBar x:Name="ProgressBar_Saving" Grid.Row="1" Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" IsIndeterminate="True" Visibility="Collapsed"/>
 
         <SplitView OpenPaneLength="400" IsPaneOpen="True" DisplayMode="Inline" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8">
             <SplitView.Pane>

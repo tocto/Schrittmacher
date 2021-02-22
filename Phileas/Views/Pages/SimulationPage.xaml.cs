@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -63,15 +65,24 @@ namespace Schrittmacher.Views.Pages
 
         private async void AppBarButton_Save_Click(object sender, RoutedEventArgs e)
         {
+
+            ProgressBar_Saving.Visibility = Visibility.Visible;
             try
             {
                 await XMLWriter.Write(Simulation);
                 if (!App.Simulations.Contains(this.Simulation)) App.Simulations.Add(this.Simulation);
+                
+                await Task.Delay(3000); // Feedback for the user
             }
             catch (Exception exception)
             {
-                Debug.WriteLine(exception.Message);
+                Debug.WriteLine(exception.Message); // TODO feedback for the suer
             }
+            finally
+            {
+                ProgressBar_Saving.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void BasicLineChart_DeletionRequested(object sender, EventArgs e)
