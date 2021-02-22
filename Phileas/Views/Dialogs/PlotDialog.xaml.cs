@@ -1,5 +1,5 @@
 ﻿using LiveCharts.Uwp;
-using Phileas.Model;
+using Schrittmacher.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +18,7 @@ using MUXC = Microsoft.UI.Xaml.Controls;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Phileas.Views.Dialogs
+namespace Schrittmacher.Views.Dialogs
 {
     public sealed partial class PlotEditingDialog : ContentDialog
     {

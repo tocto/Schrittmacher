@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Phileas.Model
+namespace Schrittmacher.Model
 {
     /// <summary>
     /// Fills a chart with data.

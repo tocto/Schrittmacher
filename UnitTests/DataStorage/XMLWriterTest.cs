@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Phileas.DataStorage;
-using Phileas.Model;
+using Schrittmacher.DataStorage;
+using Schrittmacher.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace UnitTests.DataStorage
 
             var file = await XMLWriter.Write(simulation);
 
-            Assert.IsTrue(file.Name.StartsWith(simulation.Name) && file.Name.EndsWith(Phileas.App.SimulationFileExtension), "Exported file should have the title of the simulation as name, if there are  no conflicts. However existing files with the same name should not be replaced, but a unique name should be generated.");
+            Assert.IsTrue(file.Name.StartsWith(simulation.Name) && file.Name.EndsWith(Schrittmacher.App.SimulationFileExtension), "Exported file should have the title of the simulation as name, if there are  no conflicts. However existing files with the same name should not be replaced, but a unique name should be generated.");
         }
 
         [TestMethod]

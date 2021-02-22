@@ -1,5 +1,5 @@
-﻿using Phileas.DataStorage;
-using Phileas.Model;
+﻿using Schrittmacher.DataStorage;
+using Schrittmacher.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace Phileas
+namespace Schrittmacher
 {
     /// <summary>
     /// Stellt das anwendungsspezifische Verhalten bereit, um die Standardanwendungsklasse zu ergänzen.

@@ -1,9 +1,9 @@
 ﻿
 using LiveCharts;
 using LiveCharts.Uwp;
-using Phileas.Model;
-using Phileas.Views.Dialogs;
-using Phileas.Views.Pages;
+using Schrittmacher.Model;
+using Schrittmacher.Views.Dialogs;
+using Schrittmacher.Views.Pages;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,7 +23,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Phileas.Views.Plots
+namespace Schrittmacher.Views.Plots
 {
     public sealed partial class BasicLineChart : UserControl
     {

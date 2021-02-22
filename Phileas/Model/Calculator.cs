@@ -1,5 +1,5 @@
 ﻿using org.mariuszgromada.math.mxparser;
-using Phileas.Exceptions;
+using Schrittmacher.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Phileas.Model
+namespace Schrittmacher.Model
 {
     /// <summary>
     /// Solves the equation of a given math model.

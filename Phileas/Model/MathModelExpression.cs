@@ -1,4 +1,4 @@
-﻿using Phileas.Exceptions;
+﻿using Schrittmacher.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Phileas.Model
+namespace Schrittmacher.Model
 {
     /// <summary>
     /// A mathematical expression which assignes a value or formular to a target variable.

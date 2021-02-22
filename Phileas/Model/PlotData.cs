@@ -8,7 +8,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace Phileas.Model
+namespace Schrittmacher.Model
 {
     [Serializable]
     public class PlotData : INotifyPropertyChanged, IXmlSerializable, IEquatable<PlotData>

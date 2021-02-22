@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Phileas.DataStorage;
-using Phileas.Model;
+using Schrittmacher.DataStorage;
+using Schrittmacher.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

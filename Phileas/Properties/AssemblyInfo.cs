@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("Phileas")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Schrittmacher")]
+[assembly: AssemblyDescription("simulations for school")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Phileas")]
+[assembly: AssemblyProduct("Schrittmacher")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Schrittmacher")]
 [assembly: AssemblyCulture("")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
