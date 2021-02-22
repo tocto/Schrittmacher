@@ -10,23 +10,36 @@ namespace Schrittmacher.Model
 {
     public class SyntaxChecker
     {
+        public string ErrorMessage = string.Empty;
 
-        public bool Check(string expressionString)
+        public async Task<bool> CheckAsync(string mathText)
         {
-            bool isValid = true;
+            return await Task.Run(() =>
+            {
+                string[] lines = mathText.Split('\r');
 
-            MathModelExpression mme = new MathModelExpression(expressionString);
-            if (mme.MathText.Length == 0) return true; // no math string to validate
+                if (lines.Any(l => IsLineSyntaxValid(l) == false)) return false;
+                else return true;
+            });
+
+        }
+
+        private bool IsLineSyntaxValid(string line)
+        {
+            MathModelExpression mme = new MathModelExpression(line);
 
             if (mme.MathText != string.Empty)
             {
-                Expression expression = new Expression(expressionString);
-                isValid = expression.checkLexSyntax();
+                Expression expression = new Expression(mme.MathText);
 
-                Debug.WriteLine(expression.getErrorMessage());
+                if (!expression.checkLexSyntax())
+                {
+                    this.ErrorMessage = expression.getErrorMessage();
+                    return false;
+                }
             }
 
-            return isValid;
+            return true;
         }
     }
 }

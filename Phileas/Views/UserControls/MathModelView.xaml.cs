@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using MUXC = Microsoft.UI.Xaml.Controls;
+
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -30,21 +32,19 @@ namespace Schrittmacher.Views.UserControls
 
         private void TextBox_MathModelExpressions_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (TextBox_MathModelExpressions.Text != null 
-                && TextBox_MathModelExpressions.Text.Trim().Length > 0 
-                &&  TextBox_MathModelExpressions.Text.Last().Equals('\r'))
-            {
-                using (StringReader reader = new StringReader(TextBox_MathModelExpressions.Text))
-                {
-                    string[] lines = TextBox_MathModelExpressions.Text.Split('\r');
-
-                    foreach (var line in lines)
-                    {
-                        Debug.WriteLine("Syntax: " + syntaxChecker.Check(line));
-                    }
-                }
-            }
+            CheckSyntax();
             
+        }
+
+        /// <summary>
+        /// Checks the syntax. By testing there were no performance issues found, even for great equation systems.
+        /// </summary>
+        private async void CheckSyntax()
+        {
+            using (StringReader reader = new StringReader(TextBox_MathModelExpressions.Text))
+            {
+                InfoBar_Validation.IsOpen = !await syntaxChecker.CheckAsync(TextBox_MathModelExpressions.Text);
+            }
         }
     }
 }
