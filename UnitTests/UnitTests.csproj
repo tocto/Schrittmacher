@@ -167,9 +167,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Phileas\Phileas.csproj">
+    <ProjectReference Include="..\Phileas\Schrittmacher.csproj">
       <Project>{6084ec7a-e3ad-4fb7-8c50-b3f3a0a17668}</Project>
-      <Name>Phileas</Name>
+      <Name>Schrittmacher</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

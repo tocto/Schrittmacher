@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Phileas.Model
+namespace Schrittmacher.Model
 {
     /// <summary>
     /// Base class for any numeric approximation.

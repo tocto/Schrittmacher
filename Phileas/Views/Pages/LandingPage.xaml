@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="Phileas.Views.Pages.LandingPage"
+    x:Class="Schrittmacher.Views.Pages.LandingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Phileas.Views.Pages"
+    xmlns:local="using:Schrittmacher.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -21,18 +21,18 @@
                         Margin="0,0,0,8">
             <AppBarButton x:Name="AppBarButton_OpenSelected" Icon="NewWindow" Label="Auswahl öffnen" IsEnabled="False" Visibility="Collapsed"/>
             <AppBarButton x:Name="AppBarButton_AddSimulation" Icon="Add" Label="Neue Simulation" Background="{StaticResource SystemAccentColor}" Foreground="{StaticResource SystemAltHighColor}" Click="AppBarButton_AddSimulation_Click"/>
-            <AppBarButton Icon="OpenFile" Label="Datei öffnen"/>
             <CommandBar.Content>
                 <TextBlock Text="Simulationen" FontSize="{StaticResource FontSize_Title}" Padding="12,4"/>
             </CommandBar.Content>
         </CommandBar>
 
-        <ListView x:Name="ListView_Simulations" Grid.Row="1" Grid.ColumnSpan="2" Padding="0,0,12,0"
+        <ListView x:Name="ListView_Simulations" Grid.Row="1" Grid.ColumnSpan="2"
                   ItemClick="ListView_Simulations_ItemClick" IsItemClickEnabled="True"
                   ItemsSource="{x:Bind simulations}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Padding" Value="12,0,14,0"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
@@ -40,16 +40,11 @@
                     <Grid Margin="0,20">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" FontSize="{StaticResource FontSize_Subtitle}" Grid.Column="0"/>
-                        <TextBlock Text="Letzte Bearbietung: 12.02.2021" Grid.Column="1"/>
-                        <StackPanel Orientation="Horizontal" Grid.Column="2" Spacing="20">
-                            <Grid Height="80" Width="120" Background="Silver"/>
-                            <Grid Height="80" Width="120" Background="Silver"/>
-                            <Grid Height="80" Width="120" Background="Silver"/>
-                        </StackPanel>
+                        <TextBlock Text="{Binding Name}" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Top" Grid.Column="0" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="Letzte Bearbietung: DD.MM.YYYY" Grid.Column="1" Margin="24,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Phileas.Exceptions
+namespace Schrittmacher.Exceptions
 {
     public class MathModelSyntaxException : Exception
     {

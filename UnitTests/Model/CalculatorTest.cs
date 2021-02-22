@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using org.mariuszgromada.math.mxparser;
-using Phileas.Exceptions;
-using Phileas.Model;
+using Schrittmacher.Exceptions;
+using Schrittmacher.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

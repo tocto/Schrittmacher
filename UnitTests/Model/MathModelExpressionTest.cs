@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Phileas.Exceptions;
-using Phileas.Model;
+using Schrittmacher.Exceptions;
+using Schrittmacher.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

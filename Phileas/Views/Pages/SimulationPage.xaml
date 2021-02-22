@@ -1,12 +1,12 @@
 ﻿<Page
-    x:Class="Phileas.Views.Pages.SimulationPage"
+    x:Class="Schrittmacher.Views.Pages.SimulationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Phileas.Views.Pages"
+    xmlns:local="using:Schrittmacher.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:plots="using:Phileas.Views.Plots" 
-    xmlns:usercontrols="using:Phileas.Views.UserControls"
+    xmlns:plots="using:Schrittmacher.Views.Plots" 
+    xmlns:usercontrols="using:Schrittmacher.Views.UserControls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -24,27 +24,17 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <CommandBar Grid.Row="0" Grid.ColumnSpan="2" DefaultLabelPosition="Right" IsDynamicOverflowEnabled="False">
+        <CommandBar Grid.Row="0" Grid.ColumnSpan="2" DefaultLabelPosition="Right" IsDynamicOverflowEnabled="False" >
             <CommandBar.PrimaryCommands>
-            <AppBarButton x:Name="AppBarButton_Save" Icon="Save" Label="Speichern" Click="AppBarButton_Save_Click"/>
+                <AppBarButton x:Name="AppBarButton_Save" Icon="Save" Label="Speichern" Click="AppBarButton_Save_Click"/>
             </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-            <AppBarButton Icon="Share" Label="Freigeben"/>
-            <AppBarButton Icon="Print" Label="Drucken"/>
-            <AppBarButton Label="Export">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEE71;"/>
-            </AppBarButton>
-            </CommandBar.SecondaryCommands>
             <CommandBar.Content>
                 <TextBox x:Name="RichtEditBox_SimulationTitle" Text="{x:Bind Simulation.Name, Mode=TwoWay}" PlaceholderText="Titel ..." PlaceholderForeground="Gray" Background="Transparent" Margin="4" MinWidth="400" BorderThickness="0" Padding="12,0" FontSize="{StaticResource FontSize_Title}"/>
             </CommandBar.Content>
         </CommandBar>
 
-        
-
         <TextBox x:Name="TextBox_SimulationNotes" Grid.Row="1" Text="{x:Bind Simulation.Note, Mode=TwoWay}"  PlaceholderText="Notizen zur Simulation ..." BorderThickness="0" Padding="12,4" Margin="0,12,0,0" MaxHeight="80"
                  TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        
 
         <SplitView OpenPaneLength="400" IsPaneOpen="True" DisplayMode="Inline" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8">
             <SplitView.Pane>
@@ -72,7 +62,7 @@
                                     <muxc:NumberBox x:Name="NumberBox_Steps" SpinButtonPlacementMode="Compact" Value="100" SmallChange="10" LargeChange="100" Width="100" PlaceholderText="max. 500" ValueChanged="NumberBox_Steps_ValueChanged"/>
                                 </StackPanel>
                                 <!--The button to add a plot must be a Button object since the focus behaviour of the AppBarButton in incopatible with two way binding of the math model TextBox. See also https://stackoverflow.com/questions/5569768/textbox-binding-twoway-doesnt-update-until-focus-lost-wp7 -->
-                                <Button x:Name="Button_AddDiagramm" Click="Button_AddDiagramm_Click" Background="Transparent" Grid.Column="2" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Height="36">
+                                <Button x:Name="Button_AddDiagramm" Click="Button_AddDiagramm_Click" Grid.Column="2" Background="Transparent" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Height="36">
                                     <StackPanel Orientation="Horizontal" Spacing="6">
                                         <SymbolIcon Symbol="Add" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0">
                                             <SymbolIcon.RenderTransform>

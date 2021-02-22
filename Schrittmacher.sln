@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phileas", "Phileas\Phileas.csproj", "{6084EC7A-E3AD-4FB7-8C50-B3F3A0A17668}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schrittmacher", "Phileas\Schrittmacher.csproj", "{6084EC7A-E3AD-4FB7-8C50-B3F3A0A17668}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{41255EA5-706E-44F6-B021-4D2A53A487D3}"
 EndProject

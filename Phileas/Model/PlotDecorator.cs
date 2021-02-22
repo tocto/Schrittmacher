@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Phileas.Model
+namespace Schrittmacher.Model
 {
     /// <summary>
     /// Fills a chart with data.
     /// </summary>
-    public class Plotter
+    public class PlotDecorator
     {
         List<string> xData = new List<string>();
 

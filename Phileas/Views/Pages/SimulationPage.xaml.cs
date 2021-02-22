@@ -1,5 +1,5 @@
-﻿using Phileas.DataStorage;
-using Phileas.Model;
+﻿using Schrittmacher.DataStorage;
+using Schrittmacher.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +20,7 @@ using MUXC = Microsoft.UI.Xaml.Controls;
 
 // Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
 
-namespace Phileas.Views.Pages
+namespace Schrittmacher.Views.Pages
 {
     /// <summary>
     /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.

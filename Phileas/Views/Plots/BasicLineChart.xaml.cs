@@ -1,9 +1,9 @@
 ﻿
 using LiveCharts;
 using LiveCharts.Uwp;
-using Phileas.Model;
-using Phileas.Views.Dialogs;
-using Phileas.Views.Pages;
+using Schrittmacher.Model;
+using Schrittmacher.Views.Dialogs;
+using Schrittmacher.Views.Pages;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,7 +23,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Phileas.Views.Plots
+namespace Schrittmacher.Views.Plots
 {
     public sealed partial class BasicLineChart : UserControl
     {
@@ -40,13 +40,13 @@ namespace Phileas.Views.Plots
 
         private void MakeChart()
         {
-            Plotter plotter = new Plotter();
+            PlotDecorator plotter = new PlotDecorator();
             plotter.Plot(this.plotData, CartesienChart);
         }
 
         private async void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            if (args.NewValue != null && args.NewValue as PlotData != this.plotData)
+            if (args.NewValue != null && args.NewValue is PlotData data && data != this.plotData)
             {
                 this.plotData = args.NewValue as PlotData;
 

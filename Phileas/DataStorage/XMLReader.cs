@@ -1,4 +1,4 @@
-﻿using Phileas.Model;
+﻿using Schrittmacher.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using Windows.Storage;
 using System.IO;
 using System.Xml;
 
-namespace Phileas.DataStorage
+namespace Schrittmacher.DataStorage
 {
     public class XMLReader
     {
