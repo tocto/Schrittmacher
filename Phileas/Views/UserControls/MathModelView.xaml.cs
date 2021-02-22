@@ -45,9 +45,20 @@ namespace Schrittmacher.Views.UserControls
         {
             using (StringReader reader = new StringReader(TextBox_MathModelExpressions.Text))
             {
-                InfoBar_Validation.IsOpen = !await syntaxChecker.CheckAsync(TextBox_MathModelExpressions.Text);
-                InfoBar_Validation.Message = "Syntax-Fehler festegestellt";
-                ToolTipService.SetToolTip(InfoBar_Validation, syntaxChecker.ErrorMessage);
+                try
+                {
+                    InfoBar_Validation.IsOpen = !await syntaxChecker.CheckAsync(TextBox_MathModelExpressions.Text);
+                    ToolTipService.SetToolTip(InfoBar_Validation, syntaxChecker.ErrorMessage);
+                }
+                catch (Exception e)
+                {
+                    InfoBar_Validation.IsOpen = true;
+                    ToolTipService.SetToolTip(InfoBar_Validation, e.Message);
+                }
+                finally
+                {
+                    InfoBar_Validation.Message = "Syntax-Fehler festegestellt";
+                }
             }
         }
 

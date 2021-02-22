@@ -78,7 +78,9 @@
                         </CommandBar.Content>
                     </CommandBar>
 
-                    
+                    <ProgressBar x:Name="ProgressBar_Plotting" Grid.Row="1" Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" IsIndeterminate="True" Visibility="Collapsed"/>
+
+
                     <ListView x:Name="ListView_Plots" Grid.Row="1" ItemsSource="{x:Bind Simulation.Plots, Mode=OneWay}" SelectionMode="None" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">

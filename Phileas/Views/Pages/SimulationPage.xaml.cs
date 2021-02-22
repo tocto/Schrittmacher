@@ -45,14 +45,16 @@ namespace Schrittmacher.Views.Pages
             Bindings.Update();
         }
 
-        private void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
+        private async void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
         {
             PlotData plotData = new PlotData();
             uint numberOfSteps = (uint)NumberBox_Steps.Value;
 
+            ProgressBar_Plotting.Visibility = Visibility.Visible;
+
             try
             {
-                plotData.DataPoints = new Calculator().Calc(this.Simulation.MathModel, numberOfSteps);
+                plotData.DataPoints = await Task.Run(() => new Calculator().Calc(this.Simulation.MathModel, numberOfSteps));
                 Simulation.Plots.Add(plotData);
 
                 ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
@@ -60,6 +62,10 @@ namespace Schrittmacher.Views.Pages
             catch (Exception exception)
             {
                 Debug.WriteLine(exception.Message);
+            }
+            finally
+            {
+                ProgressBar_Plotting.Visibility = Visibility.Collapsed;
             }
         }
 
