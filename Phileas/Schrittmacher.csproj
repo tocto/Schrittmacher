@@ -126,6 +126,7 @@
     <Compile Include="Exceptions\MathModelSyntaxException.cs" />
     <Compile Include="Model\PlotData.cs" />
     <Compile Include="Model\PlotDecorator.cs" />
+    <Compile Include="Model\SyntaxChecker.cs" />
     <Compile Include="Views\Dialogs\PlotDialog.xaml.cs">
       <DependentUpon>PlotDialog.xaml</DependentUpon>
     </Compile>
