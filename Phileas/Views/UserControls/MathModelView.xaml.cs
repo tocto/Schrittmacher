@@ -44,6 +44,8 @@ namespace Schrittmacher.Views.UserControls
             using (StringReader reader = new StringReader(TextBox_MathModelExpressions.Text))
             {
                 InfoBar_Validation.IsOpen = !await syntaxChecker.CheckAsync(TextBox_MathModelExpressions.Text);
+
+                ToolTipService.SetToolTip(InfoBar_Validation, syntaxChecker.ErrorMessage);
             }
         }
     }
