@@ -32,6 +32,8 @@ namespace Schrittmacher.Views.UserControls
 
         private void TextBox_MathModelExpressions_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (InfoBar_Validation.Message == "Modell unvollständig") InfoBar_Validation.IsOpen = false;
+
             CheckSyntax();
             
         }
@@ -44,8 +46,31 @@ namespace Schrittmacher.Views.UserControls
             using (StringReader reader = new StringReader(TextBox_MathModelExpressions.Text))
             {
                 InfoBar_Validation.IsOpen = !await syntaxChecker.CheckAsync(TextBox_MathModelExpressions.Text);
-
+                InfoBar_Validation.Message = "Syntax-Fehler festegestellt";
                 ToolTipService.SetToolTip(InfoBar_Validation, syntaxChecker.ErrorMessage);
+            }
+        }
+
+        private void UserControl_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext is MathModel mathModel)
+            {
+                Calculator calculator = new Calculator();
+
+
+                try
+                {
+                    if (mathModel.Expressions.Any(m => m.MathText != string.Empty))
+                    {
+                        calculator.Calc(mathModel, 1);
+                    }
+                }
+                catch
+                {
+                    InfoBar_Validation.Message = "Model unvollständig";
+                    InfoBar_Validation.IsOpen = true;
+                    ToolTipService.SetToolTip(InfoBar_Validation, "Eine Berechnung auf Grundlage dieses Systems ist nicht möglich. Haben Sie ggf. eine Zuordnung oder Anfangswerte vergessen?");
+                }
             }
         }
     }

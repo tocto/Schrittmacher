@@ -8,12 +8,14 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     d:DesignHeight="800"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    LostFocus="UserControl_LostFocus">
 
-    <Grid>
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
         </Grid.RowDefinitions>
 
         <CommandBar Grid.Row="0" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False" Margin="0,0,0,8">
@@ -23,16 +25,16 @@
         </CommandBar>
 
         <TextBox x:Name="TextBox_MathModelExpressions" 
-                 Grid.Row="1" Margin="8" Padding="8,8,8,48" MinHeight="200"
+                 Grid.Row="1" Margin="0,8" MinHeight="200"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                  AcceptsReturn="True" IsSpellCheckEnabled="False"
                  Text="{Binding Text, Mode=TwoWay}"
                  TextChanged="TextBox_MathModelExpressions_TextChanged"
-                 PlaceholderText="// BEZIEHUNGEN der Größen zueinander, z.B. &#x0d; s = v * t &#x0d; t = t + dt &#x0d; &#x0d; // ANFANGSWERTE &#x0d; v = 10 &#x0d; t = 0 &#x0d; dt = 0.1 // Dezimalzahlen mit &quot;.&quot; trennen &#x0d; &#x0d; // KOMMENTARE immer mit '//' einleiten. &#x0d; // keine Umlaute verwenden (ö,ä,ü)"
+                 PlaceholderText="Formuliere dein Model durch Zuweisungen, z.B. &#x0d; s = v * t &#x0d; t = t + dt &#x0d; &#x0d;, dabei müssen Anfangswerte defniert werden: &#x0d; v = 10 &#x0d; t = 0 &#x0d; dt = 0.1 &#x0d; &#x0d; &#x0d; &#x0d;Noch ein paar Tipps und Hinweise: &#x0d; &#x0d;> trenne Dezimalzahlen mit &quot;.&quot; &#x0d;> verwende keine Umlaute (ö,ä,ü) &#x0d;> Zeilen ohne &quot;=&quot; sind Kommentare"
                  Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         </TextBox>
 
-        <muxc:InfoBar x:Name="InfoBar_Validation" Message="Syntax-Fehler festegestellt" VerticalAlignment="Bottom" Grid.Row="1" Margin="12" Background="Orange"/>
+        <muxc:InfoBar x:Name="InfoBar_Validation" Message="Syntax-Fehler festegestellt" VerticalAlignment="Bottom" Grid.Row="2" Margin="8,0,8,8" Background="Orange"/>
 
     </Grid>
 </UserControl>
