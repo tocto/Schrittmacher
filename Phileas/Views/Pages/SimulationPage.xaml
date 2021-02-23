@@ -35,6 +35,9 @@
 
         <TextBox x:Name="TextBox_SimulationNotes" Grid.Row="1" Text="{x:Bind Simulation.Note, Mode=TwoWay}"  PlaceholderText="Notizen zur Simulation ..." BorderThickness="0" Padding="12,4" Margin="0,12,0,0" MaxHeight="80"
                  TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        
+        <ProgressBar x:Name="ProgressBar_Saving" Grid.Row="1" Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" IsIndeterminate="True" Visibility="Collapsed" Foreground="{StaticResource CIBrush}"/>
+        <TextBlock x:Name="TextBlock_SaveInfo" Grid.Row="1" Visibility="Collapsed" VerticalAlignment="Top" HorizontalAlignment="Right" MaxWidth="400" TextWrapping="Wrap" MaxHeight="48" Text="Ein Fehler ist aufgetreten: " FontSize="{StaticResource FontSize_Small}" Foreground="Red"/>
 
         <SplitView OpenPaneLength="400" IsPaneOpen="True" DisplayMode="Inline" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8">
             <SplitView.Pane>
@@ -76,7 +79,9 @@
                         </CommandBar.Content>
                     </CommandBar>
 
-                    
+                    <ProgressBar x:Name="ProgressBar_Plotting" Grid.Row="1" Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" IsIndeterminate="True" Visibility="Collapsed"/>
+
+
                     <ListView x:Name="ListView_Plots" Grid.Row="1" ItemsSource="{x:Bind Simulation.Plots, Mode=OneWay}" SelectionMode="None" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">

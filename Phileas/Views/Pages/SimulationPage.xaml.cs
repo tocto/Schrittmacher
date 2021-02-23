@@ -4,9 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -43,14 +46,16 @@ namespace Schrittmacher.Views.Pages
             Bindings.Update();
         }
 
-        private void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
+        private async void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
         {
             PlotData plotData = new PlotData();
             uint numberOfSteps = (uint)NumberBox_Steps.Value;
 
+            ProgressBar_Plotting.Visibility = Visibility.Visible;
+
             try
             {
-                plotData.DataPoints = new Calculator().Calc(this.Simulation.MathModel, numberOfSteps);
+                plotData.DataPoints = await Task.Run(() => new Calculator().Calc(this.Simulation.MathModel, numberOfSteps));
                 Simulation.Plots.Add(plotData);
 
                 ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
@@ -59,19 +64,39 @@ namespace Schrittmacher.Views.Pages
             {
                 Debug.WriteLine(exception.Message);
             }
+            finally
+            {
+                ProgressBar_Plotting.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void AppBarButton_Save_Click(object sender, RoutedEventArgs e)
         {
+
+            ProgressBar_Saving.Visibility = Visibility.Visible;
             try
             {
+                if (this.Simulation.Name == string.Empty) this.Simulation.Name = "Simulation vom " + DateTime.Now.ToString("d", CultureInfo.CurrentCulture);
                 await XMLWriter.Write(Simulation);
                 if (!App.Simulations.Contains(this.Simulation)) App.Simulations.Add(this.Simulation);
+                
+                await Task.Delay(3000); // Feedback for the user
             }
             catch (Exception exception)
             {
-                Debug.WriteLine(exception.Message);
+                ProgressBar_Saving.Visibility = Visibility.Collapsed;
+                TextBlock_SaveInfo.Text = "Ein Fehler ist aufgetreten:" + exception.Message;
+                TextBlock_SaveInfo.Visibility = Visibility.Visible;
+
+                await Task.Delay(5000);
+
+                TextBlock_SaveInfo.Visibility = Visibility.Collapsed;
             }
+            finally
+            {
+                ProgressBar_Saving.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void BasicLineChart_DeletionRequested(object sender, EventArgs e)
