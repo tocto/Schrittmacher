@@ -41,8 +41,15 @@ namespace Schrittmacher.DataStorage
             {
                 if (simulation.Path != string.Empty)
                 {
-                    file = await StorageFile.GetFileFromPathAsync(simulation.Path);
-                    await file.DeleteAsync();
+                    try
+                    {
+                        file = await StorageFile.GetFileFromPathAsync(simulation.Path);
+                        await file.DeleteAsync();
+                    }
+                    catch
+                    {
+                        // do nothing an wirte new file
+                    }
                 }
 
                 StorageFolder simulationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(App.SimulationsFolderName, CreationCollisionOption.OpenIfExists);

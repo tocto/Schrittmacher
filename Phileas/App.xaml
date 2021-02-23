@@ -14,6 +14,10 @@
             <!--converters-->
             
             <!--styles & ui standards-->
+            <!--CI colors-->
+            <Color x:Key="CIColor">#EF763E</Color>
+            <SolidColorBrush x:Key="CIBrush">#EF763E</SolidColorBrush>
+            
             <!--font sizes-->
             <x:Double x:Key="FontSize_Title">24</x:Double>
             <x:Double x:Key="FontSize_Subtitle">18</x:Double>

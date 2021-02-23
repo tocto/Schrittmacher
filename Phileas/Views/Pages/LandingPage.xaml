@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="Transparent">
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -20,7 +20,7 @@
                         DefaultLabelPosition="Right"
                         Margin="0,0,0,8">
             <AppBarButton x:Name="AppBarButton_OpenSelected" Icon="NewWindow" Label="Auswahl öffnen" IsEnabled="False" Visibility="Collapsed"/>
-            <AppBarButton x:Name="AppBarButton_AddSimulation" Icon="Add" Label="Neue Simulation" Background="{StaticResource SystemAccentColor}" Foreground="{StaticResource SystemAltHighColor}" Click="AppBarButton_AddSimulation_Click"/>
+            <AppBarButton x:Name="AppBarButton_AddSimulation" Icon="Add" Label="Neue Simulation" Background="{StaticResource CIColor}" Foreground="{StaticResource SystemAltHighColor}" Click="AppBarButton_AddSimulation_Click"/>
             <CommandBar.Content>
                 <TextBlock Text="Simulationen" FontSize="{StaticResource FontSize_Title}" Padding="12,4"/>
             </CommandBar.Content>

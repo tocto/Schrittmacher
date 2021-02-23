@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -75,6 +76,7 @@ namespace Schrittmacher.Views.Pages
             ProgressBar_Saving.Visibility = Visibility.Visible;
             try
             {
+                if (this.Simulation.Name == string.Empty) this.Simulation.Name = "Simulation vom " + DateTime.Now.ToString("d", CultureInfo.CurrentCulture);
                 await XMLWriter.Write(Simulation);
                 if (!App.Simulations.Contains(this.Simulation)) App.Simulations.Add(this.Simulation);
                 
@@ -82,7 +84,13 @@ namespace Schrittmacher.Views.Pages
             }
             catch (Exception exception)
             {
-                Debug.WriteLine(exception.Message); // TODO feedback for the suer
+                ProgressBar_Saving.Visibility = Visibility.Collapsed;
+                TextBlock_SaveInfo.Text = "Ein Fehler ist aufgetreten:" + exception.Message;
+                TextBlock_SaveInfo.Visibility = Visibility.Visible;
+
+                await Task.Delay(5000);
+
+                TextBlock_SaveInfo.Visibility = Visibility.Collapsed;
             }
             finally
             {

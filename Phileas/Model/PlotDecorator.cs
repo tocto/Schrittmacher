@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace Schrittmacher.Model
 {
@@ -85,11 +87,16 @@ namespace Schrittmacher.Model
 
         private void PrepareLineSeries()
         {
+            SolidColorBrush colorBrush = new SolidColorBrush(Color.FromArgb(255, 239, 118, 62));
+
             SeriesCollection.Add( new LineSeries()
                 {
                     Title = plotData.YParameter,
                     Values = yData,
-                    LineSmoothness = Convert.ToDouble(plotData.IsLineSmothnessOn)
+                    LineSmoothness = Convert.ToDouble(plotData.IsLineSmothnessOn), 
+                    PointForeround = colorBrush,
+                    Stroke = colorBrush,
+                    Fill = new SolidColorBrush(Color.FromArgb(0,0,0,0))
                 });
         }
 
