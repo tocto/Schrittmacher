@@ -21,13 +21,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MUXC = Microsoft.UI.Xaml.Controls;
 
-// Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
-
 namespace Schrittmacher.Views.Pages
 {
-    /// <summary>
-    /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
-    /// </summary>
     public sealed partial class SimulationPage : Page
     {
         public Simulation Simulation = new Simulation();
@@ -46,8 +41,10 @@ namespace Schrittmacher.Views.Pages
             Bindings.Update();
         }
 
-        private async void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
+        private async void AppBarButton_AddDiagramm_Click(object sender, RoutedEventArgs e)
         {
+            EnsureMathModelBinding();
+
             PlotData plotData = new PlotData();
             uint numberOfSteps = (uint)NumberBox_Steps.Value;
 
@@ -67,6 +64,20 @@ namespace Schrittmacher.Views.Pages
             finally
             {
                 ProgressBar_Plotting.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// AppBarButton focus behaviour doesn't ensure a timely binding update of the math model text property.
+        /// This Method fixes this unwanted behaviour.
+        /// </summary>
+        private void EnsureMathModelBinding()
+        {
+            var focusedObject = FocusManager.GetFocusedElement();
+
+            if (focusedObject is TextBox textBox && textBox.Tag.Equals("MathModel"))
+            {
+                this.Simulation.MathModel.Text = textBox.Text;
             }
         }
 

@@ -57,26 +57,15 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Visualisierung" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Padding="12,8,0,0" Height="40" Grid.Column="0"/>
-                                <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="20,0">
-                                    <TextBlock Text="Schritte:" VerticalAlignment="Center" Margin="12,0"/>
-                                    <muxc:NumberBox x:Name="NumberBox_Steps" SpinButtonPlacementMode="Compact" Value="100" SmallChange="10" LargeChange="100" Width="100" PlaceholderText="max. 500" ValueChanged="NumberBox_Steps_ValueChanged"/>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" Grid.Column="1" Spacing="12" Margin="20,0">
+                                    <TextBlock Text="Schritte:" VerticalAlignment="Center"/>
+                                    <muxc:NumberBox x:Name="NumberBox_Steps" SpinButtonPlacementMode="Compact" Value="100" SmallChange="10" LargeChange="100" Width="100" VerticalAlignment="Center" PlaceholderText="max. 500" ValueChanged="NumberBox_Steps_ValueChanged"/>
                                 </StackPanel>
-                                <!--The button to add a plot must be a Button object since the focus behaviour of the AppBarButton in incopatible with two way binding of the math model TextBox. See also https://stackoverflow.com/questions/5569768/textbox-binding-twoway-doesnt-update-until-focus-lost-wp7 -->
-                                <Button x:Name="Button_AddDiagramm" Click="Button_AddDiagramm_Click" Grid.Column="2" Background="Transparent" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Height="36">
-                                    <StackPanel Orientation="Horizontal" Spacing="6">
-                                        <SymbolIcon Symbol="Add" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0">
-                                            <SymbolIcon.RenderTransform>
-                                                <CompositeTransform ScaleX="0.88" ScaleY="0.88"/>
-                                            </SymbolIcon.RenderTransform>
-                                        </SymbolIcon>
-                                        <TextBlock Text="Diagramm" FontSize="12" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
                             </Grid>
                         </CommandBar.Content>
+                        <AppBarButton x:Name="AppBarButton_AddDiagramm" Click="AppBarButton_AddDiagramm_Click" Icon="Add" Label="Diagramm"/>
                     </CommandBar>
 
                     <ProgressBar x:Name="ProgressBar_Plotting" Grid.Row="1" Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" IsIndeterminate="True" Visibility="Collapsed"/>

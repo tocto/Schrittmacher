@@ -24,7 +24,8 @@
             </CommandBar.Content>
         </CommandBar>
 
-        <TextBox x:Name="TextBox_MathModelExpressions" 
+        <TextBox x:Name="TextBox_MathModelExpressions"
+                 Tag="MathModel"
                  Grid.Row="1" Margin="0,8" MinHeight="200"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                  AcceptsReturn="True" IsSpellCheckEnabled="False"
