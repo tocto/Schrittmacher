@@ -6,6 +6,7 @@ using Schrittmacher.Views.Dialogs;
 using Schrittmacher.Views.Pages;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -38,35 +39,26 @@ namespace Schrittmacher.Views.Plots
             this.InitializeComponent();
         }
 
-        private void MakeChart()
+        /// <summary>
+        /// Updates the visuals in the chart.
+        /// </summary>
+        public void UpdateChart()
         {
-            PlotDecorator plotter = new PlotDecorator();
-            plotter.Plot(this.plotData, CartesienChart);
+            if (plotData.XParameter != string.Empty
+                    && plotData.YParameter != string.Empty)
+            {
+                PlotDecorator plotter = new PlotDecorator();
+                plotter.Plot(this.plotData, CartesienChart);
+            }
         }
 
-        private async void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+        private void UserControl_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
             if (args.NewValue != null && args.NewValue is PlotData data && data != this.plotData)
             {
                 this.plotData = args.NewValue as PlotData;
 
-                if (plotData.XParameter == string.Empty)
-                {
-                    await ShowDialogAsync();
-                }
-                else
-                {
-                    MakeChart();
-                }
-            }
-        }
-
-        private async Task ShowDialogAsync()
-        {
-            if (this.plotData.XParameter == string.Empty)
-            {
-                PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, this.plotData);
-                await dialog.ShowAsync();
+                UpdateChart();
             }
         }
 
@@ -77,8 +69,10 @@ namespace Schrittmacher.Views.Plots
 
         private async void AppBarButton_Edit_ClickAsync(object sender, RoutedEventArgs e)
         {
-            PlotEditingDialog dialog = new PlotEditingDialog(this.CartesienChart, plotData);
+            PlotEditingDialog dialog = new PlotEditingDialog(plotData);
             await dialog.ShowAsync();
+
+            UpdateChart();
         }
     } 
     

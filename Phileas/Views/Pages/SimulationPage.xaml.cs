@@ -1,5 +1,7 @@
 ﻿using Schrittmacher.DataStorage;
 using Schrittmacher.Model;
+using Schrittmacher.Views.Dialogs;
+using Schrittmacher.Views.Plots;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -43,19 +45,32 @@ namespace Schrittmacher.Views.Pages
 
         private async void AppBarButton_AddDiagramm_Click(object sender, RoutedEventArgs e)
         {
+            AppBarButton_AddDiagramm.IsEnabled = false;
+
             EnsureMathModelBinding();
 
             PlotData plotData = new PlotData();
-            uint numberOfSteps = (uint)NumberBox_Steps.Value;
-
-            ProgressBar_Plotting.Visibility = Visibility.Visible;
+            uint numberOfSteps = (uint)NumberBox_Steps.Value;            
 
             try
             {
-                plotData.DataPoints = await Task.Run(() => new Calculator().Calc(this.Simulation.MathModel, numberOfSteps));
-                Simulation.Plots.Add(plotData);
+                var calcPlotDataTask = Task.Run<Dictionary<string,List<double>>>(() => new Calculator().Calc(this.Simulation.MathModel, numberOfSteps));
 
-                ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
+                // show dialog with phantom data
+                plotData.DataPoints = await Task.Run(() => new Calculator().Calc(this.Simulation.MathModel, 0));
+
+                PlotEditingDialog dialog = new PlotEditingDialog(plotData);
+                var dialogResult = await dialog.ShowAsync();
+
+                if (dialogResult == ContentDialogResult.Primary)
+                {
+                    // add complete data points
+                    ProgressBar_Plotting.Visibility = Visibility.Visible;
+                    plotData.DataPoints = await calcPlotDataTask;
+                    Simulation.Plots.Add(plotData);
+
+                    ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
+                }
             }
             catch (Exception exception)
             {
@@ -63,6 +78,7 @@ namespace Schrittmacher.Views.Pages
             }
             finally
             {
+                AppBarButton_AddDiagramm.IsEnabled = true;
                 ProgressBar_Plotting.Visibility = Visibility.Collapsed;
             }
         }
