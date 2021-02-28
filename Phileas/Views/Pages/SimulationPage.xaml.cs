@@ -32,6 +32,8 @@ namespace Schrittmacher.Views.Pages
         public SimulationPage()
         {
             this.InitializeComponent();
+
+            AutoSaver.Subscribe(this.Simulation);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,6 +43,8 @@ namespace Schrittmacher.Views.Pages
             if (e.Parameter is Simulation handedSimulation) Simulation = handedSimulation;
 
             Bindings.Update();
+
+            AutoSaver.Subscribe(this.Simulation);
         }
 
         private async void AppBarButton_AddDiagramm_Click(object sender, RoutedEventArgs e)
@@ -98,35 +102,6 @@ namespace Schrittmacher.Views.Pages
             }
         }
 
-        private async void AppBarButton_Save_Click(object sender, RoutedEventArgs e)
-        {
-
-            ProgressBar_Saving.Visibility = Visibility.Visible;
-            try
-            {
-                if (this.Simulation.Name == string.Empty) this.Simulation.Name = "Simulation vom " + DateTime.Now.ToString("d", CultureInfo.CurrentCulture);
-                await XMLWriter.Write(Simulation);
-                if (!App.Simulations.Contains(this.Simulation)) App.Simulations.Add(this.Simulation);
-                
-                await Task.Delay(3000); // Feedback for the user
-            }
-            catch (Exception exception)
-            {
-                ProgressBar_Saving.Visibility = Visibility.Collapsed;
-                TextBlock_SaveInfo.Text = "Ein Fehler ist aufgetreten:" + exception.Message;
-                TextBlock_SaveInfo.Visibility = Visibility.Visible;
-
-                await Task.Delay(5000);
-
-                TextBlock_SaveInfo.Visibility = Visibility.Collapsed;
-            }
-            finally
-            {
-                ProgressBar_Saving.Visibility = Visibility.Collapsed;
-            }
-
-        }
-
         private void BasicLineChart_DeletionRequested(object sender, EventArgs e)
         {
             if ((sender as FrameworkElement).DataContext is PlotData plotData)
@@ -140,6 +115,27 @@ namespace Schrittmacher.Views.Pages
             uint number = (uint)Math.Ceiling(this.NumberBox_Steps.Value);
 
             NumberBox_Steps.Value = number > 500 || number < 10 ? 10 : number;
+        }
+
+        private async void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            await AutoSaver.SaveAsync();
+
+            AutoSaver.Subscribe(null);
+        }
+
+        private void AppBarToggleButton_AutoSave_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)AppBarToggleButton_AutoSave.IsChecked)
+            {
+                InfoBar_DraftModus.IsOpen = false;
+                AutoSaver.Subscribe(this.Simulation);
+            }
+            else
+            {
+                InfoBar_DraftModus.IsOpen = true;
+                AutoSaver.Subscribe(null);
+            }
         }
     }
 }
