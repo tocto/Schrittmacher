@@ -132,6 +132,7 @@
     <Compile Include="DataStorage\XMLWriter.cs" />
     <Compile Include="Exceptions\IncompleteMathModelException.cs" />
     <Compile Include="Exceptions\MathModelSyntaxException.cs" />
+    <Compile Include="Model\AutoSaver.cs" />
     <Compile Include="Model\PlotData.cs" />
     <Compile Include="Model\PlotDecorator.cs" />
     <Compile Include="Model\SyntaxChecker.cs" />

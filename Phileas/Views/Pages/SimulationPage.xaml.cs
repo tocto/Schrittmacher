@@ -1,5 +1,7 @@
 ﻿using Schrittmacher.DataStorage;
 using Schrittmacher.Model;
+using Schrittmacher.Views.Dialogs;
+using Schrittmacher.Views.Plots;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,13 +23,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using MUXC = Microsoft.UI.Xaml.Controls;
 
-// Die Elementvorlage "Leere Seite" wird unter https://go.microsoft.com/fwlink/?LinkId=234238 dokumentiert.
-
 namespace Schrittmacher.Views.Pages
 {
-    /// <summary>
-    /// Eine leere Seite, die eigenständig verwendet oder zu der innerhalb eines Rahmens navigiert werden kann.
-    /// </summary>
     public sealed partial class SimulationPage : Page
     {
         public Simulation Simulation = new Simulation();
@@ -35,6 +32,8 @@ namespace Schrittmacher.Views.Pages
         public SimulationPage()
         {
             this.InitializeComponent();
+
+            AutoSaver.Subscribe(this.Simulation);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -44,21 +43,39 @@ namespace Schrittmacher.Views.Pages
             if (e.Parameter is Simulation handedSimulation) Simulation = handedSimulation;
 
             Bindings.Update();
+
+            AutoSaver.Subscribe(this.Simulation);
         }
 
-        private async void Button_AddDiagramm_Click(object sender, RoutedEventArgs e)
+        private async void AppBarButton_AddDiagramm_Click(object sender, RoutedEventArgs e)
         {
-            PlotData plotData = new PlotData();
-            uint numberOfSteps = (uint)NumberBox_Steps.Value;
+            AppBarButton_AddDiagramm.IsEnabled = false;
 
-            ProgressBar_Plotting.Visibility = Visibility.Visible;
+            EnsureMathModelBinding();
+
+            PlotData plotData = new PlotData();
+            uint numberOfSteps = (uint)NumberBox_Steps.Value;            
 
             try
             {
-                plotData.DataPoints = await Task.Run(() => new Calculator().Calc(this.Simulation.MathModel, numberOfSteps));
-                Simulation.Plots.Add(plotData);
+                var calcPlotDataTask = Task.Run<Dictionary<string,List<double>>>(() => new Calculator().Calc(this.Simulation.MathModel, numberOfSteps));
 
-                ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
+                // show dialog with phantom data
+                plotData.DataPoints = await Task.Run(() => new Calculator().Calc(this.Simulation.MathModel, 0));
+
+                PlotEditingDialog dialog = new PlotEditingDialog(plotData);
+                var dialogResult = await dialog.ShowAsync();
+
+                if (dialogResult == ContentDialogResult.Primary)
+                {
+                    // add complete data points
+                    ProgressBar_Plotting.Visibility = Visibility.Visible;
+                    plotData.DataPoints = await calcPlotDataTask;
+
+                    Simulation.Plots.Add(plotData);
+
+                    ListView_Plots.ScrollIntoView(plotData);
+                }
             }
             catch (Exception exception)
             {
@@ -66,37 +83,23 @@ namespace Schrittmacher.Views.Pages
             }
             finally
             {
+                AppBarButton_AddDiagramm.IsEnabled = true;
                 ProgressBar_Plotting.Visibility = Visibility.Collapsed;
             }
         }
 
-        private async void AppBarButton_Save_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// AppBarButton focus behaviour doesn't ensure a timely binding update of the math model text property.
+        /// This Method fixes this unwanted behaviour.
+        /// </summary>
+        private void EnsureMathModelBinding()
         {
+            var focusedObject = FocusManager.GetFocusedElement();
 
-            ProgressBar_Saving.Visibility = Visibility.Visible;
-            try
+            if (focusedObject is TextBox textBox && textBox.Tag != null && textBox.Tag.Equals("MathModel"))
             {
-                if (this.Simulation.Name == string.Empty) this.Simulation.Name = "Simulation vom " + DateTime.Now.ToString("d", CultureInfo.CurrentCulture);
-                await XMLWriter.Write(Simulation);
-                if (!App.Simulations.Contains(this.Simulation)) App.Simulations.Add(this.Simulation);
-                
-                await Task.Delay(3000); // Feedback for the user
+                this.Simulation.MathModel.Text = textBox.Text;
             }
-            catch (Exception exception)
-            {
-                ProgressBar_Saving.Visibility = Visibility.Collapsed;
-                TextBlock_SaveInfo.Text = "Ein Fehler ist aufgetreten:" + exception.Message;
-                TextBlock_SaveInfo.Visibility = Visibility.Visible;
-
-                await Task.Delay(5000);
-
-                TextBlock_SaveInfo.Visibility = Visibility.Collapsed;
-            }
-            finally
-            {
-                ProgressBar_Saving.Visibility = Visibility.Collapsed;
-            }
-
         }
 
         private void BasicLineChart_DeletionRequested(object sender, EventArgs e)
@@ -112,6 +115,27 @@ namespace Schrittmacher.Views.Pages
             uint number = (uint)Math.Ceiling(this.NumberBox_Steps.Value);
 
             NumberBox_Steps.Value = number > 500 || number < 10 ? 10 : number;
+        }
+
+        private async void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            await AutoSaver.SaveAsync();
+
+            AutoSaver.Subscribe(null);
+        }
+
+        private void AppBarToggleButton_AutoSave_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)AppBarToggleButton_AutoSave.IsChecked)
+            {
+                InfoBar_DraftModus.IsOpen = false;
+                AutoSaver.Subscribe(this.Simulation);
+            }
+            else
+            {
+                InfoBar_DraftModus.IsOpen = true;
+                AutoSaver.Subscribe(null);
+            }
         }
     }
 }

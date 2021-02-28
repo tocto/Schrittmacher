@@ -8,6 +8,7 @@
     xmlns:plots="using:Schrittmacher.Views.Plots" 
     xmlns:usercontrols="using:Schrittmacher.Views.UserControls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Unloaded="Page_Unloaded"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -16,7 +17,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -24,18 +25,32 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <CommandBar Grid.Row="0" Grid.ColumnSpan="2" DefaultLabelPosition="Right" IsDynamicOverflowEnabled="False" >
+        <CommandBar Grid.Row="0" Grid.ColumnSpan="2" DefaultLabelPosition="Right" IsDynamicOverflowEnabled="False" OverflowButtonVisibility="Visible" HorizontalContentAlignment="Stretch">
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="AppBarButton_Save" Icon="Save" Label="Speichern" Click="AppBarButton_Save_Click"/>
+                <AppBarButton x:Name="AppBarButton_AddDiagramm" Click="AppBarButton_AddDiagramm_Click" AccessKey="D" Icon="Add" Label="Diagramm" Background="{StaticResource CIBrush}" Foreground="White">
+                    <AppBarButton.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="D"/>
+                    </AppBarButton.KeyboardAccelerators>
+                </AppBarButton>
             </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarToggleButton x:Name="AppBarToggleButton_AutoSave" Label="autom. Speichern" IsChecked="True" Click="AppBarToggleButton_AutoSave_Click"/>
+            </CommandBar.SecondaryCommands>
             <CommandBar.Content>
-                <TextBox x:Name="RichtEditBox_SimulationTitle" Text="{x:Bind Simulation.Name, Mode=TwoWay}" PlaceholderText="Titel ..." PlaceholderForeground="Gray" Background="Transparent" Margin="4" MinWidth="400" BorderThickness="0" Padding="12,0" FontSize="{StaticResource FontSize_Title}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <muxc:InfoBar x:Name="InfoBar_DraftModus" Message="Entwurfsmodus" Grid.ColumnSpan="2"  HorizontalAlignment="Center" Foreground="White" IsIconVisible="False" IsClosable="False" Background="{StaticResource CIBrush}"/>
+                    <TextBox x:Name="RichtEditBox_SimulationTitle" Text="{x:Bind Simulation.Name, Mode=TwoWay}" PlaceholderText="Titel ..." PlaceholderForeground="Gray" Background="Transparent" Margin="4" MinWidth="400" BorderThickness="0" Padding="12,0" FontSize="{StaticResource FontSize_Title}"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" Grid.Column="1" Spacing="12" Margin="20,0">
+                        <TextBlock Text="Schritte:" VerticalAlignment="Center"/>
+                        <muxc:NumberBox x:Name="NumberBox_Steps" SpinButtonPlacementMode="Compact" Value="100" SmallChange="10" LargeChange="100" Width="100" VerticalAlignment="Center" PlaceholderText="max. 500" ValueChanged="NumberBox_Steps_ValueChanged"/>
+                    </StackPanel>
+                </Grid>
             </CommandBar.Content>
         </CommandBar>
-
-        <TextBox x:Name="TextBox_SimulationNotes" Grid.Row="1" Text="{x:Bind Simulation.Note, Mode=TwoWay}"  PlaceholderText="Notizen zur Simulation ..." BorderThickness="0" Padding="12,4" Margin="0,12,0,0" MaxHeight="80"
-                 TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        
         <ProgressBar x:Name="ProgressBar_Saving" Grid.Row="1" Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" IsIndeterminate="True" Visibility="Collapsed" Foreground="{StaticResource CIBrush}"/>
         <TextBlock x:Name="TextBlock_SaveInfo" Grid.Row="1" Visibility="Collapsed" VerticalAlignment="Top" HorizontalAlignment="Right" MaxWidth="400" TextWrapping="Wrap" MaxHeight="48" Text="Ein Fehler ist aufgetreten: " FontSize="{StaticResource FontSize_Small}" Foreground="Red"/>
 
@@ -45,44 +60,16 @@
             </SplitView.Pane>
 
             <SplitView.Content>
-                <Grid Margin="40,0,0,0">
+                <Grid Margin="40,0,0,0" MinWidth="400">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <CommandBar Grid.Row="0" DefaultLabelPosition="Right" Margin="0,0,0,8" OverflowButtonVisibility="Collapsed" IsDynamicOverflowEnabled="False" HorizontalContentAlignment="Stretch">
-                        <CommandBar.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Visualisierung" FontSize="{StaticResource FontSize_Subtitle}" VerticalAlignment="Center" Padding="12,8,0,0" Height="40" Grid.Column="0"/>
-                                <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center" Margin="20,0">
-                                    <TextBlock Text="Schritte:" VerticalAlignment="Center" Margin="12,0"/>
-                                    <muxc:NumberBox x:Name="NumberBox_Steps" SpinButtonPlacementMode="Compact" Value="100" SmallChange="10" LargeChange="100" Width="100" PlaceholderText="max. 500" ValueChanged="NumberBox_Steps_ValueChanged"/>
-                                </StackPanel>
-                                <!--The button to add a plot must be a Button object since the focus behaviour of the AppBarButton in incopatible with two way binding of the math model TextBox. See also https://stackoverflow.com/questions/5569768/textbox-binding-twoway-doesnt-update-until-focus-lost-wp7 -->
-                                <Button x:Name="Button_AddDiagramm" Click="Button_AddDiagramm_Click" Grid.Column="2" Background="Transparent" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Height="36">
-                                    <StackPanel Orientation="Horizontal" Spacing="6">
-                                        <SymbolIcon Symbol="Add" RenderTransformOrigin="0.5,0.5" Margin="0,2,0,0">
-                                            <SymbolIcon.RenderTransform>
-                                                <CompositeTransform ScaleX="0.88" ScaleY="0.88"/>
-                                            </SymbolIcon.RenderTransform>
-                                        </SymbolIcon>
-                                        <TextBlock Text="Diagramm" FontSize="12" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Button>
-                            </Grid>
-                        </CommandBar.Content>
-                    </CommandBar>
-
                     <ProgressBar x:Name="ProgressBar_Plotting" Grid.Row="1" Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" IsIndeterminate="True" Visibility="Collapsed"/>
 
 
-                    <ListView x:Name="ListView_Plots" Grid.Row="1" ItemsSource="{x:Bind Simulation.Plots, Mode=OneWay}" SelectionMode="None" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+                    <ListView x:Name="ListView_Plots" Grid.Row="1" ItemsSource="{x:Bind Simulation.Plots, Mode=OneWay}" SelectionMode="None" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" Margin="0,0,0,40">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

@@ -22,19 +22,23 @@ namespace Schrittmacher.Views.Dialogs
 {
     public sealed partial class PlotEditingDialog : ContentDialog
     {
-        CartesianChart cartesianChart;
-
         PlotData plotData;
 
-        public PlotEditingDialog(CartesianChart chart, PlotData plotData)
+        /// <summary>
+        /// Create a dialog for plot data
+        /// </summary>
+        /// <param name="plotData">data point keys must not be empty</param>
+        public PlotEditingDialog(PlotData plotData)
         {
-            this.cartesianChart = chart;
+            if (plotData.DataPoints.Keys.Count == 0) throw new ArgumentException("This constructor excepts only non-empty plot data with data points.");
+
             this.plotData = plotData;
 
             this.InitializeComponent();
 
             ChosePreSettings();
         }
+
 
         private void ChosePreSettings()
         {
@@ -48,21 +52,7 @@ namespace Schrittmacher.Views.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            UpdatePlotDataProperties();
-
-
-            if (this.plotData != null && this.cartesianChart != null)
-            {
-                PlotDecorator plotter = new PlotDecorator();
-                try
-                {
-                    plotter.Plot(plotData, cartesianChart);
-                }
-                catch
-                {
-                    // do nothing
-                }
-            }           
+            UpdatePlotDataProperties();         
         }
 
         private void UpdatePlotDataProperties()

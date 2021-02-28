@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     Title="Diagrammeigenschaften"
     PrimaryButtonText="Speichern"
+    DefaultButton="Primary"
     CloseButtonText="Schließen"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
 
