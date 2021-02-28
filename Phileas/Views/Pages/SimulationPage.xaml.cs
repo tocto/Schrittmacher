@@ -67,9 +67,10 @@ namespace Schrittmacher.Views.Pages
                     // add complete data points
                     ProgressBar_Plotting.Visibility = Visibility.Visible;
                     plotData.DataPoints = await calcPlotDataTask;
+
                     Simulation.Plots.Add(plotData);
 
-                    ListView_Plots.ScrollIntoView(ListView_Plots.Items.Last());
+                    ListView_Plots.ScrollIntoView(plotData);
                 }
             }
             catch (Exception exception)
@@ -91,7 +92,7 @@ namespace Schrittmacher.Views.Pages
         {
             var focusedObject = FocusManager.GetFocusedElement();
 
-            if (focusedObject is TextBox textBox && textBox.Tag.Equals("MathModel"))
+            if (focusedObject is TextBox textBox && textBox.Tag != null && textBox.Tag.Equals("MathModel"))
             {
                 this.Simulation.MathModel.Text = textBox.Text;
             }

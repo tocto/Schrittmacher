@@ -45,7 +45,7 @@
             </SplitView.Pane>
 
             <SplitView.Content>
-                <Grid Margin="40,0,0,0">
+                <Grid Margin="40,0,0,0" MinWidth="400">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
@@ -65,13 +65,17 @@
                                 </StackPanel>
                             </Grid>
                         </CommandBar.Content>
-                        <AppBarButton x:Name="AppBarButton_AddDiagramm" Click="AppBarButton_AddDiagramm_Click" Icon="Add" Label="Diagramm"/>
+                        <AppBarButton x:Name="AppBarButton_AddDiagramm" Click="AppBarButton_AddDiagramm_Click" AccessKey="D" Icon="Add" Label="Diagramm">
+                            <AppBarButton.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="Control" Key="D"/>
+                            </AppBarButton.KeyboardAccelerators>
+                        </AppBarButton>
                     </CommandBar>
 
                     <ProgressBar x:Name="ProgressBar_Plotting" Grid.Row="1" Width="400" VerticalAlignment="Top" HorizontalAlignment="Right" IsIndeterminate="True" Visibility="Collapsed"/>
 
 
-                    <ListView x:Name="ListView_Plots" Grid.Row="1" ItemsSource="{x:Bind Simulation.Plots, Mode=OneWay}" SelectionMode="None" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+                    <ListView x:Name="ListView_Plots" Grid.Row="1" ItemsSource="{x:Bind Simulation.Plots, Mode=OneWay}" SelectionMode="None" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" Margin="0,0,0,40">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
