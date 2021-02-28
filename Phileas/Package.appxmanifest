@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="163b88d7-2bd8-4220-ab81-e96ce9dc3294"
-    Publisher="CN=Tom C. Adler"
+    Name="15754tocto.Schrittmacher"
+    Publisher="CN=22D03BF5-F741-4A25-BD4B-E7C230BDE152"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="163b88d7-2bd8-4220-ab81-e96ce9dc3294" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="d0dae242-5637-4a49-8ca4-c19a34af2fed" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Phileas</DisplayName>
-    <PublisherDisplayName>Tom C. Adler</PublisherDisplayName>
+    <DisplayName>Schrittmacher</DisplayName>
+    <PublisherDisplayName>tocto</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
